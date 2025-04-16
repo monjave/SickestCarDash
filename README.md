@@ -1,4 +1,4 @@
-SICKEST CAR DASH - Domingo, Josh, Moe, Xavier
+SICKEST CAR DASH - Dom, Josh, Mo, Xavier, Edward
 
 Using an ESP32 that is hooked up to the OBDII system of a car, we host a web server that communicates with external devices such as the Raspberry Pi for the dash and laptops, to enable data transfer and telemetry functionality.
 
