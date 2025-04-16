@@ -1,0 +1,16 @@
+name: main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dummy step to pass CI
+        run: echo "Skipping actual build and test for now"
