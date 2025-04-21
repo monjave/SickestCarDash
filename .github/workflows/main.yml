@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      - Dev_Josh
   pull_request:
     branches:
     - main
-    - Dev_Josh
 
 jobs:
   build-and-test:
