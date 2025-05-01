@@ -8,7 +8,7 @@ Window {
     width: 1920
     height: 720
     title: qsTr("Speed Dial Logic")
-    color: "white";
+    color: "white"
 
     Rectangle {
         width: 1920
@@ -202,12 +202,12 @@ Window {
             font.styleName: "Bold"
         }
 
-        /*Rectangle {
+        Rectangle {
             id: colorOverlay
             width: 1920
             height: 720
             color: "#5DE2E7"
-            opacity: 0.2
-        }*/
+            opacity: 0.7
+        }
     }
 }
