@@ -18,9 +18,9 @@ qt_add_qml_module(appQtApp
     QML_FILES
         Main.qml
     RESOURCES
-    "Needle.png"
-    "RPM.png"
-    "Speedometer.png"
+    "images/Needle.png"
+    "images/RPM.png"
+    "images/Speedometer.png"
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
