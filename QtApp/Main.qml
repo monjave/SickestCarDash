@@ -22,7 +22,7 @@ Window {
             y: 250
             width: 220
             height: 220
-            source: "Speedometer.png"
+            source: "images/Speedometer.png"
             sourceSize.height: 440
             sourceSize.width: 440
             fillMode: Image.PreserveAspectFit
@@ -161,7 +161,7 @@ Window {
                 y: 108
                 width: 104
                 height: 4
-                source: "Needle.png"
+                source: "images/Needle.png"
                 sourceSize.width: 218
                 sourceSize.height: 10
                 fillMode: Image.PreserveAspectFit
