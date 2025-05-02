@@ -1,24 +1,16 @@
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
+
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-
-    QObject::connect(
-        &engine,
-        &QQmlApplicationEngine::objectCreationFailed,
-        &app,
-        []() { QCoreApplication::exit(-1); },
-        Qt::QueuedConnection);
-    engine.loadFromModule("SpeedometerLogic", "Main");
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
+                     &app, []() { QCoreApplication::exit(-1); },
+                     Qt::QueuedConnection);
+    engine.loadFromModule("QtApp", "Main");
 
     return app.exec();
 }
