@@ -94,6 +94,19 @@ int CircularBuffer<T>::getCapacity() const {
     return _buffer.size();
 }
 
+/// @brief Print the state of the buffer.
+/// @tparam T 
+template <class T>
+void CircularBuffer<T>::printBuffer() const {
+    std::cout << "Buffer: ";
+    for (auto& val : _buffer) {
+        std::cout << val << ", ";
+    }
+    std::cout << "\n";
+    std::cout << "Start: " << _start << "\n";
+    std::cout << "End: " << _end << "\n";
+}
+
 template class CircularBuffer<int>;
 template class CircularBuffer<uint8_t>;
 template class CircularBuffer<long>;

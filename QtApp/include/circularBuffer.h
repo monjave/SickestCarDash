@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <optional>
+#include <iostream>
 
 template <class T>
 class CircularBuffer {
@@ -21,6 +22,7 @@ public:
 	bool isFull() const;
 	int getSize() const;
 	int getCapacity() const;
+	void printBuffer() const;
 };
 
 #endif //CIRCULARBUFFERS_H
