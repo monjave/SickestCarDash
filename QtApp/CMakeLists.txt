@@ -9,10 +9,16 @@ option(BUILD_GUI "Build the Qt GUI application" ON)
 option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
-add_library(core
-    src/CircularBuffer.cc
-    src/CircularBufferManager.cc
+# add_library(core
+#     src/CircularBuffer.cc
+#     src/CircularBufferManager.cc
+# )
+
+add_library(core STATIC
+    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
 )
+
 # target_include_directories(core PUBLIC include)
 # target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # target_include_directories(core PUBLIC "${CMAKE_SOURCE_DIR}/QtApp/include")
