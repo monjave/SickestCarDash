@@ -15,7 +15,14 @@ add_library(core
 )
 # target_include_directories(core PUBLIC include)
 # target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_include_directories(core PUBLIC "${CMAKE_SOURCE_DIR}/QtApp/include")
+# target_include_directories(core PUBLIC "${CMAKE_SOURCE_DIR}/QtApp/include")
+# Point at the *source* include folder, not the build folder.
+# CMAKE_CURRENT_LIST_DIR is the directory of *this* CMakeLists.txt.
+target_include_directories(core
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
 
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
