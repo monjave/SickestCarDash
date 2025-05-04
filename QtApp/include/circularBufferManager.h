@@ -13,7 +13,7 @@
 
 #define BUFFER_SIZE 1024
 
-template class <T>
+template <class T>
 class CircularBufferManager {
 private:
     std::vector<std::vector<T>> buffers;

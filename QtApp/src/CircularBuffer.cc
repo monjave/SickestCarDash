@@ -49,14 +49,14 @@ template <class T>
 int8_t CircularBuffer<T>::push(T value) {
     if (!isFull()) {
         _buffer[_end] = value;
-        _end = (_end + 1) % _capacity;
+        _end = (_end + 1) % getCapacity();
         ++_size;
 
         return 0;
     } else {
         _buffer[_start] = value;
-        _start = (_start + 1) % _capacity;
-        _end = (_end + 1) % _capacity;
+        _start = (_start + 1) % getCapacity();
+        _end = (_end + 1) % getCapacity();
         
         return -1;
     }
@@ -75,7 +75,7 @@ bool CircularBuffer<T>::isEmpty() const {
 /// @return Returns True if the buffer is full and False if it is not full.
 template <class T>
 bool CircularBuffer<T>::isFull() const {
-    return _size == _capacity;
+    return _size == getCapacity();
 }
 
 /// @brief Get the size of the buffer.
@@ -94,9 +94,9 @@ int CircularBuffer<T>::getCapacity() const {
     return _buffer.size();
 }
 
-template class CirculuarBuffer<int>;
-template class CirculuarBuffer<uint8_t>;
-template class CirculuarBuffer<long>;
-template class CirculuarBuffer<long long>;
-template class CirculuarBuffer<float>;
-template class CirculuarBuffer<double>;
+template class CircularBuffer<int>;
+template class CircularBuffer<uint8_t>;
+template class CircularBuffer<long>;
+template class CircularBuffer<long long>;
+template class CircularBuffer<float>;
+template class CircularBuffer<double>;

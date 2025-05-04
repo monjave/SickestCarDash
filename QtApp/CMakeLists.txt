@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(QtApp VERSION 0.1 LANGUAGES CXX)
+# project(QtApp VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -44,3 +44,40 @@ install(TARGETS appQtApp
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+
+# Optional: Allow disabling test build
+option(BUILD_TESTING "Build unit tests" ON)
+
+if(BUILD_TESTING)
+    enable_testing()
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+    include(FetchContent)
+    FetchContent_Declare(
+      googletest
+      URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+    )
+    FetchContent_MakeAvailable(googletest)
+
+    # Add your core library (src + include)
+    add_library(core
+        src/CircularBuffer.cc
+        src/CircularBufferManager.cc
+    )
+    target_include_directories(core PUBLIC include)
+
+    # Test target
+    add_executable(unit_tests
+        test/testCircularBuffer.cc
+        test/testCircularBufferManager.cc
+    )
+    target_link_libraries(unit_tests
+        core
+        gtest_main
+    )
+
+    include(GoogleTest)
+    gtest_discover_tests(unit_tests)
+endif()
