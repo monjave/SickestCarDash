@@ -16,7 +16,7 @@ CircularBuffer<T>::CircularBuffer(int capacity) {
 /// @return The most recently pushed element.
 /// @note Wraps around if necessary.
 template <class T>
-T CircularBuffer<T>::pop() {
+std::optional<T> CircularBuffer<T>::pop() {
     if (!isEmpty()) {
         _end = (_end - 1 + getCapacity()) % getCapacity();
         T toReturn = _buffer[_end]; 
@@ -24,8 +24,7 @@ T CircularBuffer<T>::pop() {
 
         return toReturn;
     } else {
-        // IMPLEMENT ACTUAL ERROR HANDLING OR SOMETHING?
-        std::cout << "Cannot pop from an empty buffer!\n"; 
+        return std::nullopt;
     }
 }
 
@@ -33,13 +32,12 @@ T CircularBuffer<T>::pop() {
 /// @tparam T Type of elements stored in the buffer.
 /// @return The most recently pushed element.
 template <class T>
-T CircularBuffer<T>::peek() const {
+std::optional<T> CircularBuffer<T>::peek() const {
     if (!isEmpty()) {
         int idx = (_end - 1 + getCapacity()) % getCapacity(); 
         return _buffer[idx];  
     } else {
-        // IMPLEMENT ACTUAL ERROR HANDLING OR SOMETHING?
-        std::cout << "Cannot peek an empty buffer!\n";
+        return std::nullopt;
     }
 }
 

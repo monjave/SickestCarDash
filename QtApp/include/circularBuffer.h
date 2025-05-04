@@ -2,6 +2,7 @@
 #define CIRCULARBUFFERS_H
 
 #include <vector>
+#include <optional>
 
 template <class T>
 class CircularBuffer {
@@ -14,8 +15,8 @@ private:
 public:
     CircularBuffer(int capacity);
 	int8_t push(T value);
-	T pop();
-	T peek() const;
+	std::optional<T> pop();
+	std::optional<T> peek() const;
 	bool isEmpty() const;
 	bool isFull() const;
 	int getSize() const;
