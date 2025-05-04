@@ -39,9 +39,14 @@ TEST(CircularBufferTest, Edge_Cases) {
     ASSERT_TRUE(val.has_value());
     EXPECT_EQ(*val, 4);
 
+    int size = buf.getSize();
+    EXPECT_EQ(size, 3);
+
     buf.pop();
     buf.pop();
     val = buf.pop();
+    size = buf.getSize();
     EXPECT_TRUE(buf.isEmpty());
     EXPECT_EQ(*val, 2);
+    EXPECT_EQ(size, 0);
 }
