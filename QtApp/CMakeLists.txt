@@ -14,7 +14,8 @@ add_library(core
     src/CircularBufferManager.cc
 )
 # target_include_directories(core PUBLIC include)
-target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+# target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(core PUBLIC "${CMAKE_SOURCE_DIR}/QtApp/include")
 
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
