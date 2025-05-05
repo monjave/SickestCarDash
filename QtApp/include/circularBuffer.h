@@ -4,6 +4,7 @@
 #include <vector>
 #include <optional>
 #include <iostream>
+#include <cstdint>
 
 template <class T>
 class CircularBuffer {
