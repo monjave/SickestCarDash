@@ -24,6 +24,9 @@ int CircularBufferManager<T>::getBufferCount() const {
 
 template <class T>
 void CircularBufferManager<T>::publish(std::vector<T> values) {
+    if (_bufferCount != values.size()) {
+        throw std::invalid_argument("Argument size does not match number of buffers");
+    }
     for (int idx = 0; idx < values.size(); ++idx) {
         _buffers[idx].push(values[idx]);
     }
@@ -31,13 +34,17 @@ void CircularBufferManager<T>::publish(std::vector<T> values) {
 
 template <class T>
 std::optional<T> CircularBufferManager<T>::peekBuffer(int buffNum) const {
-    if (buffNum < 0 || buffNum >= _bufferCount) throw std::out_of_range("Buffer index out of range");
+    if (buffNum < 0 || buffNum >= _bufferCount) {
+        throw std::out_of_range("Buffer index out of range");
+    }
     return _buffers[buffNum].peek();
 }
 
 template <class T>
 CircularBuffer<T>& CircularBufferManager<T>::accessBuffer(int buffNum) {
-    if (buffNum < 0 || buffNum >= _bufferCount) throw std::out_of_range("Buffer index out of range");
+    if (buffNum < 0 || buffNum >= _bufferCount) {
+        throw std::out_of_range("Buffer index out of range");
+    }
     return _buffers[buffNum];
 }
 
