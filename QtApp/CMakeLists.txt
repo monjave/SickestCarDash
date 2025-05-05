@@ -45,9 +45,11 @@ if(BUILD_GUI)
         QML_FILES
             Main.qml
         RESOURCES
-            "images/Needle.png"
-            "images/RPM.png"
-            "images/Speedometer.png"
+            "assets/pointers/Needle.png"
+            "assets/dials/DialBg.png"
+            "assets/dials/RPMOld.png"
+            "assets/dials/SpeedometerOld.png"
+            "assets/pointers/NeedleOld.png"
     )
 
     set_target_properties(appQtApp PROPERTIES

@@ -25,7 +25,7 @@ Window {
             y: 250
             width: 220
             height: 220
-            source: "images/Speedometer.png"
+            source: "assets/dials/DialBg.png"
             sourceSize.height: 440
             sourceSize.width: 440
             fillMode: Image.PreserveAspectFit
@@ -164,7 +164,7 @@ Window {
                 y: 108
                 width: 104
                 height: 4
-                source: "images/Needle.png"
+                source: "assets/pointers/Needle.png"
                 sourceSize.width: 218
                 sourceSize.height: 10
                 fillMode: Image.PreserveAspectFit
