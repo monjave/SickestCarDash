@@ -10,22 +10,28 @@
 #define CIRCULARBUFFERMANAGER_H
 
 #include <vector>
+#include "CircularBuffer.h"
 
 #define BUFFER_SIZE 1024
+// #define BUFFERS_TO_INIT 1024
 
 template <class T>
 class CircularBufferManager {
 private:
-    std::vector<std::vector<T>> buffers;
+    std::vector<CircularBuffer<T>> _buffers;
     std::vector<T> _packet;
-    int _bufferCount;
     void writeToBuffer();
+    int _bufferByteSize;
+    int _bufferCount;
 
 public:
     CircularBufferManager(int numBuffers);
-    int publish(std::vector<T> values);
+    void publish(std::vector<T> values);
     std::vector<T> consumeAll();
     // void packetReady();  // Wrte this if we decide on event-driven
+    int getByteSize() const;
+    int getBufferCount() const;
+    std::optional<T> peekBuffer(int buffNum) const;
 };
 
 #endif //CIRCULARBUFFERMANAGER_H
