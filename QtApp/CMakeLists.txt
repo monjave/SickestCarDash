@@ -5,7 +5,7 @@ project(QtApp VERSION 0.1 LANGUAGES CXX)
 # set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # # ================== Configurable Options ==================
-# option(BUILD_GUI "Build the Qt GUI application" ON)
+option(BUILD_GUI "Build the Qt GUI application" ON)
 # option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================

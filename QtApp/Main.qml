@@ -4,13 +4,16 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 
 Window {
+    id: win
     visible: true
     width: 1920
     height: 720
+    //visibility: "FullScreen"
     title: qsTr("Speed Dial Logic")
     color: "white";
 
     Rectangle {
+        id: bg
         width: 1920
         height: 720
         color: "#1e1e1e"
