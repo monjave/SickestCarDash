@@ -113,3 +113,5 @@ template class CircularBuffer<long>;
 template class CircularBuffer<long long>;
 template class CircularBuffer<float>;
 template class CircularBuffer<double>;
+template class CircularBuffer<std::string>;
+template class CircularBuffer<char>;
