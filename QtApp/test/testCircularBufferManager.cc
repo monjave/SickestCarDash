@@ -3,6 +3,7 @@
 
 // TODO
 // accessBuffer() valid input
+// consumeAll() 
 
 TEST(TestCircularBufferManager, buffersCreatedAndSize) {
     CircularBufferManager buffMan = CircularBufferManager<int>(1024);

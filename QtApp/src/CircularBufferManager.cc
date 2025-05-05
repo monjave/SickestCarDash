@@ -48,11 +48,27 @@ CircularBuffer<T>& CircularBufferManager<T>::accessBuffer(int buffNum) {
     return _buffers[buffNum];
 }
 
+template <class T>
+std::vector<int> CircularBufferManager<T>::consumeAll() {
+    std::vector<int> packet;
+
+    for (auto& buffer : _buffers) {
+        std::optional<T> val = buffer.pop();
+        if (val.has_value()) {
+            packet.push_back(*val);
+        } else {
+            packet.push_back(-1);
+        }
+    }
+
+    return packet;
+}
+
 template class CircularBufferManager<int>;
 template class CircularBufferManager<uint8_t>;
 template class CircularBufferManager<long>;
 template class CircularBufferManager<long long>;
 template class CircularBufferManager<float>;
 template class CircularBufferManager<double>;
-template class CircularBufferManager<std::string>;
+// template class CircularBufferManager<std::string>;
 template class CircularBufferManager<char>;

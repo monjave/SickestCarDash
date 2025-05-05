@@ -27,7 +27,7 @@ private:
 public:
     CircularBufferManager(int numBuffers);
     void publish(std::vector<T> values);
-    std::vector<T> consumeAll();
+    std::vector<int> consumeAll();
     // void packetReady();  // Wrte this if we decide on event-driven
     int getByteSize() const;
     int getBufferCount() const;
