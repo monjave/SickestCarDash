@@ -5,20 +5,36 @@ TEST(TestCircularBufferManager, buffersCreatedAndSize) {
     CircularBufferManager buffMan = CircularBufferManager<int>(1024);
     ASSERT_EQ(buffMan.getBufferCount(), 1024);
     ASSERT_EQ(buffMan.getByteSize(), 4194304);
+    ASSERT_EQ(buffMan.accessBuffer(0).getCapacity(), 1024);
+    ASSERT_EQ(buffMan.accessBuffer(1023).getCapacity(), 1024);
 }
-
-TEST(TestCircularBufferManager, initBuffer) {
-    CircularBufferManager buffMan = CircularBufferManager<int>(1);
-    // ASSERT_EQ(buffMan.accessBuffer(0, 1023), 0);
-}
-
 
 TEST(TestCircularBufferManager, Publish) {
-    CircularBufferManager buffMan = CircularBufferManager<int>(2);
+    CircularBufferManager buffMan = CircularBufferManager<int>(5);
 
-    std::vector<int> input = {1, 2};
+    std::vector<int> input = {1, 2, 3, 4, 5};
     buffMan.publish(input);
 
-    EXPECT_EQ(buffMan.peekBuffer(0), 1);
-    EXPECT_EQ(buffMan.peekBuffer(1), 2);
+    ASSERT_EQ(buffMan.peekBuffer(0), 1);
+    ASSERT_EQ(buffMan.peekBuffer(1), 2);
+    ASSERT_EQ(buffMan.peekBuffer(2), 3);
+    ASSERT_EQ(buffMan.peekBuffer(3), 4);
+    ASSERT_EQ(buffMan.peekBuffer(4), 5);
+}
+
+TEST(TestCircularBufferManager, ImproperAccessBuffer) {
+    CircularBufferManager<int> buffMan(5);
+
+    ASSERT_THROW(buffMan.accessBuffer(69), std::out_of_range);
+    ASSERT_THROW(buffMan.accessBuffer(5), std::out_of_range);
+    ASSERT_THROW(buffMan.accessBuffer(-1), std::out_of_range);
+}
+
+
+TEST(TestCircularBufferManager, ImproperPeekBuffer) {
+    CircularBufferManager<int> buffMan(5);
+
+    ASSERT_THROW(buffMan.peekBuffer(69), std::out_of_range);
+    ASSERT_THROW(buffMan.peekBuffer(5), std::out_of_range);
+    ASSERT_THROW(buffMan.peekBuffer(-1), std::out_of_range);
 }

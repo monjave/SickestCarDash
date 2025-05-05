@@ -31,7 +31,14 @@ void CircularBufferManager<T>::publish(std::vector<T> values) {
 
 template <class T>
 std::optional<T> CircularBufferManager<T>::peekBuffer(int buffNum) const {
+    if (buffNum < 0 || buffNum >= _bufferCount) throw std::out_of_range("Buffer index out of range");
     return _buffers[buffNum].peek();
+}
+
+template <class T>
+CircularBuffer<T>& CircularBufferManager<T>::accessBuffer(int buffNum) {
+    if (buffNum < 0 || buffNum >= _bufferCount) throw std::out_of_range("Buffer index out of range");
+    return _buffers[buffNum];
 }
 
 template class CircularBufferManager<int>;

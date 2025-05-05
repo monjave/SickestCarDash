@@ -32,6 +32,7 @@ public:
     int getByteSize() const;
     int getBufferCount() const;
     std::optional<T> peekBuffer(int buffNum) const;
+    CircularBuffer<T>& accessBuffer(int buffNum);
 };
 
 #endif //CIRCULARBUFFERMANAGER_H
