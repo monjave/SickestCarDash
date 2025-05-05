@@ -1,46 +1,94 @@
 cmake_minimum_required(VERSION 3.16)
-
 project(QtApp VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+# # ================== Configurable Options ==================
+# option(BUILD_GUI "Build the Qt GUI application" ON)
+# option(BUILD_TESTING "Build unit tests" ON)
 
-qt_standard_project_setup(REQUIRES 6.8)
+# ================== Core Library ==================
+# add_library(core
+#     src/CircularBuffer.cc
+#     src/CircularBufferManager.cc
+# )
 
-qt_add_executable(appQtApp
-    main.cpp
+add_library(core STATIC
+    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
 )
 
-qt_add_qml_module(appQtApp
-    URI QtApp
-    VERSION 1.0
-    QML_FILES
-        Main.qml
-    RESOURCES
-    "images/Needle.png"
-    "images/RPM.png"
-    "images/Speedometer.png"
+# target_include_directories(core PUBLIC include)
+# target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+# target_include_directories(core PUBLIC "${CMAKE_SOURCE_DIR}/QtApp/include")
+# Point at the *source* include folder, not the build folder.
+# CMAKE_CURRENT_LIST_DIR is the directory of *this* CMakeLists.txt.
+target_include_directories(core
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-set_target_properties(appQtApp PROPERTIES
-#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appQtApp
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
+# ================== Qt GUI App (Optional) ==================
+if(BUILD_GUI)
+    find_package(Qt6 REQUIRED COMPONENTS Quick)
+    qt_standard_project_setup(REQUIRES 6.8)
 
-target_link_libraries(appQtApp
-    PRIVATE Qt6::Quick
-)
+    qt_add_executable(appQtApp
+        main.cpp
+    )
 
-include(GNUInstallDirs)
-install(TARGETS appQtApp
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+    qt_add_qml_module(appQtApp
+        URI QtApp
+        VERSION 1.0
+        QML_FILES
+            Main.qml
+        RESOURCES
+            "images/Needle.png"
+            "images/RPM.png"
+            "images/Speedometer.png"
+    )
+
+    set_target_properties(appQtApp PROPERTIES
+        MACOSX_BUNDLE TRUE
+        WIN32_EXECUTABLE TRUE
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    )
+
+    target_link_libraries(appQtApp
+        PRIVATE Qt6::Quick core
+    )
+
+    install(TARGETS appQtApp
+        BUNDLE DESTINATION .
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+endif()
+
+# ================== Unit Tests (Optional) ==================
+if(BUILD_TESTING)
+    enable_testing()
+
+    include(FetchContent)
+    FetchContent_Declare(
+      googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+    )
+    FetchContent_MakeAvailable(googletest)
+
+    add_executable(unit_tests
+        test/testCircularBuffer.cc
+        test/testCircularBufferManager.cc
+    )
+
+    target_link_libraries(unit_tests
+        core
+        gtest_main
+    )
+
+    include(GoogleTest)
+    gtest_discover_tests(unit_tests)
+endif()
