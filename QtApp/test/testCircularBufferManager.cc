@@ -1,10 +1,6 @@
 #include "gtest/gtest.h"
 #include "CircularBufferManager.h"
 
-// TODO
-// accessBuffer() valid input
-// consumeAll() 
-
 TEST(TestCircularBufferManager, InitBuffersAndSizeCheck) {
     CircularBufferManager buffMan = CircularBufferManager<int>(1024);
     ASSERT_EQ(buffMan.getBufferCount(), 1024);
@@ -57,4 +53,18 @@ TEST(TestCircularBufferManager, ProperAccessBuffer) {
     
     ASSERT_EQ(buffMan.accessBuffer(1).getSize(), 0);
     ASSERT_EQ(buffMan.accessBuffer(1).getCapacity(), 1024);
+}
+
+TEST(TestCircularBufferManager, ConsumeAll) {
+    CircularBufferManager<int> buffMan(5);
+
+    buffMan.accessBuffer(0).push(0);
+    buffMan.accessBuffer(1).push(1);
+    buffMan.accessBuffer(2).push(2);
+    buffMan.accessBuffer(3).push(3);
+    buffMan.accessBuffer(4).push(4);
+
+    std::vector<int> expected = {0,1,2,3,4};
+
+    ASSERT_EQ(buffMan.consumeAll(), expected);
 }
