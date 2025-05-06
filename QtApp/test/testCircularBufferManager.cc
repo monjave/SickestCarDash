@@ -5,7 +5,7 @@
 // accessBuffer() valid input
 // consumeAll() 
 
-TEST(TestCircularBufferManager, buffersCreatedAndSize) {
+TEST(TestCircularBufferManager, InitBuffersAndSizeCheck) {
     CircularBufferManager buffMan = CircularBufferManager<int>(1024);
     ASSERT_EQ(buffMan.getBufferCount(), 1024);
     ASSERT_EQ(buffMan.getByteSize(), 4194304);
@@ -47,4 +47,14 @@ TEST(TestCircularBufferManager, ImproperPeekBuffer) {
     ASSERT_THROW(buffMan.peekBuffer(69), std::out_of_range);
     ASSERT_THROW(buffMan.peekBuffer(5), std::out_of_range);
     ASSERT_THROW(buffMan.peekBuffer(-1), std::out_of_range);
+}
+
+TEST(TestCircularBufferManager, ProperAccessBuffer) {
+    CircularBufferManager<int> buffMan(5);
+
+    ASSERT_EQ(buffMan.accessBuffer(0).getSize(), 0);
+    ASSERT_EQ(buffMan.accessBuffer(0).getCapacity(), 1024);
+    
+    ASSERT_EQ(buffMan.accessBuffer(1).getSize(), 0);
+    ASSERT_EQ(buffMan.accessBuffer(1).getCapacity(), 1024);
 }
