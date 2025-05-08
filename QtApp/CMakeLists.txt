@@ -5,7 +5,7 @@ project(QtApp VERSION 0.1 LANGUAGES CXX)
 # set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # # ================== Configurable Options ==================
-# option(BUILD_GUI "Build the Qt GUI application" ON)
+option(BUILD_GUI "Build the Qt GUI application" ON)
 # option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
@@ -45,9 +45,11 @@ if(BUILD_GUI)
         QML_FILES
             Main.qml
         RESOURCES
-            "images/Needle.png"
-            "images/RPM.png"
-            "images/Speedometer.png"
+            "assets/pointers/Needle.png"
+            "assets/dials/DialBg.png"
+            "assets/dials/RPMOld.png"
+            "assets/dials/SpeedometerOld.png"
+            "assets/pointers/NeedleOld.png"
     )
 
     set_target_properties(appQtApp PROPERTIES
