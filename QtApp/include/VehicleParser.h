@@ -9,7 +9,7 @@
 class VehicleParser {
 private:
     std::unordered_map<std::string, std::string> _pidTable;
-    
+
     std::string FormRequestString(int serviceMode, std::string code);
     std::string FormRequestString(std::string code);
     void PublishToMiddleware(int data);
@@ -17,7 +17,7 @@ private:
 public:
     VehicleParser();
     std::optional<std::string> Request(const std::string& request); 
-    std::optional<int> ConvertHexToInt(const std::string& hexString);
+    std::optional<int> ExtractData(const std::string& hexString);
 };
 
 #endif

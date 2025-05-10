@@ -28,19 +28,20 @@ std::optional<std::string> VehicleParser::Request(const std::string& request) {
     return code;
 }
 
-/// @brief Converts a hex string to an integer
+/// @brief Extracts the last two bytes of the response data from the vehicle
 /// @param hexString 
-/// @return Returns an integer with the converted hex string. Returns std::nullopt if conversion doesn't work
-std::optional<int> VehicleParser::ConvertHexToInt(const std::string& hexString) {
+/// @return Returns an integer with the last two bytes of the response data. Returns std::nullopt if conversion doesn't work
+std::optional<int> VehicleParser::ExtractData(const std::string& hexString) {
     try {
         size_t processed = 0;
         int value = std::stoi(hexString, &processed, 16);
 
-        // Make sure the entire string was processed (no trailing junk)
         if (processed != hexString.size()) {
             return std::nullopt;
         }
 
+        value &= 0xFF;
+        
         return value;
     } catch (const std::exception& e) {
         std::cerr << "Hex conversion error: " << e.what() << '\n';
@@ -61,5 +62,5 @@ std::string VehicleParser::FormRequestString(int serviceMode, std::string code) 
 /// @param code The code to be used
 /// @return The OBD string
 std::string VehicleParser::FormRequestString(std::string code) {
-
+    return code + "\r";
 }
