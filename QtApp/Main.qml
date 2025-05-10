@@ -4,13 +4,16 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 
 Window {
+    id: win
     visible: true
     width: 1920
     height: 720
+    //visibility: "FullScreen"
     title: qsTr("Speed Dial Logic")
     color: "white";
 
     Rectangle {
+        id: bg
         width: 1920
         height: 720
         color: "#1e1e1e"
@@ -22,7 +25,7 @@ Window {
             y: 250
             width: 220
             height: 220
-            source: "images/Speedometer.png"
+            source: "assets/dials/DialBg.png"
             sourceSize.height: 440
             sourceSize.width: 440
             fillMode: Image.PreserveAspectFit
@@ -161,7 +164,7 @@ Window {
                 y: 108
                 width: 104
                 height: 4
-                source: "images/Needle.png"
+                source: "assets/pointers/Needle.png"
                 sourceSize.width: 218
                 sourceSize.height: 10
                 fillMode: Image.PreserveAspectFit
