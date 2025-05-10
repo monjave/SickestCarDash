@@ -1,28 +1,36 @@
 #include "gtest/gtest.h"
 #include "VehicleParser.h"
 
-TEST(VehicleParser, convertHexToInt) {
+TEST(VehicleParser, ExtractData) {
     VehicleParser parser;
 
-    // Valid hexadecimal strings
-    EXPECT_EQ(parser.ConvertHexToInt("0A"), 10);
-    EXPECT_EQ(parser.ConvertHexToInt("1F"), 31);
-    EXPECT_EQ(parser.ConvertHexToInt("FF"), 255);
-    EXPECT_EQ(parser.ConvertHexToInt("7fffffff"), 2147483647); // max signed int
-    EXPECT_EQ(parser.ConvertHexToInt("0"), 0);
+    // Valid short hex strings
+    EXPECT_EQ(parser.ExtractData("0A"), 10);
+    EXPECT_EQ(parser.ExtractData("1F"), 31);
+    EXPECT_EQ(parser.ExtractData("FF"), 255);
+    EXPECT_EQ(parser.ExtractData("00FF"), 255);
+    EXPECT_EQ(parser.ExtractData("0"), 0);
 
-    // Lowercase hex (stoi accepts both)
-    EXPECT_EQ(parser.ConvertHexToInt("ff"), 255);
-    EXPECT_EQ(parser.ConvertHexToInt("deadbeef"), std::nullopt); // overflows signed int, expect nullopt
+    // Hex strings with higher bytes that get masked out
+    EXPECT_EQ(parser.ExtractData("1234"), 0x34);          // 0x1234 & 0x00FF = 0x34
+    EXPECT_EQ(parser.ExtractData("ABCD"), 0xCD);          // 0xABCD & 0x00FF = 0xCD
+    EXPECT_EQ(parser.ExtractData("00AB"), 0xAB);          // 0x00AB & 0x00FF = 0xAB
 
-    // Invalid hexadecimal strings
-    EXPECT_EQ(parser.ConvertHexToInt("G1"), std::nullopt);      // Invalid character
-    EXPECT_EQ(parser.ConvertHexToInt("123Z"), std::nullopt);    // Invalid character
-    EXPECT_EQ(parser.ConvertHexToInt(""), std::nullopt);        // Empty string
+    // Lowercase hex accepted
+    EXPECT_EQ(parser.ExtractData("ff"), 255);
+    EXPECT_EQ(parser.ExtractData("abcd"), 0xCD);
+    EXPECT_EQ(parser.ExtractData("7fffffff"), 255);  // Max signed int
 
-    // Overflow test (larger than int max)
-    EXPECT_EQ(parser.ConvertHexToInt("FFFFFFFFF"), std::nullopt);
+    // Overflow test (std::stoi throws)
+    EXPECT_EQ(parser.ExtractData("deadbeef"), std::nullopt);  // Overflows int
+    EXPECT_EQ(parser.ExtractData("FFFFFFFFF"), std::nullopt); // Too large
+
+    // Invalid input
+    EXPECT_EQ(parser.ExtractData("123Z"), std::nullopt); // Invalid character
+    EXPECT_EQ(parser.ExtractData("G1"), std::nullopt);   // Invalid character
+    EXPECT_EQ(parser.ExtractData(""), std::nullopt);     // Empty string
 }
+
 
 // Need to mock response from OBD2?
 TEST(VehicleParser, Request) {
@@ -37,4 +45,8 @@ TEST(VehicleParser, Request) {
     EXPECT_EQ(parser.Request("GEAR"), "01A4");
     EXPECT_EQ(parser.Request("BATTVOLTS"), "0142");
     EXPECT_EQ(parser.Request("STOREDDTC"), "03");
+}
+
+TEST(VehicleParser, FormRequeststring) {
+    VehicleParser parser;
 }
