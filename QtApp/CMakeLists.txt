@@ -17,6 +17,7 @@ option(BUILD_GUI "Build the Qt GUI application" ON)
 add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
 )
 
 # target_include_directories(core PUBLIC include)
@@ -81,9 +82,12 @@ if(BUILD_TESTING)
     )
     FetchContent_MakeAvailable(googletest)
 
+    # file(GLOB TEST_SOURCES "test/*.cc")
+    # add_executable(unit_Tests ${TEST_SOURCES})
     add_executable(unit_tests
-        test/testCircularBuffer.cc
-        test/testCircularBufferManager.cc
+        test/TestCircularBuffer.cc
+        test/TestCircularBufferManager.cc
+        test/TestVehicleParser.cc
     )
 
     target_link_libraries(unit_tests
