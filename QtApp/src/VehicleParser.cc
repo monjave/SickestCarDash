@@ -1,7 +1,22 @@
 #include "VehicleParser.h"
 
+    // InsertFunctionNameHere("ATZ\r")      # Reset
+    // InsertFunctionNameHere("ATE0\r")     # Echo off
+    // InsertFunctionNameHere("ATL0\r")     # No linefeeds
+    // InsertFunctionNameHere("ATS0\r")     # No spaces
+    // InsertFunctionNameHere("ATSP0\r")    # Auto protocol
+    // InsertFunctionNameHere("03\r")       # Request DTCs
+}
+// pidTable values come from https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_03
 VehicleParser::VehicleParser() {
     _pidTable = {
+        // **** NOT IN BUFFER ****
+        {"RESET"     , "ATZ"},
+        {"ECHO OFF"  , "ATE0"},
+        {"NOLINEFEED", "ATL0"},
+        {"NOSPACES"  , "ATS0"},
+        {"AUTOPRTCL" , "ATSP0"},
+        // ***********************
         {"SPEED"     , "010D"},           // Buffer 0
         {"RPM"       , "010C"},           // Buffer 1
         {"FUEL"      , "012F"},           // Buffer 2
@@ -63,4 +78,16 @@ std::string VehicleParser::FormRequestString(int serviceMode, std::string code) 
 /// @return The OBD string
 std::string VehicleParser::FormRequestString(std::string code) {
     return code + "\r";
+}
+
+/// @brief 
+/// @note Change implementation based on how the dongle device works -- if there's some form of way to validate connection status we should return 1 or -1 based on connection status
+void VehicleParser::initOBDConnection() {
+    // Write to 
+    // InsertFunctionNameHere("ATZ\r")      # Reset
+    // InsertFunctionNameHere("ATE0\r")     # Echo off
+    // InsertFunctionNameHere("ATL0\r")     # No linefeeds
+    // InsertFunctionNameHere("ATS0\r")     # No spaces
+    // InsertFunctionNameHere("ATSP0\r")    # Auto protocol
+    // InsertFunctionNameHere("03\r")       # Request DTCs
 }
