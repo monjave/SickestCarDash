@@ -1,12 +1,5 @@
 #include "VehicleParser.h"
 
-    // InsertFunctionNameHere("ATZ\r")      # Reset
-    // InsertFunctionNameHere("ATE0\r")     # Echo off
-    // InsertFunctionNameHere("ATL0\r")     # No linefeeds
-    // InsertFunctionNameHere("ATS0\r")     # No spaces
-    // InsertFunctionNameHere("ATSP0\r")    # Auto protocol
-    // InsertFunctionNameHere("03\r")       # Request DTCs
-}
 // pidTable values come from https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_03
 VehicleParser::VehicleParser() {
     _pidTable = {
