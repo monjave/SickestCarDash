@@ -5,26 +5,31 @@
  *
  * @tparam T
  * @param filePath
- *
+ */
 template <class T>
-ReplayParser<T>::ReplayParser(std::string filePath) {
+ReplayParser<T>::ReplayParser(std::string filePath){
   _replayData["hello"] = {0, 1, 2, 3};
 
-  //std::fstream file("filePath");
+  std::fstream file(filePath);
+  
 
-  //file.close();
-}*/
+
+  file.close();
+}
 
 template <class T>
-void ReplayParser<T>::loadSave(std::fstream file) {}
+void ReplayParser<T>::loadSave(std::fstream file) {
+
+
+}
 
 template <class T>
 void ReplayParser<T>::readCSV(std::fstream file) {}
 
-/*template <class T>
+template <class T>
 double ReplayParser<T>::getValue() {
   return 3.0;
-}*/
+}
 
 template class ReplayParser<int>;
 template class ReplayParser<uint8_t>;
