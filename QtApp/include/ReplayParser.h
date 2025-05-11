@@ -18,7 +18,8 @@ class ReplayParser {
 
  public:
   ReplayParser(std::string filePath);
-  double getValue();
+  void getValue();
+  std::map<std::string, std::vector<double>>& getData();
   // void startReplay();  // change from void when decide how to deliver data
 };
 
