@@ -5,12 +5,14 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <filesystem>
+#include <sstream>
 
 template <class T>
 class ReplayParser {
  private:
-  void loadSave(std::fstream file);
-  void readCSV(std::fstream file);
+  void loadSave(std::filesystem::path file);
+  void readCSV(std::fstream& file);
 
   std::map<std::string, std::vector<double>> _replayData;
 

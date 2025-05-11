@@ -2,6 +2,6 @@
 #include "ReplayParser.h"
 
 TEST(ReplayParserTest, FirstTest) {
-    ReplayParser<std::string> newReplay("QtApp/replay/data/nurburgring_24h");
+    ReplayParser<std::string> newReplay("../../QtApp/replay/data/nurburgring_24h/data");
     ASSERT_EQ(newReplay.getValue(), 3.0);
 }
