@@ -99,3 +99,25 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan, i
     
     return BuffMan.publish(data, _pidTable[pidTableKey].second);
 }
+
+std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
+    if (_pidTable.find(key) == _pidTable.end()) {
+        std::cout << "Key provided to getPIDTAble() is invalid.";
+        return {};
+    }    
+
+    return _pidTable[key];
+}
+
+
+// /// @brief 
+// /// @param key 
+// /// @return 
+// std::pair<std::string, int> VehicleParser::accessPIDTable(const std::string key) {
+//     if (_pidTable.find(pidTableKey) == _pidTable.end()) {
+//         std::cout << "Key provided has no value in _pidTable.\n";
+//         return 1;
+//     }
+
+//     return _pidTable[key];
+// }

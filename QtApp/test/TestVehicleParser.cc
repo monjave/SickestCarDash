@@ -53,15 +53,51 @@ TEST(VehicleParser, Initialization) {
     EXPECT_EQ(parser.Request("STOREDDTC"), "03");
 }
 
+TEST(VehicleParser, getPIDTable) {
+    VehicleParser parser;
+
+    EXPECT_EQ(parser.getPIDTable("SPEED").first, std::string("010D"));
+    EXPECT_EQ(parser.getPIDTable("RPM").first, std::string("010C"));
+    EXPECT_EQ(parser.getPIDTable("FUEL").first, std::string("012F"));
+    EXPECT_EQ(parser.getPIDTable("WATERTEMP").first, std::string("0105"));
+    EXPECT_EQ(parser.getPIDTable("THROTTLE").first, std::string("0111"));
+    EXPECT_EQ(parser.getPIDTable("OILTEMP").first, std::string("015C"));
+    EXPECT_EQ(parser.getPIDTable("GEAR").first, std::string("01A4"));
+    EXPECT_EQ(parser.getPIDTable("BATTVOLTS").first, std::string("0142"));
+    EXPECT_EQ(parser.getPIDTable("STOREDDTC").first, std::string("03"));
+
+    // Test buffer assignments
+    EXPECT_EQ(parser.getPIDTable("SPEED").second, 0);
+    EXPECT_EQ(parser.getPIDTable("RPM").second, 1);
+    EXPECT_EQ(parser.getPIDTable("FUEL").second, 2);
+    EXPECT_EQ(parser.getPIDTable("WATERTEMP").second, 3);
+    EXPECT_EQ(parser.getPIDTable("THROTTLE").second, 4);
+    EXPECT_EQ(parser.getPIDTable("OILTEMP").second, 5);
+    EXPECT_EQ(parser.getPIDTable("GEAR").second, 6);
+    EXPECT_EQ(parser.getPIDTable("BATTVOLTS").second, 7);
+    EXPECT_EQ(parser.getPIDTable("STOREDDTC").second, 8);
+
+    EXPECT_EQ(parser.getPIDTable("RESET").second, -1);
+    EXPECT_EQ(parser.getPIDTable("ECHOOFF").second, -1);
+    EXPECT_EQ(parser.getPIDTable("NOLINEFEED").second, -1);
+    EXPECT_EQ(parser.getPIDTable("NOSPACES").second, -1);
+    EXPECT_EQ(parser.getPIDTable("AUTOPRTCL").second, -1);
+}
+
 // Need to mock response from OBD2?
-TEST(VehicleParser, Request) {
-    VehicleParser parser;
-}
+// TEST(VehicleParser, Request) {
+//     VehicleParser parser;
+// }
 
+// FormRequestString is a simple function and is also private, it's a pain in the ass to test and probably not worth it considering the complexity of the function.
+// To test, we need to refactor the private logic into a testable helper class.
 
-TEST(VehicleParser, FormRequeststring) {
-    VehicleParser parser;
-}
+// TEST(VehicleParser, FormRequeststring) {
+//     VehicleParser parser;
+//     std::string code = parser.accessPIDTable("SPEED").first;
+//     EXPECT_EQ(parser.FormRequestString(code), "010D\r");
+//     // EXPECT_EQ(parser.FormRequestString(parser.accessPIDTable("SPEED")).first, "010D\r");
+// }
 
 TEST(VehicleParser, PublishToMiddleware) {
     VehicleParser parser;
