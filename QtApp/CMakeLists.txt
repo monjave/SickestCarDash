@@ -50,6 +50,8 @@ if(BUILD_GUI)
             "assets/dials/RPMOld.png"
             "assets/dials/SpeedometerOld.png"
             "assets/pointers/NeedleOld.png"
+            "assets/images/bgArt.png"
+            "assets/images/Hotwheel.png"
     )
 
     set_target_properties(appQtApp PROPERTIES
