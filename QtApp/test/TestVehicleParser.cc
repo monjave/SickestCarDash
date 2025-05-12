@@ -35,7 +35,7 @@ TEST(VehicleParser, ExtractData) {
 // Add getter/setter for _pidTable instead of using Request(). Will break as soon as Request() is implemented
 TEST(VehicleParser, Initialization) {
     VehicleParser parser;
-    
+
     EXPECT_EQ(parser.Request("RESET"), "ATZ");
     EXPECT_EQ(parser.Request("ECHOOFF"), "ATE0");
     EXPECT_EQ(parser.Request("NOLINEFEED"), "ATL0");
@@ -61,4 +61,17 @@ TEST(VehicleParser, Request) {
 
 TEST(VehicleParser, FormRequeststring) {
     VehicleParser parser;
+}
+
+TEST(VehicleParser, PublishToMiddleware) {
+    VehicleParser parser;
+    CircularBufferManager buffMan = CircularBufferManager<int>(10);
+    
+    int testVal = 69;
+    std::string testKey = "SPEED";
+    parser.PublishToMiddleware(buffMan, testVal, testKey);
+    EXPECT_EQ(buffMan.peekBuffer(0), 69);
+
+    std::string badKey = "jfdkl;asjfld";
+    EXPECT_EQ(parser.PublishToMiddleware(buffMan, testVal, badKey), 1);
 }

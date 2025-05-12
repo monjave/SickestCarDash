@@ -87,9 +87,15 @@ void VehicleParser::initOBDConnection() {
     // InsertFunctionNameHere(FormRequestString("STOREDDTC"))       # Request DTCs
 }
 
-/// @brief 
+/// @brief Publish to the middleware what an OBD query has returned.
 /// @param data 
-/// @return 
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data) {
-    // BuffMan.publish(data, )
+/// @return Return 0 if successful, return a 1 if there's an issue.
+// Need to validate if BuffMan is a valid CircularBufferManager object, but how?
+int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data, std::string& pidTableKey) {
+    if (_pidTable.find(pidTableKey) == _pidTable.end()) {
+        std::cout << "Key provided has no value in _pidTable.\n";
+        return 1;
+    }
+    
+    return BuffMan.publish(data, _pidTable[pidTableKey].second);
 }
