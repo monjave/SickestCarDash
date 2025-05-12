@@ -4,21 +4,21 @@
 VehicleParser::VehicleParser() {
     _pidTable = {
         // **** NOT IN BUFFER ****
-        {"RESET"     , "ATZ"},
-        {"ECHOOFF"   , "ATE0"},
-        {"NOLINEFEED", "ATL0"},
-        {"NOSPACES"  , "ATS0"},
-        {"AUTOPRTCL" , "ATSP0"},
+        {"RESET"     , {"ATZ", -1}},
+        {"ECHOOFF"   , {"ATE0", -1}},
+        {"NOLINEFEED", {"ATL0", -1}},
+        {"NOSPACES"  , {"ATS0", -1}},
+        {"AUTOPRTCL" , {"ATSP0", -1}},
         // ***********************
-        {"SPEED"     , "010D"},           // Buffer 0
-        {"RPM"       , "010C"},           // Buffer 1
-        {"FUEL"      , "012F"},           // Buffer 2
-        {"WATERTEMP" , "0105"},           // Buffer 3
-        {"THROTTLE"  , "0111"},           // Buffer 4
-        {"OILTEMP"   , "015C"},           // Buffer 5
-        {"GEAR"      , "01A4"},           // Buffer 6
-        {"BATTVOLTS" , "0142"},           // Buffer 7
-        {"STOREDDTC" , "03"},             // Buffer 8
+        {"SPEED"     , {"010D", 0}},           // Buffer 0
+        {"RPM"       , {"010C", 1}},           // Buffer 1
+        {"FUEL"      , {"012F", 2}},           // Buffer 2
+        {"WATERTEMP" , {"0105", 3}},           // Buffer 3
+        {"THROTTLE"  , {"0111", 4}},           // Buffer 4
+        {"OILTEMP"   , {"015C", 5}},           // Buffer 5
+        {"GEAR"      , {"01A4", 6}},           // Buffer 6
+        {"BATTVOLTS" , {"0142", 7}},           // Buffer 7
+        {"STOREDDTC" , {"03"  , 8}}            // Buffer 8
     };
 };
 
@@ -27,7 +27,7 @@ VehicleParser::VehicleParser() {
 /// @return 
 /// NOTE: This should be run in its own thread since it will probably block while waiting for a response from the vehicle. Add a timeout
 std::optional<std::string> VehicleParser::Request(const std::string& request) {
-    std::string code = _pidTable[request];
+    std::string code = _pidTable[request].first;
 
     /* TODO
         Insert logic once we know what device we're running with
@@ -91,5 +91,5 @@ void VehicleParser::initOBDConnection() {
 /// @param data 
 /// @return 
 int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data) {
-    // BuffMan->publish();
+    // BuffMan.publish(data, )
 }

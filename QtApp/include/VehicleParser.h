@@ -8,7 +8,8 @@
 
 class VehicleParser {
 private:
-    std::unordered_map<std::string, std::string> _pidTable;
+    // Map command names to PID strings and their assigned buffer in the BufferManager.
+    std::unordered_map<std::string, std::pair<std::string, int>> _pidTable;
 
     std::string FormRequestString(int& serviceMode, std::string& code);
     std::string FormRequestString(std::string code);
