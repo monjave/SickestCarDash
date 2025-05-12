@@ -46,6 +46,21 @@ void CircularBufferManager<T>::publish(std::vector<T> values) {
     }
 }
 
+/// @brief Push a single value to the CircularBuffer object.
+/// @tparam T type of elements stored in the buffer. 
+/// @param data The data to be pushed to the CircularBuffer object.
+/// @param buffIdx The index of the target buffer to be pushed to.
+/// @return Returns a 0 if the publish was successful, otherwise return a 1;
+template <class T>
+int8_t CircularBufferManager<T>::publish(T data, int buffIdx) {
+    if (buffIdx >= _bufferCount || buffIdx < 0) {
+        std::cout << "Invalid buffer index provided to publish()";
+        return 1;
+    }
+
+    return _buffers[buffIdx].push(data);
+}
+
 /// @brief Returns the most recent value for a given buffer.
 /// @tparam T type of elements stored in the buffer. 
 /// @param buffNum The idx of the buffer to be accessed.
@@ -91,6 +106,7 @@ std::vector<int> CircularBufferManager<T>::consumeAll() {
 
 template class CircularBufferManager<int>;
 template class CircularBufferManager<uint8_t>;
+template class CircularBufferManager<int8_t>;
 template class CircularBufferManager<long>;
 template class CircularBufferManager<long long>;
 template class CircularBufferManager<float>;

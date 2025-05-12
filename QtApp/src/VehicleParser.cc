@@ -5,7 +5,7 @@ VehicleParser::VehicleParser() {
     _pidTable = {
         // **** NOT IN BUFFER ****
         {"RESET"     , "ATZ"},
-        {"ECHO OFF"  , "ATE0"},
+        {"ECHOOFF"   , "ATE0"},
         {"NOLINEFEED", "ATL0"},
         {"NOSPACES"  , "ATS0"},
         {"AUTOPRTCL" , "ATSP0"},
@@ -25,7 +25,7 @@ VehicleParser::VehicleParser() {
 /// @brief Makes a request to the device 
 /// @param request 
 /// @return 
-/// NOTE: This should be run in its own thread since it will probably block while waiting for a response from the vehicle
+/// NOTE: This should be run in its own thread since it will probably block while waiting for a response from the vehicle. Add a timeout
 std::optional<std::string> VehicleParser::Request(const std::string& request) {
     std::string code = _pidTable[request];
 
@@ -62,8 +62,9 @@ std::optional<int> VehicleParser::ExtractData(const std::string& hexString) {
 /// @param serviceMode The service mode to be used (OBD2 Standard, SAEJ1979)
 /// @param code The code to be used
 /// @return The OBD string
-std::string VehicleParser::FormRequestString(int serviceMode, std::string code) {
-
+/// @note - Are there beneficial purposes where knowing the serviceMode in the response is useful? Need to investigate further.
+std::string VehicleParser::FormRequestString(int& serviceMode, std::string& code) {
+    // return (std::string)serviceMode + code + "\r";
 }
 
 /// @brief Forms the OBD string to interface with the vehicle ECU.
@@ -77,10 +78,18 @@ std::string VehicleParser::FormRequestString(std::string code) {
 /// @note Change implementation based on how the dongle device works -- if there's some form of way to validate connection status we should return 1 or -1 based on connection status
 void VehicleParser::initOBDConnection() {
     // Write to 
-    // InsertFunctionNameHere("ATZ\r")      # Reset
-    // InsertFunctionNameHere("ATE0\r")     # Echo off
-    // InsertFunctionNameHere("ATL0\r")     # No linefeeds
-    // InsertFunctionNameHere("ATS0\r")     # No spaces
-    // InsertFunctionNameHere("ATSP0\r")    # Auto protocol
-    // InsertFunctionNameHere("03\r")       # Request DTCs
+    
+    // InsertFunctionNameHere(FormRequestString("RESET"))
+    // InsertFunctionNameHere(FormRequestString("ECHOOFF"))     # Echo off
+    // InsertFunctionNameHere(FormRequestString("NOLINEFEED"))     # No linefeeds
+    // InsertFunctionNameHere(FormRequestString("NOSPACES"))     # No spaces
+    // InsertFunctionNameHere(FormRequestString("AUTOPRTCL"))    # Auto protocol
+    // InsertFunctionNameHere(FormRequestString("STOREDDTC"))       # Request DTCs
+}
+
+/// @brief 
+/// @param data 
+/// @return 
+int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data) {
+    // BuffMan->publish();
 }

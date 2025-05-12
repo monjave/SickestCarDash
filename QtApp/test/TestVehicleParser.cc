@@ -31,10 +31,16 @@ TEST(VehicleParser, ExtractData) {
     EXPECT_EQ(parser.ExtractData(""), std::nullopt);     // Empty string
 }
 
-
-// Need to mock response from OBD2?
-TEST(VehicleParser, Request) {
+// TODO 
+// Add getter/setter for _pidTable instead of using Request(). Will break as soon as Request() is implemented
+TEST(VehicleParser, Initialization) {
     VehicleParser parser;
+    
+    EXPECT_EQ(parser.Request("RESET"), "ATZ");
+    EXPECT_EQ(parser.Request("ECHOOFF"), "ATE0");
+    EXPECT_EQ(parser.Request("NOLINEFEED"), "ATL0");
+    EXPECT_EQ(parser.Request("NOSPACES"), "ATS0");
+    EXPECT_EQ(parser.Request("AUTOPRTCL"), "ATSP0");
 
     EXPECT_EQ(parser.Request("SPEED"), "010D");
     EXPECT_EQ(parser.Request("RPM"), "010C");
@@ -46,6 +52,12 @@ TEST(VehicleParser, Request) {
     EXPECT_EQ(parser.Request("BATTVOLTS"), "0142");
     EXPECT_EQ(parser.Request("STOREDDTC"), "03");
 }
+
+// Need to mock response from OBD2?
+TEST(VehicleParser, Request) {
+    VehicleParser parser;
+}
+
 
 TEST(VehicleParser, FormRequeststring) {
     VehicleParser parser;

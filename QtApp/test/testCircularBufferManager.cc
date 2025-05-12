@@ -22,6 +22,27 @@ TEST(TestCircularBufferManager, Publish) {
     ASSERT_EQ(buffMan.peekBuffer(4), 5);
 }
 
+TEST(TestCircularBufferManager, DoubleParamPublish) {
+    CircularBufferManager buffMan = CircularBufferManager<int>(5);
+
+    for (int idx = 0; idx < 5; ++idx) {
+        buffMan.publish(idx + 1, idx);
+    }
+
+    ASSERT_EQ(buffMan.peekBuffer(0), 1);
+    ASSERT_EQ(buffMan.peekBuffer(1), 2);
+    ASSERT_EQ(buffMan.peekBuffer(2), 3);
+    ASSERT_EQ(buffMan.peekBuffer(3), 4);
+    ASSERT_EQ(buffMan.peekBuffer(4), 5);
+}
+
+TEST(TestCircularManager, DoubleParamPublishInvalidInput) {
+    CircularBufferManager buffMan = CircularBufferManager<int>(5);
+
+    ASSERT_EQ(buffMan.publish(69, -420), 1);
+    ASSERT_EQ(buffMan.publish(-420, 69), 1);
+}
+
 TEST(TestCircularBufferManager, PublishInputTooLong) {
     CircularBufferManager buffMan = CircularBufferManager<int>(4);
 

@@ -10,9 +10,10 @@ class VehicleParser {
 private:
     std::unordered_map<std::string, std::string> _pidTable;
 
-    std::string FormRequestString(int serviceMode, std::string code);
+    std::string FormRequestString(int& serviceMode, std::string& code);
     std::string FormRequestString(std::string code);
-    void PublishToMiddleware(int data);
+    int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data);
+    void initOBDConnection();
 
 public:
     VehicleParser();
