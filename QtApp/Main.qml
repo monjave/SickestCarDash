@@ -7,8 +7,6 @@ Window {
     id: window
     width: 1920
     height: 720
-    x: 0
-    y: 0
     visible: true
 
 Item {
@@ -43,7 +41,6 @@ Item {
         source: "assets/images/bgArt.png"
         sourceSize.height: 720
         sourceSize.width: 1920
-        fillMode: Image.PreserveAspectFit
     }
 
     Image {
@@ -57,32 +54,30 @@ Item {
         z: 5
         sourceSize.height: 720
         sourceSize.width: 1920
-        fillMode: Image.PreserveAspectFit
     }
 
     Image {
         id: speedometer
         x: 320 - width / 2
         y: 140
-        width: 440
-        height: 440
+        width: 400
+        height: 400
         opacity: 1
         source: "assets/dials/DialBg.png"
         transformOrigin: Item.Center
-        sourceSize.height: 440
-        sourceSize.width: 440
+        sourceSize.height: 400
+        sourceSize.width: 400
         fillMode: Image.PreserveAspectFit
 
         Image {
             id: needle1
-            x: 20
-            y: 20
+            anchors.centerIn: parent
             width: 400
             height: 400
             source: "assets/pointers/Needle.png"
             transformOrigin: Item.Center
-            sourceSize.height: 400
-            sourceSize.width: 400
+            sourceSize.height: 440
+            sourceSize.width: 440
             fillMode: Image.PreserveAspectFit
         }
     }
@@ -91,8 +86,8 @@ Item {
         id: rpm
         x: 1160 - width / 2
         y: 140
-        width: 440
-        height: 440
+        width: 400
+        height: 400
         opacity: 0
         source: "assets/dials/DialBg.png"
         transformOrigin: Item.Center
@@ -102,121 +97,112 @@ Item {
 
         Image {
             id: needle2
-            x: 20
-            y: 20
+            anchors.centerIn: parent
             width: 400
             height: 400
             source: "assets/pointers/Needle.png"
             transformOrigin: Item.Center
-            sourceSize.height: 400
-            sourceSize.width: 400
+            sourceSize.height: 440
+            sourceSize.width: 440
             fillMode: Image.PreserveAspectFit
         }
     }
 
     Image {
         id: cooldesign
-        x: 861 - width / 2
+        x: 861
         y: 175
         width: 200
         height: 285
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 285
-        sourceSize.width: 200
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 285
+        //sourceSize.width: 200
     }
 
     Image {
         id: gearselect
-        x: 780 - width / 2
+        x: 780
         y: 466
         width: 180
         height: 180
         opacity: 1
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 180
-        sourceSize.width: 180
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 180
+        //sourceSize.width: 180
     }
 
     Image {
         id: fuelamount
-        x: 960 - width / 2
+        x: 960
         y: 466
         width: 180
         height: 180
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 180
-        sourceSize.width: 180
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 180
+        //sourceSize.width: 180
     }
 
     Image {
         id: clock
-        x: 894 - width / 2
+        x: 894
         y: 34
         width: 133
         height: 100
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 100
-        sourceSize.width: 133
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 100
+        //sourceSize.width: 133
     }
 
     Image {
         id: turnindicator1
-        x: 766 - width / 2
+        x: 766
         y: 65
         width: 100
         height: 100
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 100
-        sourceSize.width: 100
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 100
+        //sourceSize.width: 100
     }
 
     Image {
         id: turnindicator2
-        x: 1054 - width / 2
+        x: 1054
         y: 65
         width: 100
         height: 100
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 100
-        sourceSize.width: 100
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 100
+        //sourceSize.width: 100
     }
 
     Image {
         id: iconindicators
-        x: 0 - width / 2
+        x: 0
         y: 355
         width: 215
         height: 365
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 365
-        sourceSize.width: 215
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 365
+        //sourceSize.width: 215
     }
 
     Image {
         id: coolantenginetemp
-        x: 1705 - width / 2
+        x: 1705
         y: 355
         width: 215
         height: 365
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 365
-        sourceSize.width: 215
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 365
+        //sourceSize.width: 215
     }
 
     Image {
@@ -226,25 +212,23 @@ Item {
         width: 160
         height: 150
         opacity: 1
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 150
-        sourceSize.width: 160
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 150
+        //sourceSize.width: 160
     }
 
     Image {
         id: coolshape2
-        x: 1733 - width
+        x: 1733
         y: 65
         width: 160
         height: 150
         opacity: 1
-        transformOrigin: Item.Center
+        //transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
-        sourceSize.height: 150
-        sourceSize.width: 160
-        fillMode: Image.PreserveAspectFit
+        //sourceSize.height: 150
+        //sourceSize.width: 160
     }
 
     Image {
