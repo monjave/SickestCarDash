@@ -1,29 +1,18 @@
 cmake_minimum_required(VERSION 3.16)
 project(QtApp VERSION 0.1 LANGUAGES CXX)
 
-# set(CMAKE_CXX_STANDARD 17)
-# set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 # # ================== Configurable Options ==================
 option(BUILD_GUI "Build the Qt GUI application" ON)
 # option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
-# add_library(core
-#     src/CircularBuffer.cc
-#     src/CircularBufferManager.cc
-# )
-
 add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBuffer.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
 )
 
-# target_include_directories(core PUBLIC include)
-# target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-# target_include_directories(core PUBLIC "${CMAKE_SOURCE_DIR}/QtApp/include")
-# Point at the *source* include folder, not the build folder.
-# CMAKE_CURRENT_LIST_DIR is the directory of *this* CMakeLists.txt.
 target_include_directories(core
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
@@ -35,8 +24,17 @@ if(BUILD_GUI)
     find_package(Qt6 REQUIRED COMPONENTS Quick)
     qt_standard_project_setup(REQUIRES 6.8)
 
+    include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+    include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
+
     qt_add_executable(appQtApp
         main.cpp
+        include/CircularBuffer.h
+        include/CircularBufferManager.h
+        include/CircularBufferManagerWrapper.h
+        src/CircularBuffer.cc
+        src/CircularBufferManager.cc
+        src/CircularBufferManagerWrapper.cpp
     )
 
     qt_add_qml_module(appQtApp
@@ -50,6 +48,8 @@ if(BUILD_GUI)
             "assets/dials/RPMOld.png"
             "assets/dials/SpeedometerOld.png"
             "assets/pointers/NeedleOld.png"
+            "assets/images/bgArt.png"
+            "assets/images/Hotwheel.png"
     )
 
     set_target_properties(appQtApp PROPERTIES

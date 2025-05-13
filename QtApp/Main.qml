@@ -1,216 +1,534 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
-import QtQuick.Dialogs
+import QtQuick.Timeline 1.0
+import CircularBuffer.Speed
 
 Window {
-    id: win
-    visible: true
+    id: window
     width: 1920
     height: 720
-    //visibility: "FullScreen"
-    title: qsTr("Speed Dial Logic")
-    color: "white";
+    visible: true
 
-    Rectangle {
-        id: bg
+Item {
+    id: cluster
+    x: 0
+    y: 0
+    width: 1920
+    height: 720
+    visible: true
+
+    DataSpeed {
+        id: speedValue
+    }
+/*
+    Text {
+        id: testingBackendIntegration
+        text: "ABC"
+        font.pixelSize: speedValue.speed
+        color: "white"
+        x: 500
+        y: 600
+        visible: true
+        z: 10
+    } */
+
+    Image {
+        id: bgArt
+        x: 0
+        y: 0
         width: 1920
         height: 720
-        color: "#1e1e1e"
+        source: "assets/images/bgArt.png"
+        sourceSize.height: 720
+        sourceSize.width: 1920
+    }
+
+    Image {
+        id: logoBg
+        x: 0
+        y: 0
+        width: 1920
+        height: 720
+        opacity: 0
+        source: "assets/dials/DialBg.png"
+        z: 5
+        sourceSize.height: 720
+        sourceSize.width: 1920
+    }
+
+    Image {
+        id: speedometer
+        x: 320 - width / 2
+        y: 140
+        width: 400
+        height: 400
+        opacity: 1
+        source: "assets/dials/DialBg.png"
+        transformOrigin: Item.Center
+        sourceSize.height: 400
+        sourceSize.width: 400
+        fillMode: Image.PreserveAspectFit
 
         Image {
-            id: speedometer
-            //x: 850
-            x: 630
-            y: 250
-            width: 220
-            height: 220
-            source: "assets/dials/DialBg.png"
+            id: needle1
+            anchors.centerIn: parent
+            width: 400
+            height: 400
+            source: "assets/pointers/Needle.png"
+            transformOrigin: Item.Center
             sourceSize.height: 440
             sourceSize.width: 440
             fillMode: Image.PreserveAspectFit
-
-
-            Text {
-                id: text1
-                x: 42
-                y: 165
-                color: "#ffffff"
-                text: qsTr("0")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-                /*
-                Text {
-                    visible: if (slider.value >= 0 && slider.value < 10) {
-                                 setVisible: true
-                             } else {
-                                 setVisible: false
-                             }
-
-                    id: text1Glow
-                    anchors.centerIn: parent
-                    font.pixelSize: 18
-                    color: "#E4080A"
-                    text: qsTr("0")
-                    font.family: "Horizon"
-                    font.styleName: "Bold"
-                    z: -1
-                } */
-            }
-
-            Text {
-                id: text2
-                x: 22
-                y: 130
-                color: "#ffffff"
-                text: qsTr("20")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text3
-                x: 16
-                y: 93
-                color: "#ffffff"
-                text: qsTr("40")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text4
-                x: 28
-                y: 58
-                color: "#ffffff"
-                text: qsTr("60")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text5
-                x: 53
-                y: 31
-                color: "#ffffff"
-                text: qsTr("80")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text6
-                x: 83
-                y: 15
-                color: "#ffffff"
-                text: qsTr("100")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text7
-                x: 120
-                y: 17
-                color: "#ffffff"
-                text: qsTr("120")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text8
-                x: 157
-                y: 36
-                color: "#ffffff"
-                text: qsTr("140")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text9
-                x: 168
-                y: 67
-                color: "#ffffff"
-                text: qsTr("160")
-                font.pixelSize: 12
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Text {
-                id: text11
-                x: 69
-                y: 190
-                color: "#ffffff"
-                text: qsTr("Odometer")
-                font.pixelSize: 16
-                font.family: "Horizon"
-                font.styleName: "Bold"
-            }
-
-            Image {
-                id: needle
-                x: 110
-                y: 108
-                width: 104
-                height: 4
-                source: "assets/pointers/Needle.png"
-                sourceSize.width: 218
-                sourceSize.height: 10
-                fillMode: Image.PreserveAspectFit
-
-                transform: Rotation {
-                    id: needleRotation
-                    origin.x: 0
-                    origin.y: 2
-                    angle: slider.value + 135
-                    Behavior on angle {
-                        SpringAnimation {
-                            spring: 1.3
-                            damping: .15
-                        }
-                    }
-                }
-            }
         }
-
-        Slider {
-            id: slider
-            x: 860
-            y: 493
-            from: 0
-            to: 200
-            value: 0
-            width: 300
-        }
-
-        Text {
-            id: text10
-            x: 700
-            y: 499
-            color: "#ffffff"
-            text: qsTr("Speed: " + parseInt(slider.value * 0.8) + " MPH")
-            font.pixelSize: 20
-            font.family: "Horizon"
-            font.styleName: "Bold"
-        }
-
-        /*Rectangle {
-            id: colorOverlay
-            width: 1920
-            height: 720
-            color: "#5DE2E7"
-            opacity: 0.2
-        } */
     }
+
+    Image {
+        id: rpm
+        x: 1160 - width / 2
+        y: 140
+        width: 400
+        height: 400
+        opacity: 0
+        source: "assets/dials/DialBg.png"
+        transformOrigin: Item.Center
+        sourceSize.height: 440
+        sourceSize.width: 440
+        fillMode: Image.PreserveAspectFit
+
+        Image {
+            id: needle2
+            anchors.centerIn: parent
+            width: 400
+            height: 400
+            source: "assets/pointers/Needle.png"
+            transformOrigin: Item.Center
+            sourceSize.height: 440
+            sourceSize.width: 440
+            fillMode: Image.PreserveAspectFit
+        }
+    }
+
+    Image {
+        id: cooldesign
+        x: 861
+        y: 175
+        width: 200
+        height: 285
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 285
+        //sourceSize.width: 200
+    }
+
+    Image {
+        id: gearselect
+        x: 780
+        y: 466
+        width: 180
+        height: 180
+        opacity: 1
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 180
+        //sourceSize.width: 180
+    }
+
+    Image {
+        id: fuelamount
+        x: 960
+        y: 466
+        width: 180
+        height: 180
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 180
+        //sourceSize.width: 180
+    }
+
+    Image {
+        id: clock
+        x: 894
+        y: 34
+        width: 133
+        height: 100
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 100
+        //sourceSize.width: 133
+    }
+
+    Image {
+        id: turnindicator1
+        x: 766
+        y: 65
+        width: 100
+        height: 100
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 100
+        //sourceSize.width: 100
+    }
+
+    Image {
+        id: turnindicator2
+        x: 1054
+        y: 65
+        width: 100
+        height: 100
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 100
+        //sourceSize.width: 100
+    }
+
+    Image {
+        id: iconindicators
+        x: 0
+        y: 355
+        width: 215
+        height: 365
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 365
+        //sourceSize.width: 215
+    }
+
+    Image {
+        id: coolantenginetemp
+        x: 1705
+        y: 355
+        width: 215
+        height: 365
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 365
+        //sourceSize.width: 215
+    }
+
+    Image {
+        id: coolshape1
+        x: 28
+        y: 65
+        width: 160
+        height: 150
+        opacity: 1
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 150
+        //sourceSize.width: 160
+    }
+
+    Image {
+        id: coolshape2
+        x: 1733
+        y: 65
+        width: 160
+        height: 150
+        opacity: 1
+        //transformOrigin: Item.Center
+        source: "assets/dials/DialBg.png"
+        //sourceSize.height: 150
+        //sourceSize.width: 160
+    }
+
+    Image {
+        id: logo
+        x: 760 - width / 2
+        y: 160
+        width: 400
+        height: 400
+        opacity: 0
+        source: "assets/images/Hotwheel.png"
+        z: 5
+        sourceSize.height: 400
+        sourceSize.width: 400
+        transformOrigin: Item.Center
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Timeline {
+        id: bootup
+        animations: [
+            TimelineAnimation {
+                id: timelineAnimation
+                running: true
+                loops: 1
+                duration: 5000
+                to: 5000
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 5000
+        enabled: true
+
+        KeyframeGroup {
+            target: speedometer
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+        }
+
+        KeyframeGroup {
+            target: logo
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 1952
+            }
+
+            Keyframe {
+                value: 1
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2022
+            }
+        }
+
+        KeyframeGroup {
+            target: logo
+            property: "x"
+            Keyframe {
+                value: 560
+                frame: 998
+            }
+
+            Keyframe {
+                value: 2000
+                frame: 1500
+            }
+        }
+
+        KeyframeGroup {
+            target: rpm
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: gearselect
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: fuelamount
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: coolantenginetemp
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: coolshape2
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: turnindicator2
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: clock
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: turnindicator1
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: cooldesign
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: iconindicators
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: coolshape1
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+    }
+
+    states: [
+        State {
+            name: "clicked"
+        }
+    ]
+}
+
 }
