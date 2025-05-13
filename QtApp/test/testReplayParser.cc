@@ -7,3 +7,5 @@ TEST(ReplayParserTest, FirstTest) {
 }
 
 TEST(ReplayParserTest, ConfirmReplayData) {} // will finish
+
+// test for if file location is invalid

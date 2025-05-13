@@ -1,5 +1,7 @@
 #include "ReplayParser.h"
 
+#include <iostream>
+
 /**
  * @brief Construct a new Replay Parser< T>:: Replay Parser object. Importantly,
  * you must provide it with the location of the immediate parent directory of
@@ -13,8 +15,6 @@ ReplayParser<T>::ReplayParser(std::string filePath) {
   std::cout << "CWD: " << std::filesystem::current_path() << std::endl;
 
   std::filesystem::path directoryPath = filePath;
-
-  loadSave(directoryPath);
 
   if (!exists(directoryPath)) {
     throw std::invalid_argument("Invalid File Location");
@@ -63,21 +63,30 @@ void ReplayParser<T>::readCSV(std::fstream& file) {
     }
 
     while (std::getline(file, line)) {
-      std::stringstream streamm(line);
+      std::stringstream secondStream(line);
       std::string num;
-      int row = 0;
+      double double_value;
+      int column = 0;
 
-      while (getline(stream, num, ',')) {
-        if (row < headers.size()) {
-          double value = std::stod(num);
-          _replayData[headers[row]].push_back(value);
+      while (std::getline(secondStream, num, ',')) {
+        //! TESTING, DELETE START******************************
+        try {
+          double_value = std::stod(num);
+        } catch (const std::invalid_argument& e) {
+          std::cerr << "Invalid argument: " << e.what() << std::endl;
+        } catch (const std::out_of_range& e) {
+          std::cerr << "Out of range: " << e.what() << std::endl;
         }
+        //! TESTING, DELETE END******************************
+        _replayData[headers[column]].push_back(double_value);
+        column++;
       }
     }
   } else {
     file.close();
-    throw std::invalid_argument("file could not open");
+    throw std::invalid_argument("file could not be opened");
   }
+  _replayData.erase("");
   file.close();
 }
 
@@ -88,10 +97,10 @@ std::map<std::string, std::vector<double>>& ReplayParser<T>::getData() {
 
 template <class T>
 void ReplayParser<T>::getValue() {
-  // ! DELETE AFTER TESTING**********************************
+  // ! DELETE AFTER TESTING START**********************************
 
-  std::string outputFilePath =
-      "../../QtApp/replay/data/nurburgring_24h/data/file.txt";
+  std::string outputFilePath = "../../QtApp/test/build/Debug/test.txt.idea";
+
   size_t maxRowsPerColumn = 10;
   size_t tablePreviewRows = 5;
 
@@ -101,32 +110,13 @@ void ReplayParser<T>::getValue() {
     return;
   }
 
-  for (const auto& [column, values] : _replayData) {
-    out << "column: " << column << " | rows: " << values.size() << "\n";
-
-    size_t limit = std::min(tablePreviewRows, values.size());
-    for (size_t i = 0; i < limit; ++i) {
-      out << "  " << std::fixed << std::setprecision(8) << values[i] << "\n";
-    }
-
-    out << "\n";
+  for (const auto& column : _replayData) {
+    out << std::left << std::setw(10) << "Column:" << std::setw(20)
+        << column.first << "Rows: " << std::setw(10) << column.second.size()
+        << std::endl;
   }
 }
-/*
-
-  out << "== Summary by Column ==\n\n";
-
-    for (const auto& [column, values] : _replayData) {
-        out << "Column: " << column << "\n";
-        size_t limit = std::min(maxRowsPerColumn, values.size());
-        for (size_t i = 0; i < limit; ++i) {
-            out << std::fixed << std::setprecision(8) << "  " << values[i] <<
-  "\n";
-        }
-        out << "\n";
-    }*/
-
-// ! DELETE AFTER TESTING**********************************
+// ! DELETE AFTER TESTING END**********************************
 
 template class ReplayParser<int>;
 template class ReplayParser<uint8_t>;
