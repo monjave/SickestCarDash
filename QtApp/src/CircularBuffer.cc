@@ -1,4 +1,4 @@
-#include "CircularBuffer.h"
+#include "../include/CircularBuffer.h"
 
 /// @brief Constructs a CirculuarBuffer object with the given capacity. 
 /// @tparam T Type of elements stored in the buffer.

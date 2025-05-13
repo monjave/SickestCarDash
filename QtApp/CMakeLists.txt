@@ -17,6 +17,8 @@ option(BUILD_GUI "Build the Qt GUI application" ON)
 add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBuffer.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
 )
 
 # target_include_directories(core PUBLIC include)
@@ -37,6 +39,12 @@ if(BUILD_GUI)
 
     qt_add_executable(appQtApp
         main.cpp
+        include/CircularBuffer.h
+        include/CircularBufferManager.h
+        include/CircularBufferManagerWrapper.h
+        src/CircularBuffer.cc
+        src/CircularBufferManager.cc
+        src/CircularBufferManagerWrapper.cpp
     )
 
     qt_add_qml_module(appQtApp
@@ -62,7 +70,7 @@ if(BUILD_GUI)
     )
 
     target_link_libraries(appQtApp
-        PRIVATE Qt6::Quick core
+        PRIVATE Qt6::Quick Qt6::Core
     )
 
     install(TARGETS appQtApp

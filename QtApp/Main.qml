@@ -1,18 +1,38 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Timeline 1.0
+import CircularBuffer.Speed
 
 Window {
     id: window
     width: 1920
     height: 720
+    x: 0
+    y: 0
     visible: true
 
 Item {
     id: cluster
-    //width: Constants.width
-    //height: Constants.height
+    x: 0
+    y: 0
+    width: 1920
+    height: 720
     visible: true
+
+    DataSpeed {
+        id: speedValue
+    }
+
+    Text {
+        id: testingBackendIntegration
+        text: "ABC"
+        font.pixelSize: speedValue.speed
+        color: "white"
+        x: 500
+        y: 600
+        visible: true
+        z: 10
+    }
 
     Image {
         id: bgArt
@@ -103,6 +123,7 @@ Item {
         transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
         sourceSize.height: 285
+        sourceSize.width: 200
         fillMode: Image.PreserveAspectFit
     }
 
@@ -200,7 +221,7 @@ Item {
 
     Image {
         id: coolshape1
-        x: 28 - width / 2
+        x: 28
         y: 65
         width: 160
         height: 150
@@ -214,10 +235,11 @@ Item {
 
     Image {
         id: coolshape2
-        x: 1733 - width / 2
+        x: 1733 - width
         y: 65
         width: 160
         height: 150
+        opacity: 1
         transformOrigin: Item.Center
         source: "assets/dials/DialBg.png"
         sourceSize.height: 150
