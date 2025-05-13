@@ -20,7 +20,7 @@ Item {
     DataSpeed {
         id: speedValue
     }
-
+/*
     Text {
         id: testingBackendIntegration
         text: "ABC"
@@ -30,7 +30,7 @@ Item {
         y: 600
         visible: true
         z: 10
-    }
+    } */
 
     Image {
         id: bgArt
