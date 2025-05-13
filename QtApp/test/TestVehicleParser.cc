@@ -21,7 +21,7 @@ TEST(VehicleParser, ExtractData) {
     EXPECT_EQ(parser.ExtractData("abcd"), 0xCD);
     EXPECT_EQ(parser.ExtractData("7fffffff"), 255);  // Max signed int
 
-    // Overflow test (std::stoi throws)
+    // Overflow test (std::stoi throws std::nullopt)
     EXPECT_EQ(parser.ExtractData("deadbeef"), std::nullopt);  // Overflows int
     EXPECT_EQ(parser.ExtractData("FFFFFFFFF"), std::nullopt); // Too large
 
