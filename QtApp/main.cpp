@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 //#include <QQmlContext>
-#include "include/CircularBufferManagerWrapper.h"
+#include "CircularBufferManagerWrapper.h"
 
 
 int main(int argc, char *argv[])

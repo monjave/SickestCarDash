@@ -8,7 +8,7 @@ Window {
     width: 1920
     height: 720
     visible: true
-
+/*
 Item {
     id: cluster
     x: 0
@@ -16,7 +16,7 @@ Item {
     width: 1920
     height: 720
     visible: true
-
+ */
     DataSpeed {
         id: speedValue
     }
@@ -64,10 +64,9 @@ Item {
         height: 400
         opacity: 1
         source: "assets/dials/DialBg.png"
-        transformOrigin: Item.Center
         sourceSize.height: 400
         sourceSize.width: 400
-        fillMode: Image.PreserveAspectFit
+        //fillMode: Image.PreserveAspectFit
 
         Image {
             id: needle1
@@ -88,12 +87,11 @@ Item {
         y: 140
         width: 400
         height: 400
-        opacity: 0
+        opacity: 1
         source: "assets/dials/DialBg.png"
-        transformOrigin: Item.Center
         sourceSize.height: 440
         sourceSize.width: 440
-        fillMode: Image.PreserveAspectFit
+        //fillMode: Image.PreserveAspectFit
 
         Image {
             id: needle2
@@ -245,7 +243,7 @@ Item {
         transformOrigin: Item.Center
         fillMode: Image.PreserveAspectFit
     }
-
+/*
     Timeline {
         id: bootup
         animations: [
@@ -522,13 +520,13 @@ Item {
                 frame: 2000
             }
         }
-    }
-
+    } */
+/*
     states: [
         State {
             name: "clicked"
         }
     ]
-}
+} */
 
 }
