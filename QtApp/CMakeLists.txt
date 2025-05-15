@@ -13,9 +13,6 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBuffer.h
-    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
-    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManagerWrapper.h
 )
 
 target_include_directories(core
