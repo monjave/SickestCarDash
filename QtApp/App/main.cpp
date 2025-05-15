@@ -15,6 +15,14 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
 
+    /*
+    CircularBufferManagerWrapper data;
+    std::cout << data.getSpeed() << std::endl;
+    data.setSpeed(1);
+    std::cout << data.getSpeed() << std::endl;
+    engine.rootContext()->setContextProperty("data", &data);
+    */
+
     QQmlApplicationEngine engine;
     const QUrl url(mainQmlFile);
     QObject::connect(

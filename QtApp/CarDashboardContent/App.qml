@@ -14,8 +14,20 @@ Window {
     }
 
     Screen01 {
-        id: mainScreen
+        id: mainScreen 
     }
+
+    /*
+    Text {
+        id: speedDisplay
+        text: parseInt(speedValue)
+        font: 50
+        x: 1000
+        y: 300
+        z: 10
+        color: "#ffffff"
+    }
+    */
 
 }
 
