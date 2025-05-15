@@ -1,12 +1,12 @@
 import QtQuick
-import DailyDrivingMockUp
+import CarDashboard
 
 Window {
     width: mainScreen.width
     height: mainScreen.height
 
     visible: true
-    title: "DailyDrivingMockUp"
+    title: "CarDashboard"
 
     Screen01 {
         id: mainScreen

@@ -8,10 +8,10 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(DailyDrivingMockUpContentPlugin)
-Q_IMPORT_QML_PLUGIN(DailyDrivingMockUpPlugin)
+Q_IMPORT_QML_PLUGIN(CarDashboardContentPlugin)
+Q_IMPORT_QML_PLUGIN(CarDashboardPlugin)
 
-const char mainQmlFile[] = "qrc:/qt/qml/DailyDrivingMockUpContent/App.qml";
+const char mainQmlFile[] = "qrc:/qt/qml/CarDashboardContent/App.qml";
 
 #ifdef BUILD_QDS_COMPONENTS
 

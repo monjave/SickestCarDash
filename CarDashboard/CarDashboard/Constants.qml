@@ -22,6 +22,6 @@ QtObject {
 
 
     property StudioApplication application: StudioApplication {
-        fontPath: Qt.resolvedUrl("../DailyDrivingMockUpContent/" + relativeFontDirectory)
+        fontPath: Qt.resolvedUrl("../CarDashboardContent/" + relativeFontDirectory)
     }
 }

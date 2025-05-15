@@ -8,14 +8,14 @@ set_source_files_properties(Constants.qml
 
 
 
-qt_add_library(DailyDrivingMockUp STATIC)
-qt6_add_qml_module(DailyDrivingMockUp
-    URI "DailyDrivingMockUp"
+qt_add_library(CarDashboard STATIC)
+qt6_add_qml_module(CarDashboard
+    URI "CarDashboard"
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "EventListModel.qml"
         "EventListSimulator.qml"
+        "EventListModel.qml"
         "Constants.qml"
 )
 

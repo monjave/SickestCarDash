@@ -1,16 +1,16 @@
 import QmlProject
 
 Project {
-    mainFile: "DailyDrivingMockUpContent/App.qml"
-    mainUiFile: "DailyDrivingMockUpContent/Screen01.ui.qml"
+    mainFile: "CarDashboardContent/App.qml"
+    mainUiFile: "CarDashboardContent/Screen01.ui.qml"
 
     /* Include .qml, .js, and image files from current directory and subdirectories */
     QmlFiles {
-        directory: "DailyDrivingMockUp"
+        directory: "CarDashboard"
     }
 
     QmlFiles {
-        directory: "DailyDrivingMockUpContent"
+        directory: "CarDashboardContent"
     }
 
     QmlFiles {
@@ -18,15 +18,15 @@ Project {
     }
 
     JavaScriptFiles {
-        directory: "DailyDrivingMockUp"
+        directory: "CarDashboard"
     }
 
     JavaScriptFiles {
-        directory: "DailyDrivingMockUpContent"
+        directory: "CarDashboardContent"
     }
 
     ImageFiles {
-        directory: "DailyDrivingMockUpContent"
+        directory: "CarDashboardContent"
     }
 
     ImageFiles {
@@ -96,7 +96,7 @@ Project {
     importPaths: [ "." ]
 
     /* Required for deployment */
-    targetDirectory: "/opt/DailyDrivingMockUp"
+    targetDirectory: "/opt/CarDashboard"
 
     enableCMakeGeneration: true
     standaloneApp: true
@@ -111,10 +111,10 @@ Project {
     /* args: Specifies command line arguments for qsb tool to generate shaders.
        files: Specifies target files for qsb tool. If path is included, it must be relative to this file.
               Wildcard '*' can be used in the file name part of the path.
-              e.g. files: [ "DailyDrivingMockUpContent/shaders/*.vert", "*.frag" ]  */
+              e.g. files: [ "CarDashboardContent/shaders/*.vert", "*.frag" ]  */
     ShaderTool {
         args: "-s --glsl \"100 es,120,150\" --hlsl 50 --msl 12"
-        files: [ "DailyDrivingMockUpContent/shaders/*" ]
+        files: [ "CarDashboardContent/shaders/*" ]
     }
 
     multilanguageSupport: true
