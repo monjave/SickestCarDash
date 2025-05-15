@@ -35,6 +35,8 @@ if(BUILD_GUI)
         src/CircularBuffer.cc
         src/CircularBufferManager.cc
         src/CircularBufferManagerWrapper.cpp
+        include/VehicleConnection.h
+        src/VehicleConnection.cpp
     )
 
     qt_add_qml_module(appQtApp
