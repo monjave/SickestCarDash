@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QObject>
 
 #include "autogen/environment.h"
 
