@@ -11,6 +11,9 @@ import QtQuick.Controls
 import CarDashboard
 import QtQuick.Timeline 1.0
 
+//Middleware Integration Values
+import CircularBuffer.Speed
+
 Item {
     id: cluster
     width: Constants.width
