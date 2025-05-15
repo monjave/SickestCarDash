@@ -15,9 +15,10 @@ public:
     void beginInitSequence();
 
 signals:
-    void responseReceived(QString response);
+    
     void initComplete();
     void errorOccurred(QString error);
+    void rawHexReceived(const QString &hex);  // New signal for clean hex
 
 private slots:
     void handleReadyRead();

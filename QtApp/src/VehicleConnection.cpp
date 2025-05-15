@@ -47,9 +47,13 @@ void VehicleConnection::sendNextInitCommand() {
 void VehicleConnection::handleReadyRead() {
     buffer.append(serial->readAll());
 
-    if (buffer.contains("\r")) {
-        QString response = QString::fromUtf8(buffer).trimmed();
-        emit responseReceived(response);
-        buffer.clear();
+    int endIndex = buffer.indexOf('\r');
+    while ((endIndex = buffer.indexOf('\r')) != -1) {
+        QByteArray responseBytes = buffer.left(endIndex);
+        buffer.remove(0, endIndex + 1);  // Remove the processed response
+        QString hexString = responseBytes.toHex('').toUpper();
+
+        emit rawHexReceived(hexString);
     }
+    
 }
