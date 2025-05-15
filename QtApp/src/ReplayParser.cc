@@ -1,6 +1,9 @@
 #include "ReplayParser.h"
 
+#include <chrono>
 #include <iostream>
+
+#include "CircularBufferManager.h"
 
 /**
  * @brief Construct a new Replay Parser< T>:: Replay Parser object. Importantly,
@@ -42,16 +45,17 @@ void ReplayParser<T>::loadSave(std::filesystem::path directoryPath) {
 }
 
 /**
- * @brief reads a CSV file and loads the information into the _replayData structure. Requires the CSV file to be of the format:
- * 
+ * @brief reads a CSV file and loads the information into the _replayData
+ * structure. Requires the CSV file to be of the format:
+ *
  * ```
  * header, header, header, ...
  * data, data, data, ...
  * data, data, data, ...
- * ... 
+ * ...
  * ```
- * @tparam T 
- * @param file 
+ * @tparam T
+ * @param file
  */
 template <class T>
 void ReplayParser<T>::readCSV(std::fstream& file) {
@@ -79,9 +83,9 @@ void ReplayParser<T>::readCSV(std::fstream& file) {
         try {
           double_value = std::stod(num);
         } catch (const std::invalid_argument& e) {
-          std::cerr << "Invalid Argument: " << e.what() << std::endl;
+          throw std::invalid_argument("Invalid Argument: Unable to convert '" + num + "' to double.");
         } catch (const std::out_of_range& e) {
-          std::cerr << "Invalid Argument: " << e.what() << std::endl;
+          throw std::invalid_argument("Out of Range: Value '" + num + "' is too large or too small to convert to double.");
         }
         _replayData[headers[column]].push_back(double_value);
         column++;
@@ -106,16 +110,48 @@ void ReplayParser<T>::printValueToFile(std::string desiredFileLocation) {
 
   std::ofstream file(outputFilePath);
   if (!file.is_open()) {
-    std::cerr << "Failed to create or open file: " << outputFilePath << std::endl;
+    std::cerr << "Failed to create or open file: " << outputFilePath
+              << std::endl;
     return;
   }
 
   for (const auto& column : _replayData) {
     file << std::left << std::setw(10) << "Column:" << std::setw(20)
-        << column.first << "Rows: " << std::setw(10) << column.second.size()
-        << std::endl;
+         << column.first << "Rows: " << std::setw(10) << column.second.size()<< "Values: "
+         << std::endl;
+    for(const auto& num : column.second){
+      file << num << ", " << std::endl;
+    }
   }
   file.close();
+}
+
+/**
+ * @brief might not need this, tk still in development
+ *
+ * @tparam T
+ * @param buffMan
+ */
+template <class T>
+void ReplayParser<T>::publish(CircularBufferManager<int> buffMan) {
+  std::vector<int> input = {1, 2, 3, 4, 5};
+  buffMan.publish(input);
+}
+
+/**
+ * @brief Starts the replay by deliberately and intermittently feeding the data
+ * to the CircularBufferManager according to the time vector in _replayData.
+ *
+ * @tparam T
+ */
+template <class T>
+void ReplayParser<T>::replayStart() {
+  CircularBufferManager buffMan = CircularBufferManager<int>(5);
+  publish(buffMan);
+  // while replay is unfinished AND stopEarly flag is false:
+  // publish() the most recent data to CircularBufferManager
+  // stop when file is empty OR stopEarly flag is true
+  // stopEarly flag maybe data driven? We just keep checking?
 }
 
 template class ReplayParser<int>;

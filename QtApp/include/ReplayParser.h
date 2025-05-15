@@ -1,6 +1,8 @@
 #ifndef REPLAYPARSER_H
 #define REPLAYPARSER_H
 
+#include "CircularBufferManager.h"
+
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -20,7 +22,8 @@ class ReplayParser {
   ReplayParser(std::string filePath);
   void printValueToFile(std::string desiredFileLocation);
   std::map<std::string, std::vector<double>>& getData();
-  // void startReplay();  // change from void when decide how to deliver data
+  void publish(CircularBufferManager<int> buffMan);
+  void replayStart();
 };
 
 #endif  // REPLAYPARSER_H
