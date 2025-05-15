@@ -6,11 +6,14 @@
 #include <QObject>
 
 #include "autogen/environment.h"
+#include "CircularBufferManagerWrapper.h"
 
 int main(int argc, char *argv[])
 {
     set_qt_environment();
     QApplication app(argc, argv);
+
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
 
     QQmlApplicationEngine engine;
     const QUrl url(mainQmlFile);
