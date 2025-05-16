@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(QtApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort)
-qt_standard_project_setup(REQUIRES 6.8)
+qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
