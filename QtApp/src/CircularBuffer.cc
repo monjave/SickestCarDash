@@ -44,7 +44,7 @@ std::optional<T> CircularBuffer<T>::peek() const {
 /// @brief Pushes a new element into the buffer.
 /// @tparam T Type of elements stored in the buffer.
 /// @param value 
-/// @return 0 if the value was pushed without overwriting; -1 if it overwrote the oldest value.
+/// @return 0 if the value was pushed without overwriting; 1 if it overwrote the oldest value.
 template <class T>
 int8_t CircularBuffer<T>::push(T value) {
     if (!isFull()) {
@@ -58,7 +58,7 @@ int8_t CircularBuffer<T>::push(T value) {
         _start = (_start + 1) % getCapacity();
         _end = (_end + 1) % getCapacity();
         
-        return -1;
+        return 1;
     }
 }
 
@@ -109,6 +109,7 @@ void CircularBuffer<T>::printBuffer() const {
 
 template class CircularBuffer<int>;
 template class CircularBuffer<uint8_t>;
+template class CircularBuffer<int8_t>;
 template class CircularBuffer<long>;
 template class CircularBuffer<long long>;
 template class CircularBuffer<float>;
