@@ -1,31 +1,22 @@
 
-cmake_minimum_required(VERSION 3.16)
-project(QtApp VERSION 0.1 LANGUAGES CXX)
-
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort)
-qt_standard_project_setup(REQUIRES 6.4.2)
+cmake_minimum_required(VERSION 3.21.1)
+project(CarDashboardApp LANGUAGES CXX)
 
 # # ================== Configurable Options ==================
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 option(BUILD_GUI "Build the Qt GUI application" ON)
-option(BUILD_TESTING "Build unit tests" ON)
+# option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
-
-    ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
-
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBuffer.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManagerWrapper.h
 )
-
-# Link QtCore to core lib
-target_link_libraries(core PUBLIC Qt6::Core Qt6::SerialPort)
-
-# Enable AUTOMOC for QObject macros
-set_target_properties(core PROPERTIES AUTOMOC ON)
 
 target_include_directories(core
   PUBLIC
@@ -48,23 +39,8 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
 
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
-
-
-    include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
-    include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
-
-    qt_add_executable(appQtApp
-        main.cpp
-        include/CircularBuffer.h
-        include/CircularBufferManager.h
-        include/CircularBufferManagerWrapper.h
-        src/CircularBuffer.cc
-        src/CircularBufferManager.cc
-        src/CircularBufferManagerWrapper.cpp
-        include/VehicleConnection.h
-        src/VehicleConnection.cpp
-    )
-
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Widgets Qml Quick QuickTimeline ShaderTools SerialPort)
+qt_standard_project_setup()
 
 #qt_add_executable(${CMAKE_PROJECT_NAME})
 qt_add_executable(CarDashboardApp
@@ -112,9 +88,8 @@ if(BUILD_TESTING)
     FetchContent_MakeAvailable(googletest)
 
     add_executable(unit_tests
-        test/TestCircularBuffer.cc
-        test/TestCircularBufferManager.cc
-        test/TestVehicleParser.cc
+        test/testCircularBuffer.cc
+        test/testCircularBufferManager.cc
     )
 
     target_link_libraries(unit_tests
