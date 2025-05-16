@@ -89,7 +89,7 @@ TEST(CircularBufferTest, SingleOverwrite) {
     buf.push(3);
     EXPECT_TRUE(buf.isFull());
 
-    EXPECT_EQ(buf.push(4), -1);
+    EXPECT_EQ(buf.push(4), 1);
     EXPECT_TRUE(buf.isFull());
     EXPECT_EQ(buf.getSize(), 3);
 
@@ -104,7 +104,7 @@ TEST(CircularBufferTest, MultipleOverwrites) {
     for (int i = 1; i <= 5; ++i) {
         int8_t ret = buf.push(i);
         if (i <= 3) EXPECT_EQ(ret, 0);
-        else          EXPECT_EQ(ret, -1);
+        else          EXPECT_EQ(ret, 1);
     }
     EXPECT_TRUE(buf.isFull());
     EXPECT_EQ(buf.getSize(), 3);
@@ -124,7 +124,7 @@ TEST(CircularBufferTest, InterleavedWrapAndOverwrite) {
     EXPECT_EQ(buf.getSize(), 2);
 
     EXPECT_EQ(buf.push(400), 0);
-    EXPECT_EQ(buf.push(500), -1);
+    EXPECT_EQ(buf.push(500), 1);
 
     EXPECT_EQ(buf.getSize(), 3);
     EXPECT_EQ(*buf.pop(), 500);
@@ -154,8 +154,8 @@ TEST(CircularBufferTest, PushReturnCodes) {
     CircularBuffer<int> buf(2);
     EXPECT_EQ(buf.push(9),  0);
     EXPECT_EQ(buf.push(8),  0);
-    EXPECT_EQ(buf.push(7), -1);
-    EXPECT_EQ(buf.push(6), -1); 
+    EXPECT_EQ(buf.push(7),  1);
+    EXPECT_EQ(buf.push(6),  1); 
 }
 
 TEST(CircularBufferTest, PopPeekEmpty) {

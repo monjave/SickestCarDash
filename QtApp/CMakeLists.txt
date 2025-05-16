@@ -1,7 +1,3 @@
-
-cmake_minimum_required(VERSION 3.21.1)
-project(CarDashboardApp LANGUAGES CXX)
-
 # # ================== Configurable Options ==================
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
@@ -12,6 +8,7 @@ option(BUILD_TESTING "Build unit tests" ON)
 add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
 )
 
@@ -85,8 +82,9 @@ if(BUILD_TESTING)
     FetchContent_MakeAvailable(googletest)
 
     add_executable(unit_tests
-        test/testCircularBuffer.cc
-        test/testCircularBufferManager.cc
+        test/TestCircularBuffer.cc
+        test/TestCircularBufferManager.cc
+        test/TestVehicleParser.cc
     )
 
     target_link_libraries(unit_tests
