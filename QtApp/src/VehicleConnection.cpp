@@ -52,7 +52,7 @@ void VehicleConnection::handleReadyRead() {
     while ((endIndex = buffer.indexOf('\r')) != -1) {
         QByteArray responseBytes = buffer.left(endIndex);
         buffer.remove(0, endIndex + 1);  // Remove the processed response
-        QString hexString = responseBytes.toHex('').toUpper();
+        QString hexString = responseBytes.toHex(' ').toUpper();
 
         emit rawHexReceived(hexString);
     }

@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(QtApp VERSION 0.1 LANGUAGES CXX)
 
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort)
+qt_standard_project_setup(REQUIRES 6.8)
+
 # # ================== Configurable Options ==================
 option(BUILD_GUI "Build the Qt GUI application" ON)
 # option(BUILD_TESTING "Build unit tests" ON)
@@ -11,7 +14,15 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/include/CircularBuffer.h
     ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
+    ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp 
 )
+
+# Link QtCore to core lib
+target_link_libraries(core PUBLIC Qt6::Core Qt6::SerialPort)
+
+# Enable AUTOMOC for QObject macros
+set_target_properties(core PROPERTIES AUTOMOC ON)
 
 target_include_directories(core
   PUBLIC
@@ -21,8 +32,6 @@ target_include_directories(core
 
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
-    find_package(Qt6 REQUIRED COMPONENTS Quick)
-    qt_standard_project_setup(REQUIRES 6.8)
 
     include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
     include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
