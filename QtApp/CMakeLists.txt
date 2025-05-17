@@ -1,6 +1,9 @@
 
-cmake_minimum_required(VERSION 3.21.1)
-project(CarDashboardApp LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16)
+project(QtApp VERSION 0.1 LANGUAGES CXX)
+
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
+qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
@@ -41,25 +44,41 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
 
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
-find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Widgets Qml Quick QuickTimeline ShaderTools SerialPort)
-qt_standard_project_setup()
 
-#qt_add_executable(${CMAKE_PROJECT_NAME})
-qt_add_executable(CarDashboardApp
-  App/main.cpp
-  include/CircularBuffer.h
-  include/CircularBufferManager.h
-  include/CircularBufferManagerWrapper.h
-  src/CircularBuffer.cc
-  src/CircularBufferManager.cc
-  src/CircularBufferManagerWrapper.cpp
+
+    include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+    include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
+
+    qt_add_executable(CarDashboardApp
+        App/main.cpp
+        include/CircularBuffer.h
+        include/CircularBufferManager.h
+        include/CircularBufferManagerWrapper.h
+        src/CircularBuffer.cc
+        src/CircularBufferManager.cc
+        src/CircularBufferManagerWrapper.cpp
+        include/VehicleConnection.h
+        src/VehicleConnection.cpp
+    )
+
+    target_link_libraries(CarDashboardApp
+  PRIVATE
+    Qt6::Core
+    Qt6::Quick
+    Qt6::Qml
+    Qt6::Widgets
+    Qt6::SerialPort
+    core
 )
 
-qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
-    PREFIX "/"
-    FILES
-        qtquickcontrols2.conf)
 
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
+    qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
+        PREFIX "/"
+        FILES
+            assets/qtquickcontrols2.conf
+    )
+endif()
 include(qds)
 
 if (BUILD_QDS_COMPONENTS)
