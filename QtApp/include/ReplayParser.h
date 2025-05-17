@@ -22,7 +22,7 @@ class ReplayParser {
   ReplayParser(std::string filePath);
   void printValueToFile(std::string desiredFileLocation);
   std::map<std::string, std::vector<double>>& getData();
-  void publish(CircularBufferManager<int> buffMan);
+  void publishToCircularBuffer(CircularBufferManager<int> buffMan);
   void replayStart();
 };
 

@@ -23,7 +23,6 @@ ReplayParser<T>::ReplayParser(std::string filePath) {
   } else {
     loadSave(directoryPath);
   }
-  printValueToFile("../../build/bin/replayDataOutput.txt.idea");
 }
 
 /**
@@ -119,9 +118,6 @@ void ReplayParser<T>::printValueToFile(std::string desiredFileLocation) {
     file << std::left << std::setw(10) << "Column:" << std::setw(20)
          << column.first << "Rows: " << std::setw(10) << column.second.size()<< "Values: "
          << std::endl;
-    for(const auto& num : column.second){
-      file << num << ", " << std::endl;
-    }
   }
   file.close();
 }
@@ -133,7 +129,7 @@ void ReplayParser<T>::printValueToFile(std::string desiredFileLocation) {
  * @param buffMan
  */
 template <class T>
-void ReplayParser<T>::publish(CircularBufferManager<int> buffMan) {
+void ReplayParser<T>::publishToCircularBuffer(CircularBufferManager<int> buffMan) {
   std::vector<int> input = {1, 2, 3, 4, 5};
   buffMan.publish(input);
 }
@@ -147,7 +143,7 @@ void ReplayParser<T>::publish(CircularBufferManager<int> buffMan) {
 template <class T>
 void ReplayParser<T>::replayStart() {
   CircularBufferManager buffMan = CircularBufferManager<int>(5);
-  publish(buffMan);
+  publishToCircularBuffer(buffMan);
   // while replay is unfinished AND stopEarly flag is false:
   // publish() the most recent data to CircularBufferManager
   // stop when file is empty OR stopEarly flag is true
