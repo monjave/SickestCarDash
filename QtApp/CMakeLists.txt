@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(QtApp VERSION 0.1 LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
 qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
@@ -53,8 +53,8 @@ if(BUILD_GUI)
     include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
     include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
 
-    qt_add_executable(appQtApp
-        main.cpp
+    qt_add_executable(CarDashboardApp
+        App/main.cpp
         include/CircularBuffer.h
         include/CircularBufferManager.h
         include/CircularBufferManagerWrapper.h
@@ -65,23 +65,24 @@ if(BUILD_GUI)
         src/VehicleConnection.cpp
     )
 
-
-#qt_add_executable(${CMAKE_PROJECT_NAME})
-qt_add_executable(CarDashboardApp
-  App/main.cpp
-  include/CircularBuffer.h
-  include/CircularBufferManager.h
-  include/CircularBufferManagerWrapper.h
-  src/CircularBuffer.cc
-  src/CircularBufferManager.cc
-  src/CircularBufferManagerWrapper.cpp
+    target_link_libraries(CarDashboardApp
+  PRIVATE
+    Qt6::Core
+    Qt6::Quick
+    Qt6::Qml
+    Qt6::Widgets
+    Qt6::SerialPort
+    core
 )
 
-qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
-    PREFIX "/"
-    FILES
-        qtquickcontrols2.conf)
 
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
+    qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
+        PREFIX "/"
+        FILES
+            assets/qtquickcontrols2.conf
+    )
+endif()
 include(qds)
 
 if (BUILD_QDS_COMPONENTS)
