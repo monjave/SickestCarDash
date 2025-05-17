@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(SICKEST_CAR_DASH LANGUAGES CXX)
+project(CarDashboardApp LANGUAGES CXX)
 
 # Set global C++ standard
 set(CMAKE_CXX_STANDARD 17)
