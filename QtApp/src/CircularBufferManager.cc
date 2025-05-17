@@ -1,4 +1,4 @@
-#include "../include/CircularBufferManager.h"
+#include "CircularBufferManager.h"
 
 /// @brief Constructs a CircularBufferManager object to hold a number of CircularBuffer objects.
 /// @tparam T type of elements stored in the buffer.
