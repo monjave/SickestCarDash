@@ -77,37 +77,27 @@ qt_add_executable(CarDashboardApp
   src/CircularBufferManagerWrapper.cpp
 )
 
-    qt_add_qml_module(appQtApp
-        URI QtApp
-        VERSION 1.0
-        QML_FILES
-            Main.qml
-        RESOURCES
-            "assets/pointers/Needle.png"
-            "assets/dials/DialBg.png"
-            "assets/dials/RPMOld.png"
-            "assets/dials/SpeedometerOld.png"
-            "assets/pointers/NeedleOld.png"
-            "assets/images/bgArt.png"
-            "assets/images/Hotwheel.png"
-    )
+qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
+    PREFIX "/"
+    FILES
+        qtquickcontrols2.conf)
 
-    set_target_properties(appQtApp PROPERTIES
-        MACOSX_BUNDLE TRUE
-        WIN32_EXECUTABLE TRUE
-        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    )
+include(qds)
 
-    target_link_libraries(appQtApp
-        PRIVATE Qt6::Quick core
-    )
+if (BUILD_QDS_COMPONENTS)
+    include(qmlcomponents OPTIONAL)
+endif()
 
-    install(TARGETS appQtApp
-        BUNDLE DESTINATION .
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
+if (LINK_INSIGHT)
+    include(insight OPTIONAL)
+endif ()
+
+include(GNUInstallDirs)
+install(TARGETS ${CMAKE_PROJECT_NAME}
+  BUNDLE DESTINATION .
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 endif()
 
 # ================== Unit Tests (Optional) ==================
