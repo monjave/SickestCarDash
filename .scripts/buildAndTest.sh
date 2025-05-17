@@ -1,7 +1,5 @@
 set -e  # Exit on any command failure
 
-rm -rf build
-
 echo "[1/3] Configuring project with BUILD_GUI=OFF..."
 cmake -B build -S . -DBUILD_GUI=OFF
 
