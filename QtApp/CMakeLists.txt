@@ -1,9 +1,9 @@
 
-cmake_minimum_required(VERSION 3.16)
-project(QtApp VERSION 0.1 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.21.1)
+project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
-qt_standard_project_setup(REQUIRES 6.4.2)
+#qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
@@ -45,7 +45,6 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
 
-
     include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
     include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
 
@@ -70,7 +69,6 @@ if(BUILD_GUI)
     Qt6::SerialPort
     core
 )
-
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
     qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
