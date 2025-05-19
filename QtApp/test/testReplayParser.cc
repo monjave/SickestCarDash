@@ -72,6 +72,14 @@ TEST(ReplayParserTest, HandlesMalformedCSV) {
   EXPECT_ANY_THROW(ReplayParser<double> newReplay(filePath));
 }
 
-// TEST(ReplayParserTest, ) {}
+TEST(ReplayParserTest, GetDataToFile) {
+  std::string filePath = "../../QtApp/test/build/Debug";
+  std::string fileName = filePath + "/testDataa.csv";
+  ReplayParser<std::string> newReplay("../../QtApp/replay/data/nurburgring_24h/data");
+  newReplay.printValueToFile(fileName);
+  std::ofstream file(fileName);
+  ASSERT_TRUE(file.is_open());
+  file.close();
+}
 
 // test for if file location is invalid

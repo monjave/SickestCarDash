@@ -215,3 +215,28 @@ void VehicleParser::readCSV(std::fstream& file) {
 std::map<std::string, std::vector<double>>& VehicleParser::getData() {
   return _replayData;
 }
+
+/**
+ * @brief Prints all of the available pid table names and the number of 
+ * values in their corresponding vectors. If the desiredFileLocation is not already 
+ * a CSV file, this program will create it.
+ * 
+ * @param desiredFileLocation 
+ */
+void VehicleParser::printValueToFile(std::string desiredFileLocation) {
+  std::string outputFilePath = desiredFileLocation;
+
+  std::ofstream file(outputFilePath);
+  if (!file.is_open()) {
+    std::cerr << "Failed to create or open file: " << outputFilePath
+              << std::endl;
+    return;
+  }
+
+  for (const auto& column : _replayData) {
+    file << std::left << std::setw(10) << "Column:" << std::setw(20)
+         << column.first << "Rows: " << std::setw(10) << column.second.size()<< "Values: "
+         << std::endl;
+  }
+  file.close();
+}
