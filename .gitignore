@@ -6,7 +6,6 @@ build
 QtApp-Debug
 CMakeLists.txt.user
 App
-CarDashboardContent
 Dependencies
 Generated
 cmake

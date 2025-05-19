@@ -4,7 +4,7 @@ echo "[0/3] Removing previous build files"
 rm -rf build
 
 echo "[1/3] Configuring project with BUILD_GUI=OFF..."
-cmake -B build -S .
+cmake -B build -S . -G Ninja
 
 echo "[2/3] Building project..."
 cmake --build build
