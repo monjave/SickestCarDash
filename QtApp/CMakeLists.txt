@@ -1,15 +1,15 @@
 
-cmake_minimum_required(VERSION 3.21.1)
+# cmake_minimum_required(VERSION 3.21.1)
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
-#qt_standard_project_setup(REQUIRES 6.4.2)
+qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 option(BUILD_GUI "Build the Qt GUI application" ON)
-# option(BUILD_TESTING "Build unit tests" ON)
+option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
@@ -17,10 +17,14 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBuffer.h
-    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
-    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManagerWrapper.h
+
 )
+
+# Link QtCore to core lib
+target_link_libraries(core PUBLIC Qt6::Core Qt6::SerialPort)
+
+# Enable AUTOMOC for QObject macros
+set_target_properties(core PROPERTIES AUTOMOC ON)
 
 target_include_directories(core
   PUBLIC
@@ -43,6 +47,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
 
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
+
 
     include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
     include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
@@ -68,6 +73,7 @@ if(BUILD_GUI)
     Qt6::SerialPort
     core
 )
+
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
     qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
@@ -106,8 +112,9 @@ if(BUILD_TESTING)
     FetchContent_MakeAvailable(googletest)
 
     add_executable(unit_tests
-        test/testCircularBuffer.cc
-        test/testCircularBufferManager.cc
+        test/TestCircularBuffer.cc
+        test/TestCircularBufferManager.cc
+        test/TestVehicleParser.cc
     )
 
     target_link_libraries(unit_tests
