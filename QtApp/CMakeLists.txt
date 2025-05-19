@@ -15,7 +15,6 @@ option(BUILD_TESTING "Build unit tests" ON)
 add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
-    ${CMAKE_CURRENT_LIST_DIR}/src/ReplayParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
 
