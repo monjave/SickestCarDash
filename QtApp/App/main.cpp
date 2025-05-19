@@ -14,6 +14,14 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    /*qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed"); */
 
     /*
     CircularBufferManagerWrapper data;
