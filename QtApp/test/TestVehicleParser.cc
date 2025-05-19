@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 #include "VehicleParser.h"
-#include "ReplayParser.h" // ! delete before pushing to main
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -151,6 +150,9 @@ TEST(VehicleParser, AllowsEmptyCSV) {
   VehicleParser newReplay(filePath);
   auto& data = newReplay.getData();
 
+  std::fstream file(fileName);
+  ASSERT_TRUE(file.is_open());
+  file.close();
   ASSERT_EQ(data.size(), 0);
 }
 
@@ -181,14 +183,4 @@ TEST(VehicleParser, HandlesMalformedCSV) {
       "Time,Speed,Distance\n9.9,not_right,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6."
       "9,6.9,6.9\nincorrect,4.20,4.20");
   EXPECT_ANY_THROW(VehicleParser newReplay(filePath));
-}
-
-TEST(ReplayParserTest, GetDataMakesFile) {
-  std::string filePath = "../../QtApp/test/build/Debug";
-  std::string fileName = filePath + "/testData.csv";
-  ReplayParser<std::string> newReplay("../../QtApp/replay/data/spa/data");
-  newReplay.printValueToFile(fileName);
-  std::fstream file(fileName);
-  ASSERT_TRUE(file.is_open());
-  file.close();
 }
