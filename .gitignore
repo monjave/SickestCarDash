@@ -3,3 +3,9 @@ build
 .vscode
 .qtcreator
 *.user.2f37e0a
+QtApp-Debug
+CMakeLists.txt.user
+App
+Dependencies
+Generated
+cmake

@@ -4,6 +4,7 @@
 
 #include <QObject>
 #include <QSerialPort>
+#include <QDebug>
 #include <QTimer>
 
 class VehicleConnection : public QObject {
