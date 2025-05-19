@@ -1,5 +1,11 @@
 #include "gtest/gtest.h"
 #include "VehicleParser.h"
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <vector>
+#include <cstdio>
+#include <stdio.h>
 
 TEST(VehicleParser, ExtractData) {
     VehicleParser parser;
@@ -110,4 +116,71 @@ TEST(VehicleParser, PublishToMiddleware) {
 
     std::string badKey = "jfdkl;asjfld";
     EXPECT_EQ(parser.PublishToMiddleware(buffMan, testVal, badKey), 1);
+}
+
+/*
+ * relative location of realtime TRUE test files to these tests:
+ *  ../../QtApp/replay/data/nurburgring_24h/data
+ */
+
+/**
+ * @brief Create a Test CSV object
+ * 
+ * @param path 
+ * @param contents 
+ */
+void createTestCSV(const std::string& path, const std::string& contents) {
+  std::ofstream file(path, std::ios::out);
+  if (!file.is_open()) {
+    std::cerr << "File failed to open at " << path << "\n";
+    return;
+  }
+  file << contents;
+  file.close();
+}
+
+TEST(VehicleParser, HandlesMissingFile) {
+  EXPECT_ANY_THROW(VehicleParser newReplay("bad_path.csv"));
+}
+
+// TEST(VehicleParser, AllowsEmptyCSV) {
+//   std::string filePath = "../../QtApp/test/build/Debug";
+//   std::string fileName = filePath + "/empty.csv";
+//   createTestCSV(fileName, "");
+//   VehicleParser newReplay(filePath);
+//   auto& data = newReplay.getData();
+
+//   std::fstream file(fileName);
+//   ASSERT_TRUE(file.is_open());
+//   file.close();
+//   ASSERT_EQ(data.size(), 0);
+// }
+
+// TEST(VehicleParser, LoadsValidCSV) {
+//   std::string filePath = "../../QtApp/test/build/Debug";
+//   std::string fileName = filePath + "/valid.csv";
+//   createTestCSV(fileName,
+//                 "Time,Speed,Distance\n9.9,0.0,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6."
+//                 "9,6.9,6.9\n4.20,4.20,4.20");
+
+//   std::ifstream checkFile(filePath);
+//   VehicleParser newReplay(filePath);
+
+//   auto& data = newReplay.getData();
+//   ASSERT_TRUE(data.count("Time") == 1);
+//   ASSERT_TRUE(data.count("Speed") == 1);
+//   ASSERT_TRUE(data.count("Distance") == 1);
+//   ASSERT_EQ(data["Time"].size(), 5);
+//   ASSERT_EQ(data["Speed"].size(), 5);
+//   ASSERT_EQ(data["Distance"].size(), 5);
+// }
+
+TEST(VehicleParser, HandlesMalformedCSV) {
+  std::string filePath = "../../QtApp/test/build/Debug";
+  std::string fileName = filePath + "/malformed.csv";
+  createTestCSV(
+      fileName,
+      "Time,Speed,Distance\n9.9,not_right,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6."
+      "9,6.9,6.9\nincorrect,4.20,4.20");
+  EXPECT_ANY_THROW(VehicleParser newReplay(filePath));
 }
