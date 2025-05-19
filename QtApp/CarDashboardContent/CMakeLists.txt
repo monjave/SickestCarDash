@@ -12,11 +12,11 @@ qt6_add_qml_module(CarDashboardContent
         "Screen01.ui.qml"
         "App.qml"
     RESOURCES
-        "images/bgArtWIP.png"
         "images/logo.png"
+        "images/bgArtWIP.png"
         "images/logoBg.png"
-        "dials/DialBg.png"
         "pointers/Needle.png"
+        "dials/DialBg.png"
 )
 
 

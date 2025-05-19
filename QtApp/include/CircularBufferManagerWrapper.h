@@ -7,13 +7,13 @@
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
     Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    /*Q_PROPERTY(int rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
+    Q_PROPERTY(int rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
     Q_PROPERTY(int fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
+    Q_PROPERTY(int temp READ temp WRITE setTemp NOTIFY tempChanged)
+    Q_PROPERTY(int coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
+    Q_PROPERTY(int clock READ clock WRITE setClock NOTIFY clockChanged)
+    Q_PROPERTY(int enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
+    /*Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
     Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged) */
 
 public:
@@ -27,31 +27,31 @@ public:
         return m_speed;
     }
 
+    int rpm() const{
+        return m_rpm;
+    }
+
+    int fuel() const{
+        return m_fuel;
+    }
+
+    int temp() const{
+        return m_temp;
+    }
+
+    int coolanttemp() const{
+        return m_coolanttemp;
+    }
+
+    int clock() const{
+        return m_clock;
+    }
+
+    int enginetemp() const{
+        return m_enginetemp;
+    }
+
     /*int speed() const{
-        return m_speed;
-    }
-
-    int speed() const{
-        return m_speed;
-    }
-
-    int speed() const{
-        return m_speed;
-    }
-
-    int speed() const{
-        return m_speed;
-    }
-
-    int speed() const{
-        return m_speed;
-    }
-
-    int speed() const{
-        return m_speed;
-    }
-
-    int speed() const{
         return m_speed;
     }
 
@@ -63,6 +63,48 @@ public:
         if (newSpeed != m_speed) {
             m_speed = newSpeed;
             emit speedChanged();
+        }
+    };
+
+    void setRPM(int newRPM) {
+        if (newRPM != m_rpm) {
+            m_rpm = newRPM;
+            emit rpmChanged();
+        }
+    };
+
+    void setFuel(int newFuel) {
+        if (newFuel != m_fuel) {
+            m_fuel = newFuel;
+            emit fuelChanged();
+        }
+    };
+
+    void setTemp(int newTemp) {
+        if (newTemp != m_temp) {
+            m_temp = newTemp;
+            emit tempChanged();
+        }
+    };
+
+    void setCoolanttemp(int newCoolanttemp) {
+        if (newCoolanttemp != m_coolanttemp) {
+            m_coolanttemp = newCoolanttemp;
+            emit coolanttempChanged();
+        }
+    };
+
+    void setClock(int newClock) {
+        if (newClock != m_clock) {
+            m_clock = newClock;
+            emit clockChanged();
+        }
+    };
+
+    void setEnginetemp(int newEnginetemp) {
+        if (newEnginetemp != m_enginetemp) {
+            m_enginetemp = newEnginetemp;
+            emit enginetempChanged();
         }
     };
 
@@ -78,59 +120,17 @@ public:
             m_speed = newSpeed;
             emit speedChanged();
         }
-    };
-
-    void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
-        }
-    };
-
-    void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
-        }
-    };
-
-    void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
-        }
-    };
-
-    void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
-        }
-    };
-
-    void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
-        }
-    };
-
-    void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
-        }
     }; */
 
 signals:
     void speedChanged();
+    void rpmChanged();
+    void fuelChanged();
+    void tempChanged();
+    void coolanttempChanged();
+    void clockChanged();
+    void enginetempChanged();
     /*void speedChanged();
-    void speedChanged();
-    void speedChanged();
-    void speedChanged();
-    void speedChanged();
-    void speedChanged();
-    void speedChanged();
     void speedChanged(); */
 
 private:
