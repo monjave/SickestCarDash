@@ -1,6 +1,6 @@
 import QtQuick
 import CarDashboard
-import CircularBuffer.Speed
+import CircularBuffer.Data
 
 Window {
     width: mainScreen.width

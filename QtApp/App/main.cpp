@@ -13,7 +13,15 @@ int main(int argc, char *argv[])
     set_qt_environment();
     QApplication app(argc, argv);
 
-    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataRPM");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataFuel");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataTemp");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataCoolanttemp");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataClock");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataEnginetemp");
+    /*qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed"); */
 
     /*
     CircularBufferManagerWrapper data;
