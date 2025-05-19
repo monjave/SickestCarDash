@@ -1,3 +1,5 @@
+<img src="./QtApp/CarDashboardContent/images/logo.png" alt="Project Logo" width="720"/>
+
 <h1>SICKEST CAR DASH - Dom, Josh, Mo, Xavier, Edward</h1>
 
 SICKEST CAR DASH (SCD) is a vehicle dashboard project aimed at the daily driver, race car driver, and the sim racer. 
@@ -6,23 +8,23 @@ For actual vehicles, we'll be taking advantage of the OBDII system that is stand
 
 Note: General Motors used a proprietary protocol called SAE J1850 VPW for many of their vehicles manufactured before 2008. Since our target vehicle (a 2004 Chevy Blazer) falls into this category, we are using J1850 VPW instead of the more modern CAN bus protocol. This choice affects how we communicate with the ECU and which commands/protocol settings we use with the ELM327 adapter.
 
-<h2>Feature List</h2>
-- Displays for:
-<ul>
-<li>Speed</li>
-<li>RPM</li>
-<li>Fluid Temperatures</li>
-<li>Warning Lights</li>
-</ul>
-- Customizable Front End with profile support
-<ul>
-<li>Daily Driving</li>
-<li>Racing</li>
-</ul>
-- Telemetry<br><br>
-- Stretch Goals
+## Feature List
 
-- GPS Integration for Speed Warnings and Integrated Map
-- Driver Awareness - If user is detected falling asleep or distracted, tase them
-- Colorblind Accessibility
+- Displays for:
+  - Speed
+  - RPM
+  - Fluid Temperatures
+  - Warning Lights
+  - Fuel Level
+  - Throttle Position
+  - Current Gear
+  - Battery Voltage
+- ~~Customizable Front End with profile support~~
+  - Daily Driving
+  - ~~Racing~~
+- Stretch Goals
+  - Telemetry
+  - GPS Integration for Speed Warnings and Integrated Map
+  - Driver Awareness - If user is detected falling asleep or distracted, tase them
+  - Colorblind Accessibility
 

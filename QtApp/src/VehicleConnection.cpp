@@ -1,6 +1,9 @@
 // VehicleConnection.cpp
 #include "VehicleConnection.h"
-#include <QDebug>
+
+/* -- Change log --
+    - Moved include for QDebug over to the header file
+*/
 
 VehicleConnection::VehicleConnection(QObject *parent)
     : QObject(parent), serial(new QSerialPort(this)), cmdIndex(0) {
