@@ -9,8 +9,13 @@
 #include <vector>
 #include <filesystem>
 #include <sstream>
+#include <QTimer>
+#include <QObject>
+#include <QDebug>
 
-class VehicleParser {
+class VehicleParser : public QObject{
+    Q_OBJECT
+
 private:
     // Map command names to PID strings and their assigned buffer in the BufferManager.
     std::unordered_map<std::string, std::pair<std::string, int>> _pidTable;
@@ -25,13 +30,14 @@ private:
     
 public:
     VehicleParser();
-    VehicleParser(std::string filePath);
+    VehicleParser(std::string filePath, QObject *parent = nullptr);
     int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data, std::string& pidTableKey);
     std::optional<std::string> Request(const std::string& request); 
     std::optional<int> ExtractData(const std::string& hexString);
     std::pair<std::string, int> getPIDTable(const std::string& key);
     void printValueToFile(std::string desiredFileLocation);
     std::map<std::string, std::vector<double>>& getData();
+    void startReplay(QObject *parent = nullptr);
     // std::pair<std::string, int> accessPIDTable(const std::string key);
 };
 

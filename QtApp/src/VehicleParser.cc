@@ -212,6 +212,10 @@ void VehicleParser::readCSV(std::fstream& file) {
   file.close();
 }
 
+void VehicleParser::startReplay(QObject *parent = nullptr) {
+  
+}
+
 std::map<std::string, std::vector<double>>& VehicleParser::getData() {
   return _replayData;
 }
