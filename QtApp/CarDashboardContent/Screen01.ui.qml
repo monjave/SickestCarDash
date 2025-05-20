@@ -11,8 +11,6 @@ import QtQuick.Controls
 import CarDashboard
 import QtQuick.Timeline 1.0
 
-//Middleware Integration Values
-//import CircularBuffer.Data
 Item {
     id: cluster
     width: Constants.width
@@ -66,6 +64,7 @@ Item {
                 width: 400
                 height: 400
                 source: "pointers/Needle.png"
+                rotation: speedValue.speed
                 fillMode: Image.PreserveAspectFit
             }
 
@@ -75,6 +74,7 @@ Item {
                 y: 95
                 width: 250
                 height: 250
+                visible: false
                 text: qsTr("Text")
                 font.pixelSize: 12
             }
@@ -96,6 +96,7 @@ Item {
                 width: 400
                 height: 400
                 source: "pointers/Needle.png"
+                rotation: rpmValue.rpm
                 fillMode: Image.PreserveAspectFit
             }
 
