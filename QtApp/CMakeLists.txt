@@ -16,7 +16,10 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
-    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
+
+
+    ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
 )
 
 # Link QtCore to core lib
