@@ -9,37 +9,37 @@ Window {
     visible: true
     title: "CarDashboard"
 
-    //visibility: Window.FullScreen
-
     property int speedVar: speedToAngle(speedValue.speed)
     property int rpmVar: rpmToAngle(rpmValue.rpm)
-    property int fuelVar: fuelToAngle(fuelValue.fuel)
-    property int tempVar: tempToAngle(tempValue.temp)
-    property int oilTempVar: oilTempToAngle(oilTempValue.oiltemp)
-
-    property bool seatbeltBool: speedValue.seatbelt
-    property bool highlightsBool: speedValue.highlights
-    property bool absBool: speedValue.abs
-    property bool enginecheckBool: speedValue.enginecheck
-    property bool parkingBool: speedValue.parking
-
-    property int speedNumber: speedValue.speed
-    property int rpmNumber: rpmValue.rpm
-    property int fuelNumber: fuelValue.fuel
-    property int tempNumber: tempValue.temp
-    property int oilTempNumber: oilTempValue.oiltemp
-    property int gearShiftNumber: gearShiftValue.gearshift
-
-    property int time: clockValue.clock
-    property int minutes: 0
-    property int hours: 0
 
     DataSpeed {
         id: speedValue
     }
 
+    function speedToAngle(speed) {
+        const speedMin = 0;
+        const speedMax = 120;
+        const angleMin = 0;
+        const angleMax = 270;
+
+        const angle = angleMin + ((speed - speedMin) / (speedMax - speedMin)) * (angleMax - angleMin);
+
+        return angle;
+    }
+
     DataRPM {
         id: rpmValue
+    }
+
+    function rpmToAngle(rpm) {
+        const rpmMin = 0;
+        const rpmMax = 6000;
+        const angleMin = 0;
+        const angleMax = 270;
+
+        const angle = angleMin + ((rpm - rpmMin) / (rpmMax - rpmMin)) * (angleMax - angleMin);
+
+        return angle;
     }
 
     Screen01 {
