@@ -71,8 +71,8 @@ private:
   [[deprecated("Deletes values from _replayData")]]
   void removeReplayDataFromFront(std::string key);
 
-public:
-  explicit VehicleParser();
+ public:
+  explicit explicit VehicleParser(QObject* parent = nullptr);
   explicit VehicleParser(std::string filePath, QObject* parent = nullptr);
 
   int8_t PublishToMiddleware(CircularBufferManager& BuffMan, int& data,
