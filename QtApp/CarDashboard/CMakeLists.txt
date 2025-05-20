@@ -17,7 +17,6 @@ qt6_add_qml_module(CarDashboard
         "Constants.qml"
         "EventListModel.qml"
         "Constants.qml"
-        "Constants.qml"
         "EventListSimulator.qml"
 )
 
