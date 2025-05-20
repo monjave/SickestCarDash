@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdio>
 #include <stdio.h>
+#include <QObject>
 
 TEST(VehicleParser, ExtractData) {
     VehicleParser parser;

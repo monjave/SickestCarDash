@@ -1,7 +1,8 @@
 #include "VehicleParser.h"
 
 // pidTable values come from https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_03
-VehicleParser::VehicleParser() {
+VehicleParser::VehicleParser(QObject *parent) 
+    : QObject(parent) {
     _pidTable = {
         // **** NOT IN BUFFER ****
         {"RESET"     , {"ATZ", -1}},

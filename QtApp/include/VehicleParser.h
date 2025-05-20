@@ -9,8 +9,11 @@
 #include <vector>
 #include <filesystem>
 #include <sstream>
+#include <QObject>
 
-class VehicleParser {
+class VehicleParser : public QObject {
+    Q_OBJECT
+
 private:
     // Map command names to PID strings and their assigned buffer in the BufferManager.
     std::unordered_map<std::string, std::pair<std::string, int>> _pidTable;
@@ -24,7 +27,7 @@ private:
     void initOBDConnection();
     
 public:
-    VehicleParser();
+    explicit VehicleParser(QObject* parent = nullptr);
     VehicleParser(std::string filePath);
     int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data, std::string& pidTableKey);
     std::optional<std::string> Request(const std::string& request); 
@@ -33,6 +36,10 @@ public:
     void printValueToFile(std::string desiredFileLocation);
     std::map<std::string, std::vector<double>>& getData();
     // std::pair<std::string, int> accessPIDTable(const std::string key);
+signals:
+
+private slots:
+
 };
 
 #endif
