@@ -282,7 +282,7 @@ private slots:
         else m_speed++;
 
         if (m_rpm >= 270) m_rpm = 0;
-        else m_rpm++;
+        else m_rpm+=3;
 
         emit speedChanged();
         emit rpmChanged();

@@ -88,6 +88,12 @@ Item {
                 source: "pointers/Needle.png"
                 rotation: speedValue.speed
                 fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
             }
 
             Text {
@@ -120,6 +126,12 @@ Item {
                 source: "pointers/Needle.png"
                 rotation: rpmValue.rpm
                 fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
             }
 
             Text {
