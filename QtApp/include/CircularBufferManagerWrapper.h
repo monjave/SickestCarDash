@@ -18,11 +18,11 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged) */
 
 public:
-    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(160),
-    m_rpm(75), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {
+    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
+    m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {
         QTimer *timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
-        timer->start(250);
+        timer->start(1500);
 
 
     }
@@ -127,7 +127,7 @@ public:
             m_speed = newSpeed;
             emit speedChanged();
         }
-    }; */
+    };*/
 
 signals:
     void speedChanged();
@@ -138,15 +138,15 @@ signals:
     void clockChanged();
     void enginetempChanged();
     /*void speedChanged();
-    void speedChanged(); */
+    void speedChanged();*/
 
 private slots:
     void increment() {
-        if (m_speed >= 270) m_speed = 0;
-        else m_speed++;
+        if (m_speed >= 120) m_speed = 0;
+        else m_speed += 10;
 
-        if (m_rpm >= 270) m_rpm = 0;
-        else m_rpm+=3;
+        if (m_rpm >= 6000) m_rpm = 0;
+        else m_rpm += 1000;
 
         emit speedChanged();
         emit rpmChanged();

@@ -64,7 +64,7 @@ Item {
                 width: 400
                 height: 400
                 source: "pointers/Needle.png"
-                rotation: speedValue.speed
+                rotation: speedVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
                     SpringAnimation {
@@ -102,7 +102,7 @@ Item {
                 width: 400
                 height: 400
                 source: "pointers/Needle.png"
-                rotation: rpmValue.rpm
+                rotation: rpmVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
                     SpringAnimation {
