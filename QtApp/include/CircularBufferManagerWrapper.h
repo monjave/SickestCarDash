@@ -25,11 +25,11 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(bool parking READ parking WRITE setParking NOTIFY parkingChanged)
 
 public:
-    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(160),
-    m_rpm(75), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {
+    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
+    m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {
         QTimer *timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
-        timer->start(250);
+        timer->start(1500);
 
 
     }
@@ -189,21 +189,7 @@ public:
             m_parking = newParking;
             emit parkingChanged();
         }
-    };
-
-    Q_INVOKABLE void togglePaused() {
-        if (timer->isActive()) {
-            timer->stop();
-        } else {
-        timer->start(1500);
-        }
-
-        if (timerIcons->isActive()) {
-            timerIcons->stop();
-        } else {
-            timerIcons->start(500);
-        }
-    };
+    };*/
 
 signals:
     void speedChanged();
@@ -213,76 +199,16 @@ signals:
     void coolanttempChanged();
     void clockChanged();
     void enginetempChanged();
-    void oilTempChanged();
-
-    void gearshiftChanged();
-
-    void seatbeltChanged();
-    void highlightsChanged();
-    void absChanged();
-    void enginecheckChanged();
-    void parkingChanged();
-
-    void togglePausedChanged(bool paused);
+    /*void speedChanged();
+    void speedChanged();*/
 
 private slots:
     void increment() {
-        if (m_speed >= 140) m_speed = 0;
+        if (m_speed >= 120) m_speed = 0;
         else m_speed += 10;
 
-        if (m_rpm >= 7000) m_rpm = 0;
+        if (m_rpm >= 6000) m_rpm = 0;
         else m_rpm += 1000;
-
-        if (m_fuel >= 100) m_fuel = 0;
-        else m_fuel += 10;
-
-        if (m_temp >= 260) m_temp = 100;
-        else m_temp += 40;
-
-        if (m_oiltemp >= 80) m_oiltemp = 0;
-        else m_oiltemp += 20;
-
-        if (clock() >= 19999) {
-            setClock(10000);
-        } else {
-        setClock(m_clock + 1);
-        }
-
-        m_seatbelt = !m_seatbelt;
-        m_highlights = !m_highlights;
-        m_abs = !m_abs;
-        m_enginecheck = !m_enginecheck;
-        m_parking = !m_parking;
-
-        emit speedChanged();
-        emit rpmChanged();
-        emit fuelChanged();
-        emit tempChanged();
-        emit oilTempChanged();
-
-        emit seatbeltChanged();
-        emit highlightsChanged();
-        emit absChanged();
-        emit enginecheckChanged();
-        emit parkingChanged();
-    }
-
-    void geartime() {
-        if (m_gearshift >= 7) {
-            m_gearshift = 0;
-        } else {
-        m_gearshift++;
-        }
-        emit gearshiftChanged();
-    }
-
-private slots:
-    void increment() {
-        if (m_speed >= 270) m_speed = 0;
-        else m_speed++;
-
-        if (m_rpm >= 270) m_rpm = 0;
-        else m_rpm+=3;
 
         emit speedChanged();
         emit rpmChanged();
