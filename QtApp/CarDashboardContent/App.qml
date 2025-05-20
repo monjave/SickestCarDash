@@ -9,12 +9,37 @@ Window {
     visible: true
     title: "CarDashboard"
 
+    property int speedVar: speedToAngle(speedValue.speed)
+    property int rpmVar: rpmToAngle(rpmValue.rpm)
+
     DataSpeed {
         id: speedValue
     }
 
+    function speedToAngle(speed) {
+        const speedMin = 0;
+        const speedMax = 120;
+        const angleMin = 0;
+        const angleMax = 270;
+
+        const angle = angleMin + ((speed - speedMin) / (speedMax - speedMin)) * (angleMax - angleMin);
+
+        return angle;
+    }
+
     DataRPM {
         id: rpmValue
+    }
+
+    function rpmToAngle(rpm) {
+        const rpmMin = 0;
+        const rpmMax = 6000;
+        const angleMin = 0;
+        const angleMax = 270;
+
+        const angle = angleMin + ((rpm - rpmMin) / (rpmMax - rpmMin)) * (angleMax - angleMin);
+
+        return angle;
     }
 
     Screen01 {
