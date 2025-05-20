@@ -40,7 +40,7 @@ class VehicleParser : public QObject {
   void removeReplayDataFromFront(std::string key);
 
  public:
-  explicit VehicleParser();
+  explicit explicit VehicleParser(QObject* parent = nullptr);
   explicit VehicleParser(std::string filePath, QObject* parent = nullptr);
 
   int8_t PublishToMiddleware(CircularBufferManager& BuffMan, int& data,
@@ -55,6 +55,10 @@ class VehicleParser : public QObject {
   std::map<std::string, std::vector<double>>& getData();
   void startReplay(QObject* parent);
   // std::pair<std::string, int> accessPIDTable(const std::string key);
+signals:
+
+private slots:
+
 };
 
 #endif
