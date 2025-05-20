@@ -13,21 +13,25 @@ Window {
         id: speedValue
     }
 
+    DataRPM {
+        id: rpmValue
+    }
+
     Screen01 {
         id: mainScreen 
     }
 
-    /*
-    Text {
+
+    /*Text {
         id: speedDisplay
-        text: parseInt(speedValue)
-        font: 50
+        text: "Massive text"
+        font.pixelSize: speedValue.speed
         x: 1000
         y: 300
         z: 10
         color: "#ffffff"
-    }
-    */
+    }*/
+
 
 }
 

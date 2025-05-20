@@ -17,8 +17,8 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged) */
 
 public:
-    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(100),
-    m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {}
+    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(160),
+    m_rpm(75), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {}
     //CircularBufferManager<int> manager;
     //std::vector<int> data = manager.consumeAll();
     //std::vector<int> data = {speedVal};
