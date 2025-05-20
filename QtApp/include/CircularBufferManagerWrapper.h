@@ -26,7 +26,13 @@ class CircularBufferManagerWrapper : public QObject {
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(160),
-    m_rpm(75), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {}
+    m_rpm(75), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {
+        QTimer *timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
+        timer->start(250);
+
+
+    }
     //CircularBufferManager<int> manager;
     //std::vector<int> data = manager.consumeAll();
     //std::vector<int> data = {speedVal};
@@ -268,6 +274,18 @@ private slots:
         m_gearshift++;
         }
         emit gearshiftChanged();
+    }
+
+private slots:
+    void increment() {
+        if (m_speed >= 270) m_speed = 0;
+        else m_speed++;
+
+        if (m_rpm >= 270) m_rpm = 0;
+        else m_rpm++;
+
+        emit speedChanged();
+        emit rpmChanged();
     }
 
 private:
