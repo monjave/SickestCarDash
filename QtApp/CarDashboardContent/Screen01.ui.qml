@@ -85,41 +85,20 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/NeedleBig.PNG"
-                rotation: speedVar
-                Behavior on rotation {
-                    SpringAnimation {
-                        spring: 1.3
-                        damping: .15
-                    }
-                }
-
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Image {
-                id: speedNumbers
-                x: 20
-                y: 20
-                width: 400
-                height: 400
-                source: "dialNumbers/mphNumbers.PNG"
-                z: -1
+                source: "pointers/Needle.png"
+                rotation: speedValue.speed
                 fillMode: Image.PreserveAspectFit
             }
 
             Text {
                 id: speedNum
-                x: 208
-                y: 304
-                width: 24
-                height: 21
+                x: 95
+                y: 95
+                width: 250
+                height: 250
                 visible: false
-                color: "#ffffff"
-                text: speedNumber
-                font.pixelSize: 28
-                font.styleName: "Bold"
-                font.family: "Times New Roman"
+                text: qsTr("Text")
+                font.pixelSize: 12
             }
         }
 
@@ -138,25 +117,8 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/NeedleBig.PNG"
-                rotation: rpmVar
-                fillMode: Image.PreserveAspectFit
-                Behavior on rotation {
-                    SpringAnimation {
-                        spring: 1.3
-                        damping: .15
-                    }
-                }
-            }
-
-            Image {
-                id: rpmNumbers
-                x: 20
-                y: 20
-                width: 400
-                height: 400
-                source: "dialNumbers/rpmNumbers.PNG"
-                z: -1
+                source: "pointers/Needle.png"
+                rotation: rpmValue.rpm
                 fillMode: Image.PreserveAspectFit
             }
 
