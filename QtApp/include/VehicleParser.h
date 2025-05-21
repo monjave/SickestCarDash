@@ -34,12 +34,15 @@ class VehicleParser : public QObject {
   void loadSave(std::filesystem::path file);
   void readCSV(std::fstream& file);
   void initOBDConnection();
+  void loadPidTable();
 
  public:
   VehicleParser();
   VehicleParser(std::string filePath, QObject* parent = nullptr);
 
   int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data,
+                             std::string& pidTableKey);
+  int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, double& data,
                              std::string& pidTableKey);
   std::optional<std::string> Request(const std::string& request);
   std::optional<int> ExtractData(const std::string& hexString);

@@ -4,24 +4,7 @@
 // pidTable values come from
 // https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_03
 VehicleParser::VehicleParser() {
-  _pidTable = {
-      // **** NOT IN BUFFER ****
-      {"RESET", {"ATZ", -1}},
-      {"ECHOOFF", {"ATE0", -1}},
-      {"NOLINEFEED", {"ATL0", -1}},
-      {"NOSPACES", {"ATS0", -1}},
-      {"AUTOPRTCL", {"ATSP0", -1}},
-      // ***********************
-      {"SPEED", {"010D", 0}},      // Buffer 0
-      {"RPM", {"010C", 1}},        // Buffer 1
-      {"FUEL", {"012F", 2}},       // Buffer 2
-      {"WATERTEMP", {"0105", 3}},  // Buffer 3
-      {"THROTTLE", {"0111", 4}},   // Buffer 4
-      {"OILTEMP", {"015C", 5}},    // Buffer 5
-      {"GEAR", {"01A4", 6}},       // Buffer 6
-      {"BATTVOLTS", {"0142", 7}},  // Buffer 7
-      {"STOREDDTC", {"03", 8}}     // Buffer 8
-  };
+  loadPidTable();
 };
 
 /**
@@ -34,6 +17,7 @@ VehicleParser::VehicleParser() {
  * @param filePath
  */
 VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
+  loadPidTable();
   std::filesystem::path directoryPath = filePath;
 
   if (!exists(directoryPath)) {
@@ -136,6 +120,19 @@ void VehicleParser::initOBDConnection() {
 // Need to validate if BuffMan is a valid CircularBufferManager object, but how?
 int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
                                           int& data, std::string& pidTableKey) {
+  if (_pidTable.find(pidTableKey) == _pidTable.end()) {
+    std::cout << "Key provided has no value in _pidTable.\n";
+    return 1;
+  }
+
+  return BuffMan.publish(data, _pidTable[pidTableKey].second);
+}
+
+/// @brief Publish to the middleware what an OBD query has returned.
+/// @param data
+/// @return Return 0 if successful, return a 1 if there's an issue.
+int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
+                                          double& data, std::string& pidTableKey) {
   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
@@ -269,4 +266,28 @@ void VehicleParser::printValueToFile(std::string desiredFileLocation) {
          << "Values: " << std::endl;
   }
   file.close();
+}
+
+/**
+ * @brief loads all the relevant values into the `_pidTable` class variable
+ */
+void VehicleParser::loadPidTable(){
+  _pidTable = {
+      // **** NOT IN BUFFER ****
+      {"RESET", {"ATZ", -1}},
+      {"ECHOOFF", {"ATE0", -1}},
+      {"NOLINEFEED", {"ATL0", -1}},
+      {"NOSPACES", {"ATS0", -1}},
+      {"AUTOPRTCL", {"ATSP0", -1}},
+      // ***********************
+      {"SPEED", {"010D", 0}},      // Buffer 0
+      {"RPM", {"010C", 1}},        // Buffer 1
+      {"FUEL", {"012F", 2}},       // Buffer 2
+      {"WATERTEMP", {"0105", 3}},  // Buffer 3
+      {"THROTTLE", {"0111", 4}},   // Buffer 4
+      {"OILTEMP", {"015C", 5}},    // Buffer 5
+      {"GEAR", {"01A4", 6}},       // Buffer 6
+      {"BATTVOLTS", {"0142", 7}},  // Buffer 7
+      {"STOREDDTC", {"03", 8}}     // Buffer 8
+  };
 }
