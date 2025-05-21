@@ -5,3 +5,8 @@
 # QtApp-Debug
 CMakeLists.txt.user
 .DS_Store
+build
+Dependencies
+Generated
+cmake
+.DS_Store
