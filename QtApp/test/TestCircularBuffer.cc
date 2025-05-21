@@ -1,167 +1,183 @@
-#include "gtest/gtest.h"
+#include <QtTest/QtTest>
 #include "CircularBuffer.h"
 
-TEST(CircularBufferTest, PushAndPop) {
-    CircularBuffer<int> buf(3);
+class CircularBufferTest : public QObject {
+    Q_OBJECT
 
-    EXPECT_TRUE(buf.isEmpty());
+private slots:
+    void PushAndPop();
+    void Simple();
+    void PushPopBasic();
+    void SingleOverwrite();
+    void MultipleOverwrites();
+    void InterleavedWrapAndOverwrite();
+    void PeekNonDestructive();
+    void PushReturnCodes();
+    void PopPeekEmpty();
+};
+
+void CircularBufferTest::PushAndPop() {
+    CircularBuffer<int> buf(3);
+    QVERIFY(buf.isEmpty());
 
     buf.push(1);
     buf.push(2);
     buf.push(3);
-
-    EXPECT_TRUE(buf.isFull());
+    QVERIFY(buf.isFull());
 
     auto val = buf.pop();
-    ASSERT_TRUE(val.has_value());
-    EXPECT_EQ(*val, 3); 
+    QVERIFY(val.has_value());
+    QCOMPARE(*val, 3);
 
     auto peek = buf.peek();
-    ASSERT_TRUE(peek.has_value());
-    EXPECT_EQ(*peek, 2);
+    QVERIFY(peek.has_value());
+    QCOMPARE(*peek, 2);
 }
 
-TEST(CircularBufferTest, Simple) {
+void CircularBufferTest::Simple() {
     CircularBuffer<int> buf(3);
-
-    EXPECT_TRUE(buf.isEmpty());
-
-    ASSERT_TRUE(buf.pop() == std::nullopt);
+    QVERIFY(buf.isEmpty());
+    QVERIFY(buf.pop() == std::nullopt);
 
     buf.push(1);
     buf.push(2);
     buf.push(3);
-    buf.push(4);
+    buf.push(4); // Overwrites
 
     buf.printBuffer();
 
     auto val = buf.peek();
-    ASSERT_TRUE(val.has_value());
-    EXPECT_EQ(*val, 4);
+    QVERIFY(val.has_value());
+    QCOMPARE(*val, 4);
 
     int size = buf.getSize();
-    EXPECT_EQ(size, 3);
+    QCOMPARE(size, 3);
 
     buf.pop();
     buf.pop();
     val = buf.pop();
     size = buf.getSize();
-    EXPECT_TRUE(buf.isEmpty());
-    EXPECT_EQ(*val, 2);
-    EXPECT_EQ(size, 0);
+
+    QVERIFY(buf.isEmpty());
+    QCOMPARE(*val, 2);
+    QCOMPARE(size, 0);
 }
 
-TEST(CircularBufferTest, PushPopBasic) {
+void CircularBufferTest::PushPopBasic() {
     CircularBuffer<int> buf(3);
-    EXPECT_TRUE(buf.isEmpty());
-    EXPECT_FALSE(buf.isFull());
-    EXPECT_EQ(buf.getSize(), 0);
+    QVERIFY(buf.isEmpty());
+    QVERIFY(!buf.isFull());
+    QCOMPARE(buf.getSize(), 0);
 
-    EXPECT_EQ(buf.push(10), 0);
-    EXPECT_EQ(buf.push(20), 0);
-    EXPECT_EQ(buf.push(30), 0);
+    QCOMPARE(buf.push(10), 0);
+    QCOMPARE(buf.push(20), 0);
+    QCOMPARE(buf.push(30), 0);
 
-    EXPECT_FALSE(buf.isEmpty());
-    EXPECT_TRUE(buf.isFull());
-    EXPECT_EQ(buf.getSize(), 3);
-    EXPECT_EQ(buf.getCapacity(), 3);
+    QVERIFY(!buf.isEmpty());
+    QVERIFY(buf.isFull());
+    QCOMPARE(buf.getSize(), 3);
+    QCOMPARE(buf.getCapacity(), 3);
 
     auto v1 = buf.pop();
-    ASSERT_TRUE(v1.has_value());
-    EXPECT_EQ(*v1, 30);
+    QVERIFY(v1.has_value());
+    QCOMPARE(*v1, 30);
 
     auto v2 = buf.pop();
-    ASSERT_TRUE(v2.has_value());
-    EXPECT_EQ(*v2, 20);
+    QVERIFY(v2.has_value());
+    QCOMPARE(*v2, 20);
 
     auto v3 = buf.pop();
-    ASSERT_TRUE(v3.has_value());
-    EXPECT_EQ(*v3, 10);
+    QVERIFY(v3.has_value());
+    QCOMPARE(*v3, 10);
 
-    EXPECT_TRUE(buf.isEmpty());
-    EXPECT_EQ(buf.getSize(), 0);
+    QVERIFY(buf.isEmpty());
+    QCOMPARE(buf.getSize(), 0);
 }
 
-TEST(CircularBufferTest, SingleOverwrite) {
+void CircularBufferTest::SingleOverwrite() {
     CircularBuffer<int> buf(3);
     buf.push(1);
     buf.push(2);
     buf.push(3);
-    EXPECT_TRUE(buf.isFull());
+    QVERIFY(buf.isFull());
 
-    EXPECT_EQ(buf.push(4), 1);
-    EXPECT_TRUE(buf.isFull());
-    EXPECT_EQ(buf.getSize(), 3);
+    QCOMPARE(buf.push(4), 1);
+    QVERIFY(buf.isFull());
+    QCOMPARE(buf.getSize(), 3);
 
-    EXPECT_EQ(*buf.pop(), 4);
-    EXPECT_EQ(*buf.pop(), 3);
-    EXPECT_EQ(*buf.pop(), 2);
-    EXPECT_TRUE(buf.isEmpty());
+    QCOMPARE(*buf.pop(), 4);
+    QCOMPARE(*buf.pop(), 3);
+    QCOMPARE(*buf.pop(), 2);
+    QVERIFY(buf.isEmpty());
 }
 
-TEST(CircularBufferTest, MultipleOverwrites) {
+void CircularBufferTest::MultipleOverwrites() {
     CircularBuffer<int> buf(3);
     for (int i = 1; i <= 5; ++i) {
         int8_t ret = buf.push(i);
-        if (i <= 3) EXPECT_EQ(ret, 0);
-        else          EXPECT_EQ(ret, 1);
+        if (i <= 3) QCOMPARE(ret, 0);
+        else        QCOMPARE(ret, 1);
     }
-    EXPECT_TRUE(buf.isFull());
-    EXPECT_EQ(buf.getSize(), 3);
+    QVERIFY(buf.isFull());
+    QCOMPARE(buf.getSize(), 3);
 
-    EXPECT_EQ(*buf.pop(), 5);
-    EXPECT_EQ(*buf.pop(), 4);
-    EXPECT_EQ(*buf.pop(), 3);
-    EXPECT_TRUE(buf.isEmpty());
+    QCOMPARE(*buf.pop(), 5);
+    QCOMPARE(*buf.pop(), 4);
+    QCOMPARE(*buf.pop(), 3);
+    QVERIFY(buf.isEmpty());
 }
 
-TEST(CircularBufferTest, InterleavedWrapAndOverwrite) {
+void CircularBufferTest::InterleavedWrapAndOverwrite() {
     CircularBuffer<int> buf(3);
     buf.push(100);
     buf.push(200);
     buf.push(300);
-    EXPECT_EQ(*buf.pop(), 300);
-    EXPECT_EQ(buf.getSize(), 2);
+    QCOMPARE(*buf.pop(), 300);
+    QCOMPARE(buf.getSize(), 2);
 
-    EXPECT_EQ(buf.push(400), 0);
-    EXPECT_EQ(buf.push(500), 1);
+    QCOMPARE(buf.push(400), 0);
+    QCOMPARE(buf.push(500), 1);
 
-    EXPECT_EQ(buf.getSize(), 3);
-    EXPECT_EQ(*buf.pop(), 500);
-    EXPECT_EQ(*buf.pop(), 400);
-    EXPECT_EQ(*buf.pop(), 200);
-    EXPECT_TRUE(buf.isEmpty());
+    QCOMPARE(buf.getSize(), 3);
+    QCOMPARE(*buf.pop(), 500);
+    QCOMPARE(*buf.pop(), 400);
+    QCOMPARE(*buf.pop(), 200);
+    QVERIFY(buf.isEmpty());
 }
 
-TEST(CircularBufferTest, PeekNonDestructive) {
+void CircularBufferTest::PeekNonDestructive() {
     CircularBuffer<std::string> buf(2);
     buf.push("first");
     buf.push("second");
 
-    EXPECT_EQ(buf.getSize(), 2);
+    QCOMPARE(buf.getSize(), 2);
+
     auto p1 = buf.peek();
-    ASSERT_TRUE(p1.has_value());
-    EXPECT_EQ(*p1, "second");
-    EXPECT_EQ(buf.getSize(), 2);
+    QVERIFY(p1.has_value());
+    QCOMPARE(*p1, QString("second"));
+    QCOMPARE(buf.getSize(), 2);
 
     auto p2 = buf.peek();
-    ASSERT_TRUE(p2.has_value());
-    EXPECT_EQ(*p2, "second");
-    EXPECT_EQ(buf.getSize(), 2);
+    QVERIFY(p2.has_value());
+    QCOMPARE(*p2, QString("second"));
+    QCOMPARE(buf.getSize(), 2);
 }
 
-TEST(CircularBufferTest, PushReturnCodes) {
+void CircularBufferTest::PushReturnCodes() {
     CircularBuffer<int> buf(2);
-    EXPECT_EQ(buf.push(9),  0);
-    EXPECT_EQ(buf.push(8),  0);
-    EXPECT_EQ(buf.push(7),  1);
-    EXPECT_EQ(buf.push(6),  1); 
+    QCOMPARE(buf.push(9), 0);
+    QCOMPARE(buf.push(8), 0);
+    QCOMPARE(buf.push(7), 1);
+    QCOMPARE(buf.push(6), 1);
 }
 
-TEST(CircularBufferTest, PopPeekEmpty) {
+void CircularBufferTest::PopPeekEmpty() {
     CircularBuffer<int> buf(5);
-    EXPECT_TRUE(buf.isEmpty());
-    EXPECT_EQ(buf.pop(), std::nullopt);
-    EXPECT_EQ(buf.peek(), std::nullopt);
-    EXPECT_EQ(buf.getSize(), 0);
+    QVERIFY(buf.isEmpty());
+    QCOMPARE(buf.pop(), std::nullopt);
+    QCOMPARE(buf.peek(), std::nullopt);
+    QCOMPARE(buf.getSize(), 0);
 }
+
+QTEST_MAIN(CircularBufferTest)
+#include "TestCircularBuffer.moc"

@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "VehicleConnection.h"
 
-TEST(VehicleConnection, ExtractData) {
+TEST(VehicleConnection, sendCommand) {
     VehicleConnection vc;
+
+
 }

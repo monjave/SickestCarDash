@@ -2,7 +2,7 @@
 # cmake_minimum_required(VERSION 3.21.1)
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
 qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
@@ -104,28 +104,58 @@ endif()
 
 # ================== Unit Tests (Optional) ==================
 if(BUILD_TESTING)
+    # 1.  Make CTest targets visible to the build.
+    #    The argument is optional – `enable_testing()` with no args
+    #    is the canonical form, but `enable_testing(true)` works too.
     enable_testing()
 
-    include(FetchContent)
-    FetchContent_Declare(
-      googletest
-        URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
-    )
-    FetchContent_MakeAvailable(googletest)
+    # 2.  Find the Qt module that provides the QTest harness.
+    # find_package(Qt6 REQUIRED COMPONENTS Test)
 
-    add_executable(unit_tests
-        test/TestCircularBuffer.cc
-        test/TestCircularBufferManager.cc
-        test/TestVehicleParser.cc
-        test/TestVehicleConnection.cc
-        # test/ReplayParser.cc
+    # 3.  Build **one** test executable.
+    #    Target name == executable name  ==> fewer places to typo later.
+    qt_add_executable(CircularBufferTest
+        test/TestCircularBuffer.cc            # <-- source file(s)
     )
 
-    target_link_libraries(unit_tests
-        core
-        gtest_main
+    # 4.  Link everything the test binary needs.
+    target_link_libraries(CircularBufferTest
+        PRIVATE
+        core                                   # your static library
+        Qt6::Test                              # imported Qt6 target
     )
 
-    include(GoogleTest)
-    gtest_discover_tests(unit_tests)
+    # 5.  Register with CTest so `ctest` picks it up.
+    add_test(
+        NAME    CircularBufferTest             # human‑readable label
+        COMMAND CircularBufferTest             # executable to run
+    )
 endif()
+
+
+# if(BUILD_TESTING)
+#     enable_testing()
+
+#     include(FetchContent)
+#     FetchContent_Declare(
+#       googletest
+#         URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+#     )
+#     FetchContent_MakeAvailable(googletest)
+
+#     add_executable(unit_tests
+#         test/TestCircularBuffer.cc
+#         test/TestCircularBufferManager.cc
+#         test/TestVehicleParser.cc
+#         test/TestVehicleConnection.cc
+#         # test/ReplayParser.cc
+#     )
+
+#     target_link_libraries(unit_tests
+#         core
+#         gtest_main
+#     )
+
+#     include(GoogleTest)
+#     gtest_discover_tests(unit_tests)
+# endif()
