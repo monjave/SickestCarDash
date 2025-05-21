@@ -1,11 +1,21 @@
 #include "gtest/gtest.h"
 #include "VehicleParser.h"
+#include <QObject>
 #include <fstream>
 #include <iostream>
 #include <map>
 #include <vector>
 #include <cstdio>
 #include <stdio.h>
+
+using namespace Qt;
+
+// class TestQString: public QObject
+// {
+//     Q_OBJECT
+// private slots:
+//     void toUpper();
+// };
 
 TEST(VehicleParser, ExtractData) {
     VehicleParser parser;
@@ -140,14 +150,14 @@ void createTestCSV(const std::string& path, const std::string& contents) {
 }
 
 TEST(VehicleParser, HandlesMissingFile) {
-  EXPECT_ANY_THROW(VehicleParser newReplay("bad_path.csv"));
+  EXPECT_ANY_THROW(VehicleParser newReplay("bad_path.csv", nullptr));
 }
 
 TEST(VehicleParser, AllowsEmptyCSV) {
   std::string filePath = "../../QtApp/test/build/Debug";
   std::string fileName = filePath + "/empty.csv";
   createTestCSV(fileName, "");
-  VehicleParser newReplay(filePath);
+  VehicleParser newReplay(filePath, nullptr);
   auto& data = newReplay.getData();
 
   std::fstream file(fileName);
@@ -170,7 +180,7 @@ TEST(VehicleParser, LoadsValidCSV) {
                 "9,6.9,6.9\n4.20,4.20,4.20");
 
   std::ifstream checkFile(filePath);
-  VehicleParser newReplay(filePath);
+  VehicleParser newReplay(filePath, nullptr);
 
   auto& data = newReplay.getData();
   ASSERT_TRUE(data.count("Time") == 1);
@@ -188,5 +198,5 @@ TEST(VehicleParser, HandlesMalformedCSV) {
       fileName,
       "Time,Speed,Distance\n9.9,not_right,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6."
       "9,6.9,6.9\nincorrect,4.20,4.20");
-  EXPECT_ANY_THROW(VehicleParser newReplay(filePath));
+  EXPECT_ANY_THROW(VehicleParser newReplay(filePath, nullptr));
 }
