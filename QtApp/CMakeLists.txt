@@ -13,15 +13,13 @@ option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
-    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
-    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
+    # ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
+    # ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
-
-
 )
 
 # Link QtCore to core lib
@@ -61,8 +59,6 @@ if(BUILD_GUI)
         include/CircularBuffer.h
         include/CircularBufferManager.h
         include/CircularBufferManagerWrapper.h
-        src/CircularBuffer.cc
-        src/CircularBufferManager.cc
         src/CircularBufferManagerWrapper.cpp
         include/VehicleConnection.h
         src/VehicleConnection.cpp
@@ -122,6 +118,7 @@ if(BUILD_TESTING)
         test/TestCircularBufferManager.cc
         test/TestVehicleParser.cc
         test/TestVehicleConnection.cc
+        # test/ReplayParser.cc
     )
 
     target_link_libraries(unit_tests
