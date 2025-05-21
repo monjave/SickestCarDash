@@ -3,9 +3,7 @@
 
 // pidTable values come from
 // https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_03
-VehicleParser::VehicleParser() {
-  loadPidTable();
-};
+VehicleParser::VehicleParser() { loadPidTable(); };
 
 /**
  * @brief Construct a new Replay Parser< T>:: Replay Parser object. Importantly,
@@ -26,22 +24,35 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
     loadSave(directoryPath);
   }
   this->timer26 = new QTimer();
-  connect(timer26, &QTimer::timeout, this, &VehicleParser::push26ms);
+  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
   timer26->start(26);
 
-  // QTimer* timer78 = new QTimer(this);
-  // timer78->start(78);
-  // connect(timer78, &QTimer::timeout, this, &VehicleParser::push78ms);
+  this->timer78 = new QTimer();
+  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer78->start(78);
+
+  this->timer20 = new QTimer();
+  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer20->start(20);
 }
 
-void VehicleParser::push26ms(){
-  qDebug() << "Tick!";
-  // if there is still data in the vectors
-    // pop the most recent data and send it to BufferManager (no particular order)
-
-
-  //timer26->stop();
-
+/**
+ * @brief slot that sends data to the `PublishToMiddleware()` method
+ * 
+ */
+void VehicleParser::dataRegulator() {
+  qDebug() << "Tick!"; // for when we migrate to QTest
+  //CircularBufferManager buffMan = CircularBufferManager<int>(1);
+  if(!_replayData["time"].empty()){
+    _replayData["time"].erase(_replayData["time"].begin());
+  } else {
+    timer26->stop();
+    timer78->stop();
+    timer20->stop();
+  }
+  // pop the most recent data and send it to BufferManager (no particular order)
+  
+  qDebug() << "Tock!"; // for when we migrate to QTest
 }
 
 /// @brief Makes a request to the device
@@ -132,7 +143,8 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
 /// @param data
 /// @return Return 0 if successful, return a 1 if there's an issue.
 int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
-                                          double& data, std::string& pidTableKey) {
+                                          double& data,
+                                          std::string& pidTableKey) {
   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
@@ -271,7 +283,7 @@ void VehicleParser::printValueToFile(std::string desiredFileLocation) {
 /**
  * @brief loads all the relevant values into the `_pidTable` class variable
  */
-void VehicleParser::loadPidTable(){
+void VehicleParser::loadPidTable() {
   _pidTable = {
       // **** NOT IN BUFFER ****
       {"RESET", {"ATZ", -1}},

@@ -18,8 +18,8 @@ class VehicleParser : public QObject {
   Q_OBJECT
 
  public slots:
-  void push26ms();
-  // void push78ms();
+  void dataRegulator();
+  
  private:
   // Map command names to PID strings and their assigned buffer in the
   // BufferManager.
@@ -27,7 +27,8 @@ class VehicleParser : public QObject {
   // Map replay data names to the ordered vectors of their data
   std::map<std::string, std::vector<double>> _replayData;
   QTimer* timer26;
-  // QTimer* timer78
+  QTimer* timer78;
+  QTimer* timer20;
 
   std::string FormRequestString(int& serviceMode, std::string& code);
   std::string FormRequestString(std::string code);
