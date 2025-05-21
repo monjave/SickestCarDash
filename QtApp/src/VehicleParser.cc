@@ -38,21 +38,50 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
 
 /**
  * @brief slot that sends data to the `PublishToMiddleware()` method
- * 
+ *
  */
 void VehicleParser::dataRegulator() {
-  qDebug() << "Tick!"; // for when we migrate to QTest
-  //CircularBufferManager buffMan = CircularBufferManager<int>(1);
-  if(!_replayData["time"].empty()){
-    _replayData["time"].erase(_replayData["time"].begin());
+  qDebug() << "Tick!";  // for when we migrate to QTest
+  QTimer* timer = qobject_cast<QTimer*>(sender());
+  CircularBufferManager buffMan = CircularBufferManager<int>(4);
+  if (!_replayData["time"].empty()) {
+    double data;
+    std::string pidTableKey;
+    int8_t success;
+    if (timer == nullptr) {
+      qDebug("Signal from QTimer not found");
+      return;
+    } else if (&timer == &timer26) { // push speed, rpm, and throttle to middleware
+      data = _replayData["speed"][0];
+      pidTableKey = "SPEED";
+      success = PublishToMiddleware(buffMan, data, pidTableKey);
+
+      data = _replayData["rpms"][0];
+      pidTableKey = "RPM";
+      success = PublishToMiddleware(buffMan, data, pidTableKey);
+
+      data = _replayData["throttle"][0];
+      pidTableKey = "THROTTLE";
+      success = PublishToMiddleware(buffMan, data, pidTableKey);
+
+      removeReplayDataFromFront("speed");
+      removeReplayDataFromFront("rpms");
+      removeReplayDataFromFront("throttle");
+    } else if (&timer == &timer78) { // push gear to middlewear
+      data = _replayData["gear"][0];
+      pidTableKey = "GEAR";
+      success = PublishToMiddleware(buffMan, data, pidTableKey);
+      
+      removeReplayDataFromFront("gear");
+    } else if (&timer == &timer20) { // reduce time to know when to stop timers
+      removeReplayDataFromFront("time");
+    }
   } else {
     timer26->stop();
     timer78->stop();
     timer20->stop();
   }
   // pop the most recent data and send it to BufferManager (no particular order)
-  
-  qDebug() << "Tock!"; // for when we migrate to QTest
 }
 
 /// @brief Makes a request to the device
@@ -125,9 +154,9 @@ void VehicleParser::initOBDConnection() {
   // InsertFunctionNameHere(FormRequestString("STOREDDTC"))       # Request DTCs
 }
 
-/// @brief Publish to the middleware what an OBD query has returned.
-/// @param data
-/// @return Return 0 if successful, return a 1 if there's an issue.
+// @brief Publish to the middleware what an OBD query has returned.
+// @param data
+// @return Return 0 if successful, return a 1 if there's an issue.
 // Need to validate if BuffMan is a valid CircularBufferManager object, but how?
 int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
                                           int& data, std::string& pidTableKey) {
@@ -253,6 +282,15 @@ void VehicleParser::startReplay(QObject* parent = nullptr) {}
 
 std::map<std::string, std::vector<double>>& VehicleParser::getData() {
   return _replayData;
+}
+
+/**
+ * @brief removes the first value of the vector associated with a provided key
+ *
+ * @param key
+ */
+void VehicleParser::removeReplayDataFromFront(std::string key) {
+  _replayData[key].erase(_replayData[key].begin());
 }
 
 /**
