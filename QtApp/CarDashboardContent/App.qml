@@ -11,6 +11,8 @@ Window {
 
     property int speedVar: speedToAngle(speedValue.speed)
     property int rpmVar: rpmToAngle(rpmValue.rpm)
+    property int speedNumber: speedValue.speed
+    property int rpmNumber: rpmValue.rpm
 
     DataSpeed {
         id: speedValue
