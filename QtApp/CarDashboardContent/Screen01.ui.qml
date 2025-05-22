@@ -87,39 +87,25 @@ Item {
                 height: 400
                 source: "pointers/NeedleBig.PNG"
                 rotation: speedVar
-                fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
                     SpringAnimation {
                         spring: 1.3
                         damping: .15
                     }
                 }
+
+                fillMode: Image.PreserveAspectFit
             }
 
-            Text {
-                id: text1
-                x: 105
-                y: 302
-                width: 4
-                height: 40
-                color: "#ffffff"
-                text: qsTr("0")
-                font.pixelSize: 36
-                font.family: "Times New Roman"
-                font.styleName: "Bold"
+            Image {
+                id: speedNumbers
+                x: 20
+                y: 20
+                width: 400
+                height: 400
+                source: "dialNumbers/mphNumbers.PNG"
                 z: -1
-            }
-
-            Text {
-                id: text2
-                x: 281
-                y: 302
-                color: "#ffffff"
-                text: qsTr("120")
-                font.pixelSize: 36
-                font.family: "Times New Roman"
-                font.styleName: "Bold"
-                z: -1
+                fillMode: Image.PreserveAspectFit
             }
 
             Text {
@@ -128,7 +114,7 @@ Item {
                 y: 304
                 width: 24
                 height: 21
-                visible: true
+                visible: false
                 color: "#ffffff"
                 text: speedNumber
                 font.pixelSize: 28
@@ -163,35 +149,22 @@ Item {
                 }
             }
 
-            Text {
-                id: text3
-                x: 113
-                y: 290
-                color: "#ffffff"
-                text: qsTr("0")
-                font.pixelSize: 36
-                font.family: "Times New Roman"
-                font.styleName: "Bold"
+            Image {
+                id: rpmNumbers
+                x: 20
+                y: 20
+                width: 400
+                height: 400
+                source: "dialNumbers/rpmNumbers.PNG"
                 z: -1
-            }
-
-            Text {
-                id: text4
-                x: 280
-                y: 290
-                color: "#ffffff"
-                text: qsTr("6000")
-                font.pixelSize: 36
-                font.family: "Times New Roman"
-                font.styleName: "Bold"
-                z: -1
+                fillMode: Image.PreserveAspectFit
             }
 
             Text {
                 id: rpmNum
                 x: 190
                 y: 284
-                visible: true
+                visible: false
                 color: "#ffffff"
                 text: rpmNumber
                 font.pixelSize: 28
@@ -387,10 +360,10 @@ Item {
 
         Image {
             id: turnIndicatorL
-            x: 766
-            y: 112
-            width: 100
-            height: 100
+            x: 646
+            y: 0
+            width: 300
+            height: 300
             source: "images/LeftTurnSignal.png"
             mirror: false
             fillMode: Image.PreserveAspectFit

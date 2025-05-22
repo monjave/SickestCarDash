@@ -204,10 +204,10 @@ signals:
 
 private slots:
     void increment() {
-        if (m_speed >= 120) m_speed = 0;
+        if (m_speed >= 140) m_speed = 0;
         else m_speed += 10;
 
-        if (m_rpm >= 6000) m_rpm = 0;
+        if (m_rpm >= 7000) m_rpm = 0;
         else m_rpm += 1000;
 
         emit speedChanged();
