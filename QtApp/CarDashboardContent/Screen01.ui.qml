@@ -87,18 +87,39 @@ Item {
                 height: 400
                 source: "pointers/NeedleBig.PNG"
                 rotation: speedVar
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: speedNumbers
+                x: 20
+                y: 20
+                width: 400
+                height: 400
+                source: "dialNumbers/mphNumbers.PNG"
+                z: -1
                 fillMode: Image.PreserveAspectFit
             }
 
             Text {
                 id: speedNum
-                x: 95
-                y: 95
-                width: 250
-                height: 250
+                x: 208
+                y: 304
+                width: 24
+                height: 21
                 visible: false
-                text: qsTr("Text")
-                font.pixelSize: 12
+                color: "#ffffff"
+                text: speedNumber
+                font.pixelSize: 28
+                font.styleName: "Bold"
+                font.family: "Times New Roman"
             }
         }
 
@@ -120,12 +141,30 @@ Item {
                 source: "pointers/NeedleBig.PNG"
                 rotation: rpmVar
                 fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+            }
+
+            Image {
+                id: rpmNumbers
+                x: 20
+                y: 20
+                width: 400
+                height: 400
+                source: "dialNumbers/rpmNumbers.PNG"
+                z: -1
+                fillMode: Image.PreserveAspectFit
             }
 
             Text {
                 id: rpmNum
                 x: 190
                 y: 284
+                visible: false
                 visible: false
                 color: "#ffffff"
                 text: rpmNumber
@@ -388,10 +427,10 @@ Item {
 
         Image {
             id: turnIndicatorL
-            x: 766
-            y: 112
-            width: 100
-            height: 100
+            x: 646
+            y: 0
+            width: 300
+            height: 300
             source: "images/LeftTurnSignal.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
