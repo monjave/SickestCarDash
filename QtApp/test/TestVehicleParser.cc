@@ -145,7 +145,7 @@ TEST(VehicleParser, HandlesMissingFile) {
 }
 
 TEST(VehicleParser, AllowsEmptyCSV) {
-  std::string filePath = "../../QtApp/test/build/Debug";
+  std::string filePath = "../../QtApp/test/testOutputs";
   std::string fileName = filePath + "/empty.csv";
   createTestCSV(fileName, "");
   VehicleParser newReplay(filePath);
@@ -158,7 +158,7 @@ TEST(VehicleParser, AllowsEmptyCSV) {
 }
 
 TEST(VehicleParser, LoadsValidCSV) {
-  std::string filePath = "../../QtApp/test/build/Debug";
+  std::string filePath = "../../QtApp/test/testOutputs";
   std::string fileName = filePath + "/valid.csv";
   createTestCSV(fileName,
                 "Time,Speed,Distance\n9.9,0.0,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6."
@@ -177,7 +177,7 @@ TEST(VehicleParser, LoadsValidCSV) {
 }
 
 TEST(VehicleParser, HandlesMalformedCSV) {
-  std::string filePath = "../../QtApp/test/build/Debug";
+  std::string filePath = "../../QtApp/test/testOutputs";
   std::string fileName = filePath + "/malformed.csv";
   createTestCSV(
       fileName,
