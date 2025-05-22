@@ -18,6 +18,7 @@ qt6_add_qml_module(CarDashboardContent
         "images/9.png"
         "images/4.png"
         "images/bgArtWIP.png"
+        "images/turnSignal.png"
         "dials/DialBg.png"
         "pointers/Needle.png"
 )
