@@ -38,6 +38,8 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
 
 /**
  * @brief slot that sends data to the `PublishToMiddleware()` method
+ * ! This is quick and dirty, fix this later
+ * ! Add a early stop function
  *
  */
 void VehicleParser::dataRegulator() {
