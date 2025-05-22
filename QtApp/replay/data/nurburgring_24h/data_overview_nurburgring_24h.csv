@@ -52,4 +52,4 @@ Column:   tyre_tair_rr        Rows: 42529
 Column:   wheel_speed_lf      Rows: 425286
 Column:   wheel_speed_lr      Rows: 425286
 Column:   wheel_speed_rf      Rows: 425286
-Column:   wheel_speed_rr      Rows: 425286    Values: 
+Column:   wheel_speed_rr      Rows: 425286    

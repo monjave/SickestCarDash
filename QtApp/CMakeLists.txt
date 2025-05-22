@@ -16,7 +16,11 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
-    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
+
 
 )
 
@@ -62,17 +66,19 @@ if(BUILD_GUI)
         src/CircularBufferManagerWrapper.cpp
         include/VehicleConnection.h
         src/VehicleConnection.cpp
+        include/VehicleParser.h
+        src/VehicleParser.cc
     )
 
     target_link_libraries(CarDashboardApp
-  PRIVATE
-    Qt6::Core
-    Qt6::Quick
-    Qt6::Qml
-    Qt6::Widgets
-    Qt6::SerialPort
-    core
-)
+        PRIVATE
+            Qt6::Core
+            Qt6::Quick
+            Qt6::Qml
+            Qt6::Widgets
+            Qt6::SerialPort
+            core
+    )
 
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
@@ -115,6 +121,7 @@ endif()
         test/TestCircularBuffer.cc
         test/TestCircularBufferManager.cc
         test/TestVehicleParser.cc
+        test/TestVehicleConnection.cc
     )
 
     target_link_libraries(unit_tests
