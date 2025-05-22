@@ -75,14 +75,43 @@ Item {
             }
 
             Text {
+                id: text1
+                x: 105
+                y: 302
+                width: 4
+                height: 40
+                color: "#ffffff"
+                text: qsTr("0")
+                font.pixelSize: 36
+                font.family: "Times New Roman"
+                font.styleName: "Bold"
+                z: -1
+            }
+
+            Text {
+                id: text2
+                x: 281
+                y: 302
+                color: "#ffffff"
+                text: qsTr("120")
+                font.pixelSize: 36
+                font.family: "Times New Roman"
+                font.styleName: "Bold"
+                z: -1
+            }
+
+            Text {
                 id: speedNum
-                x: 95
-                y: 95
-                width: 250
-                height: 250
-                visible: false
-                text: qsTr("Text")
-                font.pixelSize: 12
+                x: 208
+                y: 304
+                width: 24
+                height: 21
+                visible: true
+                color: "#ffffff"
+                text: speedNumber
+                font.pixelSize: 28
+                font.styleName: "Bold"
+                font.family: "Times New Roman"
             }
         }
 
@@ -113,14 +142,39 @@ Item {
             }
 
             Text {
+                id: text3
+                x: 113
+                y: 290
+                color: "#ffffff"
+                text: qsTr("0")
+                font.pixelSize: 36
+                font.family: "Times New Roman"
+                font.styleName: "Bold"
+                z: -1
+            }
+
+            Text {
+                id: text4
+                x: 280
+                y: 290
+                color: "#ffffff"
+                text: qsTr("6000")
+                font.pixelSize: 36
+                font.family: "Times New Roman"
+                font.styleName: "Bold"
+                z: -1
+            }
+
+            Text {
                 id: rpmNum
-                x: 95
-                y: 95
-                width: 250
-                height: 250
-                visible: false
-                text: qsTr("Text")
-                font.pixelSize: 12
+                x: 190
+                y: 284
+                visible: true
+                color: "#ffffff"
+                text: rpmNumber
+                font.pixelSize: 28
+                font.family: "Times New Roman"
+                font.styleName: "Bold"
             }
         }
 
@@ -170,7 +224,8 @@ Item {
             y: 112
             width: 100
             height: 100
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            source: "images/turnSignal.png"
+            mirror: true
             fillMode: Image.PreserveAspectFit
         }
 
@@ -180,7 +235,7 @@ Item {
             y: 112
             width: 100
             height: 100
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            source: "images/turnSignal.png"
             fillMode: Image.PreserveAspectFit
         }
 
