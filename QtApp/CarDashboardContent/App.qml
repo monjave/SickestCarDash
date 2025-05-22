@@ -20,9 +20,10 @@ Window {
 
     function speedToAngle(speed) {
         const speedMin = 0;
-        const speedMax = 180;
+        //const speedMax = 180;
+        const speedMax = 140;
         const angleMin = 0;
-        const angleMax = 270;
+        const angleMax = 280;
 
         const angle = angleMin + ((speed - speedMin) / (speedMax - speedMin)) * (angleMax - angleMin);
 
@@ -35,9 +36,10 @@ Window {
 
     function rpmToAngle(rpm) {
         const rpmMin = 0;
-        const rpmMax = 9000;
+        //const rpmMax = 9000;
+        const rpmMax = 7000
         const angleMin = 0;
-        const angleMax = 270;
+        const angleMax = 280;
 
         const angle = angleMin + ((rpm - rpmMin) / (rpmMax - rpmMin)) * (angleMax - angleMin);
 
