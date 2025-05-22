@@ -19,8 +19,21 @@ qt6_add_qml_module(CarDashboardContent
         "images/4.png"
         "images/bgArtWIP.png"
         "images/turnSignal.png"
-        "dials/DialBg.png"
-        "pointers/Needle.png"
+        "images/RightTurnSignal.png"
+        "images/LeftTurnSignal.png"
+        "dials/DialBgBig.PNG"
+        "dials/DialBgSmall.PNG"
+        "dials/DialBgOld.png"
+        "pointers/NeedleSmall.PNG"
+        "pointers/NeedleOld.png"
+        "pointers/NeedleBig.PNG"
+        "fonts/IMG_1028.PNG"
+        "fonts/IMG_1036.PNG"
+        "fonts/IMG_1027.PNG"
+        "fonts/IMG_1034.PNG"
+        "fonts/IMG_1026.PNG"
+        "fonts/IMG_1033.PNG"
+        "fonts/IMG_1035.PNG"
 )
 
 

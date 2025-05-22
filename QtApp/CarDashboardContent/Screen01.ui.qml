@@ -85,7 +85,7 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
                 rotation: speedVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
@@ -152,7 +152,7 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
                 rotation: rpmVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
@@ -391,8 +391,8 @@ Item {
             y: 112
             width: 100
             height: 100
-            source: "images/turnSignal.png"
-            mirror: true
+            source: "images/LeftTurnSignal.png"
+            mirror: false
             fillMode: Image.PreserveAspectFit
         }
 
@@ -419,7 +419,7 @@ Item {
             y: 514
             width: 100
             height: 100
-            source: "images/turnSignal.png"
+            source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
         }
 
