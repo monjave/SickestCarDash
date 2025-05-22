@@ -1,5 +1,5 @@
 .idea
-build
+.gitignore
 .vscode
 .qtcreator
 *.user.2f37e0a
