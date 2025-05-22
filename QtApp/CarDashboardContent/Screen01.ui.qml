@@ -54,7 +54,8 @@ Item {
             y: 140
             width: 440
             height: 440
-            source: "dials/DialBg.png"
+            source: "dials/DialBgBig.PNG"
+            mirror: false
             fillMode: Image.PreserveAspectFit
 
             Image {
@@ -63,7 +64,7 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
                 rotation: speedVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
@@ -121,7 +122,7 @@ Item {
             y: 140
             width: 440
             height: 440
-            source: "dials/DialBg.png"
+            source: "dials/DialBgBig.PNG"
             fillMode: Image.PreserveAspectFit
 
             Image {
@@ -130,7 +131,7 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
                 rotation: rpmVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
@@ -194,7 +195,7 @@ Item {
             y: 483
             width: 180
             height: 180
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -204,8 +205,19 @@ Item {
             y: 483
             width: 180
             height: 180
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: needleFuel
+                x: 0
+                y: 0
+                width: 180
+                height: 180
+                source: "pointers/NeedleSmall.PNG"
+                z: 0
+                fillMode: Image.PreserveAspectFit
+            }
         }
 
         Image {
@@ -224,8 +236,8 @@ Item {
             y: 112
             width: 100
             height: 100
-            source: "images/turnSignal.png"
-            mirror: true
+            source: "images/LeftTurnSignal.png"
+            mirror: false
             fillMode: Image.PreserveAspectFit
         }
 
@@ -235,7 +247,7 @@ Item {
             y: 112
             width: 100
             height: 100
-            source: "images/turnSignal.png"
+            source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
         }
 
