@@ -1,5 +1,4 @@
 .idea
-build
 .vscode
 .qtcreator
 *.user.2f37e0a
@@ -9,3 +8,4 @@ App
 Dependencies
 Generated
 cmake
+build

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "VehicleConnection.h"
 
-TEST(VehicleParser, ExtractData) {
-
+TEST(VehicleConnection, ExtractData) {
+    VehicleConnection vc;
 }
