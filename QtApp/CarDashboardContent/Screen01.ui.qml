@@ -85,7 +85,7 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
                 rotation: speedVar
                 fillMode: Image.PreserveAspectFit
             }
@@ -117,7 +117,7 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
                 rotation: rpmVar
                 fillMode: Image.PreserveAspectFit
             }
@@ -388,10 +388,10 @@ Item {
 
         Image {
             id: turnIndicatorL
-            x: 698
-            y: 33
-            width: 200
-            height: 200
+            x: 766
+            y: 112
+            width: 100
+            height: 100
             source: "images/LeftTurnSignal.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
@@ -420,8 +420,7 @@ Item {
             y: 514
             width: 100
             height: 100
-            visible: seatbeltBool
-            source: "images/Seatbelt.png"
+            source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
         }
 
