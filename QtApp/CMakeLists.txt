@@ -100,6 +100,7 @@ endif()
 # ================== Unit Tests (Optional) ==================
     enable_testing()
 
+<<<<<<< HEAD
     macro(add_qt_test TEST_NAME)
     qt_add_executable(${TEST_NAME} ${ARGN})
     set_target_properties(${TEST_NAME} PROPERTIES AUTOMOC ON)
@@ -122,3 +123,22 @@ endif()
         include/MockQSerialPort.h)
     add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
     add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
+=======
+    qt_add_executable(CircularBufferTest
+        test/TestCircularBuffer.cc            
+        # test/TestVehicleConnection.cc
+    )
+
+    target_link_libraries(CircularBufferTest
+        PRIVATE
+        core                                   
+        Qt6::Test                              
+    )
+
+    add_test(
+        NAME    CircularBufferTest             
+        COMMAND CircularBufferTest             
+    )
+
+endif()
+>>>>>>> 80e27dc (Merged Dom's code and fixed merge conflicts)
