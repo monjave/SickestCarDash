@@ -103,9 +103,6 @@ endif()
 
 # ================== Unit Tests (Optional) ==================
 if(BUILD_TESTING)
-    # 1.  Make CTest targets visible to the build.
-    #    The argument is optional – `enable_testing()` with no args
-    #    is the canonical form, but `enable_testing(true)` works too.
     enable_testing()
 
     macro(add_qt_test TEST_NAME TEST_SOURCE)
