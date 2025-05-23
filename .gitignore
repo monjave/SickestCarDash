@@ -1,5 +1,4 @@
 .idea
-build
 .vscode
 .qtcreator
 *.user.2f37e0a
@@ -10,3 +9,4 @@ Dependencies
 Generated
 cmake
 .DS_Store
+build

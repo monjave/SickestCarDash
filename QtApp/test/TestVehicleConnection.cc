@@ -3,6 +3,4 @@
 
 TEST(VehicleConnection, sendCommand) {
     VehicleConnection vc;
-
-
 }
