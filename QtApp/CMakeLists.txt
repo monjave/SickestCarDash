@@ -103,32 +103,24 @@ endif()
 
 # ================== Unit Tests (Optional) ==================
 if(BUILD_TESTING)
-    # 1.  Make CTest targets visible to the build.
-    #    The argument is optional – `enable_testing()` with no args
-    #    is the canonical form, but `enable_testing(true)` works too.
     enable_testing()
 
-    # 2.  Find the Qt module that provides the QTest harness.
-    # find_package(Qt6 REQUIRED COMPONENTS Test)
-
-    # 3.  Build **one** test executable.
-    #    Target name == executable name  ==> fewer places to typo later.
     qt_add_executable(CircularBufferTest
-        test/TestCircularBuffer.cc            # <-- source file(s)
+        test/TestCircularBuffer.cc            
+        # test/TestVehicleConnection.cc
     )
 
-    # 4.  Link everything the test binary needs.
     target_link_libraries(CircularBufferTest
         PRIVATE
-        core                                   # your static library
-        Qt6::Test                              # imported Qt6 target
+        core                                   
+        Qt6::Test                              
     )
 
-    # 5.  Register with CTest so `ctest` picks it up.
     add_test(
-        NAME    CircularBufferTest             # human‑readable label
-        COMMAND CircularBufferTest             # executable to run
+        NAME    CircularBufferTest             
+        COMMAND CircularBufferTest             
     )
+
 endif()
 
 
