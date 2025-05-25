@@ -174,21 +174,20 @@ Item {
 
         Image {
             id: fuelAmount
-            x: 974
-            y: 483
-            width: 180
-            height: 180
+            x: 893
+            y: 460
+            width: 381
+            height: 381
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
             Image {
-                id: needleFuel
+                id: fuelNeedle
                 x: 0
                 y: 0
-                width: 180
-                height: 180
+                width: 381
+                height: 381
                 source: "pointers/NeedleSmall.PNG"
-                z: 0
                 fillMode: Image.PreserveAspectFit
             }
 
@@ -196,8 +195,8 @@ Item {
                 id: fuelNumbers
                 x: 0
                 y: 0
-                width: 180
-                height: 180
+                width: 381
+                height: 381
                 source: "dialNumbers/fuelNumbers.PNG"
                 z: -1
                 fillMode: Image.PreserveAspectFit
@@ -247,10 +246,10 @@ Item {
 
         Image {
             id: oilTemp
-            x: 1685
+            x: 1610
             y: 355
-            width: 235
-            height: 182
+            width: 385
+            height: 298
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -258,8 +257,8 @@ Item {
                 id: oilTempNumbers
                 x: 0
                 y: 0
-                width: 235
-                height: 182
+                width: 385
+                height: 298
                 source: "dialNumbers/oilTempNumbers.PNG"
                 fillMode: Image.PreserveAspectFit
             }
@@ -268,8 +267,8 @@ Item {
                 id: needleOilTemp
                 x: 0
                 y: 0
-                width: 235
-                height: 182
+                width: 385
+                height: 298
                 source: "pointers/NeedleSmall.PNG"
                 fillMode: Image.PreserveAspectFit
             }
@@ -297,10 +296,10 @@ Item {
 
         Image {
             id: temp
-            x: 1685
-            y: 538
-            width: 235
-            height: 182
+            x: 1426
+            y: 502
+            width: 385
+            height: 298
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -308,8 +307,8 @@ Item {
                 id: tempNumbers
                 x: 0
                 y: 0
-                width: 235
-                height: 182
+                width: 385
+                height: 298
                 source: "dialNumbers/tempNumbers.PNG"
                 fillMode: Image.PreserveAspectFit
             }
@@ -318,8 +317,8 @@ Item {
                 id: needleTemp
                 x: 0
                 y: 0
-                width: 235
-                height: 182
+                width: 385
+                height: 298
                 source: "pointers/NeedleSmall.PNG"
                 fillMode: Image.PreserveAspectFit
             }
