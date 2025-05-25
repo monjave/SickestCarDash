@@ -246,13 +246,33 @@ Item {
         }
 
         Image {
-            id: coolantEngineTemp
+            id: oilTemp
             x: 1685
             y: 355
             width: 235
-            height: 365
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            height: 182
+            source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: oilTempNumbers
+                x: 0
+                y: 0
+                width: 235
+                height: 182
+                source: "dialNumbers/oilTempNumbers.PNG"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: needleOilTemp
+                x: 0
+                y: 0
+                width: 235
+                height: 182
+                source: "pointers/NeedleSmall.PNG"
+                fillMode: Image.PreserveAspectFit
+            }
         }
 
         Image {
@@ -260,7 +280,7 @@ Item {
             x: 0
             y: 0
             width: 235
-            height: 260
+            height: 265
             source: "qrc:/qtquickplugin/images/template_image.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -273,6 +293,36 @@ Item {
             height: 260
             source: "qrc:/qtquickplugin/images/template_image.png"
             fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: temp
+            x: 1685
+            y: 538
+            width: 235
+            height: 182
+            source: "dials/DialBgSmall.PNG"
+            fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: tempNumbers
+                x: 0
+                y: 0
+                width: 235
+                height: 182
+                source: "dialNumbers/tempNumbers.PNG"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: needleTemp
+                x: 0
+                y: 0
+                width: 235
+                height: 182
+                source: "pointers/NeedleSmall.PNG"
+                fillMode: Image.PreserveAspectFit
+            }
         }
     }
 
@@ -521,7 +571,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: coolantEngineTemp
+            target: oilTemp
             property: "opacity"
             Keyframe {
                 value: 0
