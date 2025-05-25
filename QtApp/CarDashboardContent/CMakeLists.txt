@@ -33,13 +33,13 @@ qt6_add_qml_module(CarDashboardContent
         "images/bgArtWIP.png"
         "images/LeftTurnSignal.png"
         "images/RightTurnSignal.png"
-        "dialNumbers/IMG_1034.PNG"
         "dialNumbers/rpmNumbers.PNG"
         "dialNumbers/kmphNumbers.PNG"
         "dialNumbers/mphNumbers.PNG"
-        "dialNumbers/IMG_1036.PNG"
-        "dialNumbers/IMG_1035.PNG"
         "dialNumbers/fuelNumbers.PNG"
+        "dialNumbers/tempNumbers.PNG"
+        "dialNumbers/voltageNumbers.PNG"
+        "dialNumbers/oilTempNumbers.PNG"
 )
 
 
