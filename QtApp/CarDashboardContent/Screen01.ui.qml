@@ -276,17 +276,23 @@ Item {
             y: 460
             width: 381
             height: 381
+            x: 893
+            y: 460
+            width: 381
+            height: 381
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
             Image {
                 id: fuelNeedle
+                id: fuelNeedle
                 x: 0
                 y: 0
                 width: 381
                 height: 381
+                width: 381
+                height: 381
                 source: "pointers/NeedleSmall.PNG"
-                rotation: fuelVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
                     SpringAnimation {
@@ -300,6 +306,8 @@ Item {
                 id: fuelNumbers
                 x: 0
                 y: 0
+                width: 381
+                height: 381
                 width: 381
                 height: 381
                 source: "dialNumbers/fuelNumbers.PNG"
@@ -410,7 +418,10 @@ Item {
         Image {
             id: oilTemp
             x: 1610
+            x: 1610
             y: 355
+            width: 385
+            height: 298
             width: 385
             height: 298
             source: "dials/DialBgSmall.PNG"
@@ -422,6 +433,8 @@ Item {
                 y: 0
                 width: 385
                 height: 298
+                width: 385
+                height: 298
                 source: "dialNumbers/oilTempNumbers.PNG"
                 fillMode: Image.PreserveAspectFit
             }
@@ -430,6 +443,8 @@ Item {
                 id: needleOilTemp
                 x: 0
                 y: 0
+                width: 385
+                height: 298
                 width: 385
                 height: 298
                 source: "pointers/NeedleSmall.PNG"
@@ -470,7 +485,6 @@ Item {
             y: 502
             width: 385
             height: 298
-            opacity: 0
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -478,6 +492,8 @@ Item {
                 id: tempNumbers
                 x: 0
                 y: 0
+                width: 385
+                height: 298
                 width: 385
                 height: 298
                 source: "dialNumbers/tempNumbers.PNG"
@@ -488,6 +504,8 @@ Item {
                 id: needleTemp
                 x: 0
                 y: 0
+                width: 385
+                height: 298
                 width: 385
                 height: 298
                 source: "pointers/NeedleSmall.PNG"
