@@ -400,13 +400,12 @@ Item {
         }
 
         Image {
-            id: absIndicator
+            id: seatbeltIndicator
             x: 0
-            y: 620
+            y: 546
             width: 100
             height: 100
-            visible: absBool
-            source: "images/Abs.png"
+            source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -522,6 +521,26 @@ Item {
                     }
                 }
             }
+        }
+
+        Image {
+            id: highLightsIndicator
+            x: 106
+            y: 546
+            width: 100
+            height: 100
+            source: "images/High_beams.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: parkingIndicator
+            x: 214
+            y: 546
+            width: 100
+            height: 100
+            source: "images/Parking_break.png"
+            fillMode: Image.PreserveAspectFit
         }
     }
 
@@ -751,6 +770,7 @@ Item {
         }
 
         KeyframeGroup {
+            target: seatbeltIndicator
             target: seatbeltIndicator
             property: "opacity"
             Keyframe {
