@@ -131,6 +131,7 @@ std::optional<int> VehicleParser::ExtractData(const std::string& hexString) {
 /// response is useful? Need to investigate further.
 std::string VehicleParser::FormRequestString(int& serviceMode,
                                              std::string& code) {
+    return "";
   // return (std::string)serviceMode + code + "\r";
 }
 

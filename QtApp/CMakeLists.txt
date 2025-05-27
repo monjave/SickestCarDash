@@ -13,8 +13,6 @@ option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
-    # ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
-    # ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
@@ -105,48 +103,24 @@ endif()
 if(BUILD_TESTING)
     enable_testing()
 
-    qt_add_executable(CircularBufferTest
-        test/TestCircularBuffer.cc            
-        # test/TestVehicleConnection.cc
-    )
+    macro(add_qt_test TEST_NAME TEST_SOURCE)
+        qt_add_executable(${TEST_NAME}
+            ${TEST_SOURCE}
+        )
 
-    target_link_libraries(CircularBufferTest
-        PRIVATE
-        core                                   
-        Qt6::Test                              
-    )
+        target_link_libraries(${TEST_NAME}
+            PRIVATE
+            core
+            Qt6::Test
+        )
 
-    add_test(
-        NAME    CircularBufferTest             
-        COMMAND CircularBufferTest             
-    )
+        add_test(
+            NAME    ${TEST_NAME}
+            COMMAND ${TEST_NAME}
+        )
+    endmacro()
 
+    # Use the macro to add tests
+    add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
+    add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
 endif()
-
-
-# if(BUILD_TESTING)
-#     enable_testing()
-
-#     include(FetchContent)
-#     FetchContent_Declare(
-#       googletest
-#         URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
-#     )
-#     FetchContent_MakeAvailable(googletest)
-
-#     add_executable(unit_tests
-#         test/TestCircularBuffer.cc
-#         test/TestCircularBufferManager.cc
-#         test/TestVehicleParser.cc
-#         test/TestVehicleConnection.cc
-#         # test/ReplayParser.cc
-#     )
-
-#     target_link_libraries(unit_tests
-#         core
-#         gtest_main
-#     )
-
-#     include(GoogleTest)
-#     gtest_discover_tests(unit_tests)
-# endif()
