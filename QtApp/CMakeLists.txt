@@ -133,31 +133,3 @@ if(BUILD_TESTING)
     add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
     add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
 endif()
-
-
-# if(BUILD_TESTING)
-#     enable_testing()
-
-#     include(FetchContent)
-#     FetchContent_Declare(
-#       googletest
-#         URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
-#     )
-#     FetchContent_MakeAvailable(googletest)
-
-#     add_executable(unit_tests
-#         test/TestCircularBuffer.cc
-#         test/TestCircularBufferManager.cc
-#         test/TestVehicleParser.cc
-#         test/TestVehicleConnection.cc
-#         # test/ReplayParser.cc
-#     )
-
-#     target_link_libraries(unit_tests
-#         core
-#         gtest_main
-#     )
-
-#     include(GoogleTest)
-#     gtest_discover_tests(unit_tests)
-# endif()
