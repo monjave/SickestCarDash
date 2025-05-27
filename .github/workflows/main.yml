@@ -33,7 +33,7 @@ jobs:
               qt6-shadertools-dev
 
       - name: Configure with CMake
-        run: cmake -B build -S .
+        run: cmake -B build -S . -G Ninja
 
       - name: Build
         run: cmake --build build
