@@ -14,12 +14,12 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(int coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
     Q_PROPERTY(int clock READ clock WRITE setClock NOTIFY clockChanged)
     Q_PROPERTY(int enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
-    /*Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged) */
+    Q_PROPERTY(int oiltemp READ oiltemp WRITE setOilTemp NOTIFY oilTempChanged)
+    //Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
-    m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {
+        m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0) {
         QTimer *timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
         timer->start(1500);
@@ -58,11 +58,11 @@ public:
         return m_enginetemp;
     }
 
-    /*int speed() const{
-        return m_speed;
+    int oiltemp() const{
+        return m_oiltemp;
     }
 
-    int speed() const{
+    /*int speed() const{
         return m_speed;
     }*/
 
@@ -115,14 +115,14 @@ public:
         }
     };
 
-    /*void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
+    void setOilTemp(int newOilTemp) {
+        if (newOilTemp != m_speed) {
+            m_speed = newOilTemp;
+            emit oilTempChanged();
         }
     };
 
-    void setSpeed(int newSpeed) {
+    /*void setSpeed(int newSpeed) {
         if (newSpeed != m_speed) {
             m_speed = newSpeed;
             emit speedChanged();
@@ -137,8 +137,8 @@ signals:
     void coolanttempChanged();
     void clockChanged();
     void enginetempChanged();
-    /*void speedChanged();
-    void speedChanged();*/
+    void oilTempChanged();
+    //void speedChanged();
 
 private slots:
     void increment() {
@@ -148,8 +148,20 @@ private slots:
         if (m_rpm >= 7000) m_rpm = 0;
         else m_rpm += 1000;
 
+        if (m_fuel >= 100) m_fuel = 0;
+        else m_fuel += 10;
+
+        if (m_temp >= 260) m_temp = 100;
+        else m_temp += 40;
+
+        if (m_oiltemp >= 80) m_oiltemp = 0;
+        else m_oiltemp += 20;
+
         emit speedChanged();
         emit rpmChanged();
+        emit fuelChanged();
+        emit tempChanged();
+        emit oilTempChanged();
     }
 
 private:
@@ -160,7 +172,7 @@ private:
     int m_coolanttemp;
     int m_clock;
     int m_enginetemp;
-    //int m_speed;
+    int m_oiltemp;
     //int m_speed;
 };
 
