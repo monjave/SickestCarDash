@@ -16,6 +16,8 @@ Item {
     width: Constants.width
     height: Constants.height
 
+    property alias exposedButton: playButton
+
     Image {
         id: bgArt
         x: 0
@@ -239,6 +241,13 @@ Item {
             height: 300
             source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
+
+            Button {
+                id: playButton
+                x: 846
+                y: 680
+                text: qsTr("Play/Pause")
+            }
         }
 
         Image {
