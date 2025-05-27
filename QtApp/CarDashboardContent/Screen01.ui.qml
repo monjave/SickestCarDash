@@ -587,39 +587,6 @@ Item {
                 }
             }
         }
-
-        Image {
-            id: highLightsIndicator
-            x: 108
-            y: 514
-            width: 100
-            height: 100
-            visible: highlightsBool
-            source: "images/High_beams.png"
-            fillMode: Image.PreserveAspectFit
-        }
-
-        Image {
-            id: parkingIndicator
-            x: 214
-            y: 620
-            width: 100
-            height: 100
-            visible: parkingBool
-            source: "images/Parking_break.png"
-            fillMode: Image.PreserveAspectFit
-        }
-
-        Image {
-            id: engineCheckIndicator
-            x: 108
-            y: 620
-            width: 100
-            height: 100
-            visible: enginecheckBool
-            source: "images/Check_engine.png"
-            fillMode: Image.PreserveAspectFit
-        }
     }
 
     Timeline {
@@ -927,82 +894,6 @@ Item {
 
         KeyframeGroup {
             target: temp
-            property: "opacity"
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-        }
-
-        KeyframeGroup {
-            target: highLightsIndicator
-            property: "opacity"
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-        }
-
-        KeyframeGroup {
-            target: absIndicator
-            property: "opacity"
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-        }
-
-        KeyframeGroup {
-            target: engineCheckIndicator
-            property: "opacity"
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-        }
-
-        KeyframeGroup {
-            target: parkingIndicator
             property: "opacity"
             Keyframe {
                 value: 0

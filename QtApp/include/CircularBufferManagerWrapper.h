@@ -9,26 +9,19 @@
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
-    Q_PROPERTY(double speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(double rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
-    Q_PROPERTY(double fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
-    Q_PROPERTY(double temp READ temp WRITE setTemp NOTIFY tempChanged)
-    Q_PROPERTY(double coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
-    Q_PROPERTY(double clock READ clock WRITE setClock NOTIFY clockChanged)
-    Q_PROPERTY(double enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
-    Q_PROPERTY(double oiltemp READ oiltemp WRITE setOilTemp NOTIFY oilTempChanged)
-
-    Q_PROPERTY(double gearshift READ gearshift WRITE setGearShift NOTIFY gearshiftChanged)
-
-    Q_PROPERTY(bool seatbelt READ seatbelt WRITE setSeatBelt NOTIFY seatbeltChanged)
-    Q_PROPERTY(bool highlights READ highlights WRITE setHighlights NOTIFY highlightsChanged)
-    Q_PROPERTY(bool abs READ abs WRITE setABS NOTIFY absChanged)
-    Q_PROPERTY(bool enginecheck READ enginecheck WRITE setEngineCheck NOTIFY enginecheckChanged)
-    Q_PROPERTY(bool parking READ parking WRITE setParking NOTIFY parkingChanged)
+    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
+    Q_PROPERTY(int rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
+    Q_PROPERTY(int fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
+    Q_PROPERTY(int temp READ temp WRITE setTemp NOTIFY tempChanged)
+    Q_PROPERTY(int coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
+    Q_PROPERTY(int clock READ clock WRITE setClock NOTIFY clockChanged)
+    Q_PROPERTY(int enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
+    Q_PROPERTY(int oiltemp READ oiltemp WRITE setOilTemp NOTIFY oilTempChanged)
+    //Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
-    m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {
+        m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0) {
         QTimer *timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
         timer->start(1500);
@@ -71,29 +64,9 @@ public:
         return m_oiltemp;
     }
 
-    double gearshift() const{
-        return m_gearshift;
-    }
-
-    double seatbelt() const{
-        return m_seatbelt;
-    }
-
-    double highlights() const{
-        return m_highlights;
-    }
-
-    double abs() const{
-        return m_abs;
-    }
-
-    double enginecheck() const{
-        return m_enginecheck;
-    }
-
-    double parking() const{
-        return m_parking;
-    }
+    /*int speed() const{
+        return m_speed;
+    }*/
 
     void setSpeed(int newSpeed) {
         if (newSpeed != m_speed) {
@@ -151,45 +124,10 @@ public:
         }
     };
 
-    void setGearShift(double newGearShift) {
-        if (newGearShift != m_gearshift) {
-            m_gearshift = newGearShift;
-            emit gearshiftChanged();
-        }
-    };
-
-    void setSeatBelt(bool newSeatBelt) {
-        if (m_seatbelt != newSeatBelt) {
-            m_seatbelt = newSeatBelt;
-            emit seatbeltChanged();
-        }
-    };
-
-    void setHighlights(bool newHighlights) {
-        if (m_highlights != newHighlights) {
-            m_highlights = newHighlights;
-            emit highlightsChanged();
-        }
-    };
-
-    void setABS(bool newABS) {
-        if (m_abs != newABS) {
-            m_abs = newABS;
-            emit absChanged();
-        }
-    };
-
-    void setEngineCheck(bool newEngineCheck) {
-        if (m_enginecheck != newEngineCheck) {
-            m_enginecheck = newEngineCheck;
-            emit enginecheckChanged();
-        }
-    };
-
-    void setParking(bool newParking) {
-        if (m_parking != newParking) {
-            m_parking = newParking;
-            emit parkingChanged();
+    /*void setSpeed(int newSpeed) {
+        if (newSpeed != m_speed) {
+            m_speed = newSpeed;
+            emit speedChanged();
         }
     };*/
 
@@ -201,8 +139,8 @@ signals:
     void coolanttempChanged();
     void clockChanged();
     void enginetempChanged();
-    /*void speedChanged();
-    void speedChanged();*/
+    void oilTempChanged();
+    //void speedChanged();
 
 private slots:
     void increment() {
@@ -212,30 +150,32 @@ private slots:
         if (m_rpm >= 7000) m_rpm = 0;
         else m_rpm += 1000;
 
+        if (m_fuel >= 100) m_fuel = 0;
+        else m_fuel += 10;
+
+        if (m_temp >= 260) m_temp = 100;
+        else m_temp += 40;
+
+        if (m_oiltemp >= 80) m_oiltemp = 0;
+        else m_oiltemp += 20;
+
         emit speedChanged();
         emit rpmChanged();
+        emit fuelChanged();
+        emit tempChanged();
+        emit oilTempChanged();
     }
 
 private:
-    double m_speed;
-    double m_rpm;
-    double m_fuel;
-    double m_temp;
-    double m_coolanttemp;
-    double m_clock;
-    double m_enginetemp;
-    double m_oiltemp;
-
-    double m_gearshift;
-
-    bool m_seatbelt;
-    bool m_highlights;
-    bool m_abs;
-    bool m_enginecheck;
-    bool m_parking;
-
-    QTimer *timer;
-    QTimer *timerIcons;
+    int m_speed;
+    int m_rpm;
+    int m_fuel;
+    int m_temp;
+    int m_coolanttemp;
+    int m_clock;
+    int m_enginetemp;
+    int m_oiltemp;
+    //int m_speed;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H
