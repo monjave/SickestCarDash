@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataClock");
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataEnginetemp");
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataOilTemp");
-    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataGearShift");
+    //qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
 
     /*
     CircularBufferManagerWrapper data;
