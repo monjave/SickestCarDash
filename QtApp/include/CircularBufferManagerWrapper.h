@@ -17,18 +17,32 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(int oiltemp READ oiltemp WRITE setOilTemp NOTIFY oilTempChanged)
     //Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
 
+    Q_PROPERTY(bool paused READ paused WRITE setPaused NOTIFY togglePausedChanged)
+
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
-        m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0) {
-        QTimer *timer = new QTimer(this);
+        m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_ispaused(true) {
+        timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
-        timer->start(1500);
+        //timer->start(1500);
 
 
     }
+
+    /*Q_INVOKABLE void toggleTimer() {
+        if (m_ispaused) {
+            timer->stop();
+        } else {
+            timer->start(1500);
+        }
+    }; */
     //CircularBufferManager<int> manager;
     //std::vector<int> data = manager.consumeAll();
     //std::vector<int> data = {speedVal};
+
+    bool paused() const {
+        return m_ispaused;
+    }
 
     int speed() const{
         return m_speed;
@@ -65,6 +79,16 @@ public:
     /*int speed() const{
         return m_speed;
     }*/
+
+    void setPaused(bool paused) {
+        if (m_ispaused == paused) return;
+        m_ispaused = paused;
+        emit togglePausedChanged(m_ispaused);
+        if (m_ispaused)
+            timer->stop();
+        else
+            timer->start(1500);
+    }
 
     void setSpeed(int newSpeed) {
         if (newSpeed != m_speed) {
@@ -129,6 +153,14 @@ public:
         }
     };*/
 
+    Q_INVOKABLE void togglePaused() {
+        if (timer->isActive()) {
+            timer->stop();
+        } else {
+        timer->start(1500);
+        }
+    };
+
 signals:
     void speedChanged();
     void rpmChanged();
@@ -139,6 +171,8 @@ signals:
     void enginetempChanged();
     void oilTempChanged();
     //void speedChanged();
+
+    void togglePausedChanged(bool paused);
 
 private slots:
     void increment() {
@@ -164,6 +198,16 @@ private slots:
         emit oilTempChanged();
     }
 
+    /*void pause() {
+        if (m_ispaused) {
+            timer->stop();
+        } else {
+            timer->start(1500);
+        }
+    } */
+
+
+
 private:
     int m_speed;
     int m_rpm;
@@ -174,6 +218,10 @@ private:
     int m_enginetemp;
     int m_oiltemp;
     //int m_speed;
+
+    QTimer *timer;
+
+    bool m_ispaused;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H
