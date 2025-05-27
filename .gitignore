@@ -2,8 +2,6 @@
 .vscode
 .qtcreator
 *.user.2f37e0a
-QtApp-Debug
+# QtApp-Debug
 CMakeLists.txt.user
 .DS_Store
-build
-Dependencies

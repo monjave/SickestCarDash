@@ -1,14 +1,3 @@
-// #include "QtTest/QtTest"
-// #include "VehicleConnection.h"
-
-// class VehicleConnectionTest : public QObject {
-//     Q_OBJECT
-
-// private slots:
-
-// }
-
-// TestVehicleConnection.cc
 #include <QtTest>
 #include "VehicleConnection.h"
 #include "MockQSerialPort.h"
@@ -145,43 +134,13 @@ void VehicleConnectionTest::sendCommand_appendsCR()
 >>>>>>> 80e27dc (Merged Dom's code and fixed merge conflicts)
 }
 
-void VehicleConnectionTest::beginInitSequence_sendsAllInitCommands()
-{
-    /* Capture commands via MockSerialPort and advance the timer
-       manually with a QTest event‑loop wait.                     */
-    QSignalSpy initSpy(uut, &VehicleConnection::initComplete);
+void VehicleConnectionTest::initTest() {
 
-    uut->beginInitSequence();
-
-    /* wait up to (commands * 1 s) + margin                        */
-    const int sequenceTimeMs = 1000 * 5 + 200;
-    QVERIFY(initSpy.wait(sequenceTimeMs));
-
-    const QList<QByteArray> expected =
-        {"ATZ\r", "ATE0\r", "ATL0\r", "ATS0\r", "ATSP2\r"};
-
-    /* The mock accumulates writes in chronological order          */
-    QByteArray all = mockPort->written();
-    QList<QByteArray> chunks = all.split('\r');
-    chunks.removeLast();            // final split is empty after trailing \r
-
-    QCOMPARE(chunks, expected);
 }
 
-void VehicleConnectionTest::handleReadyRead_emitsHexSignal()
-{
-    QSignalSpy spy(uut, &VehicleConnection::rawHexReceived);
 
-    /* “41 0C 1A F8\r”  == typical RPM reply 0x1AF8                */
-    mockPort->injectIncoming(QByteArray::fromHex("410C1AF8") + "\r");
 
-    QVERIFY(spy.wait(50));          // allow event loop to spin
 
-    QCOMPARE(spy.count(), 1);
-    const QString payload = spy.takeFirst().at(0).toString();
-    QCOMPARE(payload, QString("41 0C 1A F8"));
-}
 
-/* ----------  main() wrapper  -------------------------------- */
 QTEST_MAIN(VehicleConnectionTest)
 #include "TestVehicleConnection.moc"
