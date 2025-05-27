@@ -251,12 +251,12 @@ Item {
         }
 
         Image {
-            id: iconIndicators
+            id: seatbeltIndicator
             x: 0
-            y: 355
-            width: 235
-            height: 365
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            y: 546
+            width: 100
+            height: 100
+            source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -353,6 +353,26 @@ Item {
                     }
                 }
             }
+        }
+
+        Image {
+            id: highLightsIndicator
+            x: 106
+            y: 546
+            width: 100
+            height: 100
+            source: "images/High_beams.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: parkingIndicator
+            x: 214
+            y: 546
+            width: 100
+            height: 100
+            source: "images/Parking_break.png"
+            fillMode: Image.PreserveAspectFit
         }
     }
 
@@ -582,7 +602,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: iconIndicators
+            target: seatbeltIndicator
             property: "opacity"
             Keyframe {
                 value: 0
