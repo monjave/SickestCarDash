@@ -18,6 +18,8 @@ Window {
     property int speedNumber: speedValue.speed
     property int rpmNumber: rpmValue.rpm
     property int fuelNumber: fuelValue.fuel
+    property int tempNumber: tempValue.temp
+    property int oilTempNumber: oilTempValue.oiltemp
 
     DataSpeed {
         id: speedValue
@@ -100,17 +102,14 @@ Window {
         id: mainScreen 
     }
 
-
-    /*Text {
-        id: speedDisplay
-        text: "Massive text"
-        font.pixelSize: speedValue.speed
-        x: 1000
-        y: 300
-        z: 10
-        color: "#ffffff"
-    }*/
-
-
+    Component.onCompleted: {
+        mainScreen.exposedButton.clicked.connect(function() {
+            speedValue.togglePaused()
+            rpmValue.togglePaused()
+            fuelValue.togglePaused()
+            tempValue.togglePaused()
+            oilTempValue.togglePaused()
+        })
+    }
 }
 

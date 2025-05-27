@@ -18,25 +18,6 @@ Item {
 
     property alias exposedButton: playButton
 
-    property alias parkingGear: gearP
-    property alias reverseGear: gearR
-    property alias neutralGear: gearN
-    property alias drivingGear: gearD
-    property alias firstGear: gear1
-    property alias secondGear: gear2
-    property alias thirdGear: gear3
-
-    property alias seatbelt: seatbeltIndicator
-    property alias abs: absIndicator
-    property alias highlights: highLightsIndicator
-    property alias engineCheck: engineCheckIndicator
-    property alias parking: parkingIndicator
-
-    property alias clockOne: clockOnes
-    property alias clockTen: clockTens
-    property alias clockHundred: clockHundreds
-    property alias clockThousand: clockThousands
-
     Image {
         id: bgArt
         x: 0
@@ -409,6 +390,13 @@ Item {
             height: 100
             source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
+
+            Button {
+                id: playButton
+                x: 846
+                y: 680
+                text: qsTr("Play/Pause")
+            }
         }
 
         Image {
