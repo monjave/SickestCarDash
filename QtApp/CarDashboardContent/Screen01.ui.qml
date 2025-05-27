@@ -188,7 +188,14 @@ Item {
                 width: 381
                 height: 381
                 source: "pointers/NeedleSmall.PNG"
+                rotation: fuelVar
                 fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
             }
 
             Image {
@@ -270,7 +277,14 @@ Item {
                 width: 385
                 height: 298
                 source: "pointers/NeedleSmall.PNG"
+                rotation: oilTempVar
                 fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
             }
         }
 
@@ -300,6 +314,7 @@ Item {
             y: 502
             width: 385
             height: 298
+            opacity: 0
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -320,7 +335,14 @@ Item {
                 width: 385
                 height: 298
                 source: "pointers/NeedleSmall.PNG"
+                rotation: tempVar
                 fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
             }
         }
     }
@@ -623,6 +645,25 @@ Item {
             Keyframe {
                 value: 0
                 frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: temp
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
             }
         }
     }
