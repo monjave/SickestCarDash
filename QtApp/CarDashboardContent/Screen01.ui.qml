@@ -420,8 +420,8 @@ Item {
 
             Button {
                 id: playButton
-                x: 846
-                y: 680
+                x: 797
+                y: 647
                 text: qsTr("Play/Pause")
             }
         }
@@ -896,6 +896,82 @@ Item {
 
         KeyframeGroup {
             target: temp
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: highLightsIndicator
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: absIndicator
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: engineCheckIndicator
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: parkingIndicator
             property: "opacity"
             Keyframe {
                 value: 0
