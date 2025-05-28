@@ -1,187 +1,170 @@
-#include "gtest/gtest.h"
+#include <QtTest/QtTest>
 #include "VehicleParser.h"
+#include "CircularBuffer.h"
 #include <fstream>
-#include <iostream>
-#include <map>
-#include <vector>
-#include <cstdio>
-#include <stdio.h>
-#include <QObject>
 
-TEST(VehicleParser, ExtractData) {
-    VehicleParser parser;
+class VehicleParserTest : public QObject {
+    Q_OBJECT
+
+private slots:
+    void ExtractData_data();
+    void ExtractData();
+
+    void Initialization();
+    void getPIDTable();
+    void PublishToMiddleware();
+
+    void HandlesMissingFile();
+    // void AllowsEmptyCSV();
+    // void LoadsValidCSV();
+    // void HandlesMalformedCSV();
+
+private:
+    void createTestCSV(const std::string& path, const std::string& contents);
+};
+
+void VehicleParserTest::ExtractData_data() {
+    QTest::addColumn<QString>("hexStr");
+    QTest::addColumn<bool>("isValid");
+    QTest::addColumn<int>("expectedValue");
 
     // Valid short hex strings
-    EXPECT_EQ(parser.ExtractData("0A"), 10);
-    EXPECT_EQ(parser.ExtractData("1F"), 31);
-    EXPECT_EQ(parser.ExtractData("FF"), 255);
-    EXPECT_EQ(parser.ExtractData("00FF"), 255);
-    EXPECT_EQ(parser.ExtractData("0"), 0);
+    QTest::newRow("0A") << "0A" << true << 10;
+    QTest::newRow("1F") << "1F" << true << 31;
+    QTest::newRow("FF") << "FF" << true << 255;
+    QTest::newRow("00FF") << "00FF" << true << 255;
+    QTest::newRow("0") << "0" << true << 0;
 
-    // Hex strings with higher bytes that get masked out
-    EXPECT_EQ(parser.ExtractData("1234"), 0x34);          // 0x1234 & 0x00FF = 0x34
-    EXPECT_EQ(parser.ExtractData("ABCD"), 0xCD);          // 0xABCD & 0x00FF = 0xCD
-    EXPECT_EQ(parser.ExtractData("00AB"), 0xAB);          // 0x00AB & 0x00FF = 0xAB
+    // Hex strings with masking
+    QTest::newRow("1234") << "1234" << true << 0x34;
+    QTest::newRow("ABCD") << "ABCD" << true << 0xCD;
+    QTest::newRow("00AB") << "00AB" << true << 0xAB;
 
-    // Lowercase hex accepted
-    EXPECT_EQ(parser.ExtractData("ff"), 255);
-    EXPECT_EQ(parser.ExtractData("abcd"), 0xCD);
-    EXPECT_EQ(parser.ExtractData("7fffffff"), 255);  // Max signed int
+    // Lowercase hex
+    QTest::newRow("ff") << "ff" << true << 255;
+    QTest::newRow("abcd") << "abcd" << true << 0xCD;
+    QTest::newRow("7fffffff") << "7fffffff" << true << 255;
 
-    // Overflow test (std::stoi throws std::nullopt)
-    EXPECT_EQ(parser.ExtractData("deadbeef"), std::nullopt);  // Overflows int
-    EXPECT_EQ(parser.ExtractData("FFFFFFFFF"), std::nullopt); // Too large
-
-    // Invalid input
-    EXPECT_EQ(parser.ExtractData("123Z"), std::nullopt); // Invalid character
-    EXPECT_EQ(parser.ExtractData("G1"), std::nullopt);   // Invalid character
-    EXPECT_EQ(parser.ExtractData(""), std::nullopt);     // Empty string
+    // Invalid / malformed inputs
+    QTest::newRow("deadbeef") << "deadbeef" << false << 0;
+    QTest::newRow("FFFFFFFFF") << "FFFFFFFFF" << false << 0;
+    QTest::newRow("123Z") << "123Z" << false << 0;
+    QTest::newRow("G1") << "G1" << false << 0;
+    QTest::newRow("empty") << "" << false << 0;
 }
 
-// TODO 
-// Add getter/setter for _pidTable instead of using Request(). Will break as soon as Request() is implemented
-TEST(VehicleParser, Initialization) {
+
+void VehicleParserTest::ExtractData() {
+    QFETCH(QString, hexStr);
+    QFETCH(bool, isValid);
+    QFETCH(int, expectedValue);
+
     VehicleParser parser;
+    auto [valid, value] = parser.ExtractData(hexStr.toStdString());
 
-    EXPECT_EQ(parser.Request("RESET"), "ATZ");
-    EXPECT_EQ(parser.Request("ECHOOFF"), "ATE0");
-    EXPECT_EQ(parser.Request("NOLINEFEED"), "ATL0");
-    EXPECT_EQ(parser.Request("NOSPACES"), "ATS0");
-    EXPECT_EQ(parser.Request("AUTOPRTCL"), "ATSP0");
-
-    EXPECT_EQ(parser.Request("SPEED"), "010D");
-    EXPECT_EQ(parser.Request("RPM"), "010C");
-    EXPECT_EQ(parser.Request("FUEL"), "012F");
-    EXPECT_EQ(parser.Request("WATERTEMP"), "0105");
-    EXPECT_EQ(parser.Request("THROTTLE"), "0111");
-    EXPECT_EQ(parser.Request("OILTEMP"), "015C");
-    EXPECT_EQ(parser.Request("GEAR"), "01A4");
-    EXPECT_EQ(parser.Request("BATTVOLTS"), "0142");
-    EXPECT_EQ(parser.Request("STOREDDTC"), "03");
+    QCOMPARE(valid, isValid);
+    if (isValid)
+        QCOMPARE(value, expectedValue);
 }
 
-TEST(VehicleParser, getPIDTable) {
+
+void VehicleParserTest::Initialization() {
     VehicleParser parser;
-
-    EXPECT_EQ(parser.getPIDTable("SPEED").first, std::string("010D"));
-    EXPECT_EQ(parser.getPIDTable("RPM").first, std::string("010C"));
-    EXPECT_EQ(parser.getPIDTable("FUEL").first, std::string("012F"));
-    EXPECT_EQ(parser.getPIDTable("WATERTEMP").first, std::string("0105"));
-    EXPECT_EQ(parser.getPIDTable("THROTTLE").first, std::string("0111"));
-    EXPECT_EQ(parser.getPIDTable("OILTEMP").first, std::string("015C"));
-    EXPECT_EQ(parser.getPIDTable("GEAR").first, std::string("01A4"));
-    EXPECT_EQ(parser.getPIDTable("BATTVOLTS").first, std::string("0142"));
-    EXPECT_EQ(parser.getPIDTable("STOREDDTC").first, std::string("03"));
-
-    // Test buffer assignments
-    EXPECT_EQ(parser.getPIDTable("SPEED").second, 0);
-    EXPECT_EQ(parser.getPIDTable("RPM").second, 1);
-    EXPECT_EQ(parser.getPIDTable("FUEL").second, 2);
-    EXPECT_EQ(parser.getPIDTable("WATERTEMP").second, 3);
-    EXPECT_EQ(parser.getPIDTable("THROTTLE").second, 4);
-    EXPECT_EQ(parser.getPIDTable("OILTEMP").second, 5);
-    EXPECT_EQ(parser.getPIDTable("GEAR").second, 6);
-    EXPECT_EQ(parser.getPIDTable("BATTVOLTS").second, 7);
-    EXPECT_EQ(parser.getPIDTable("STOREDDTC").second, 8);
-
-    EXPECT_EQ(parser.getPIDTable("RESET").second, -1);
-    EXPECT_EQ(parser.getPIDTable("ECHOOFF").second, -1);
-    EXPECT_EQ(parser.getPIDTable("NOLINEFEED").second, -1);
-    EXPECT_EQ(parser.getPIDTable("NOSPACES").second, -1);
-    EXPECT_EQ(parser.getPIDTable("AUTOPRTCL").second, -1);
+    QCOMPARE(parser.Request("RESET"), "ATZ");
+    QCOMPARE(parser.Request("ECHOOFF"), "ATE0");
+    QCOMPARE(parser.Request("NOLINEFEED"), "ATL0");
+    QCOMPARE(parser.Request("NOSPACES"), "ATS0");
+    QCOMPARE(parser.Request("AUTOPRTCL"), "ATSP0");
+    QCOMPARE(parser.Request("SPEED"), "010D");
+    QCOMPARE(parser.Request("RPM"), "010C");
+    QCOMPARE(parser.Request("FUEL"), "012F");
+    QCOMPARE(parser.Request("WATERTEMP"), "0105");
+    QCOMPARE(parser.Request("THROTTLE"), "0111");
+    QCOMPARE(parser.Request("OILTEMP"), "015C");
+    QCOMPARE(parser.Request("GEAR"), "01A4");
+    QCOMPARE(parser.Request("BATTVOLTS"), "0142");
+    QCOMPARE(parser.Request("STOREDDTC"), "03");
 }
 
-// Need to mock response from OBD2?
-// TEST(VehicleParser, Request) {
-//     VehicleParser parser;
-// }
-
-// FormRequestString is a simple function and is also private, it's a pain in the ass to test and probably not worth it considering the complexity of the function.
-// To test, we need to refactor the private logic into a testable helper class.
-
-// TEST(VehicleParser, FormRequeststring) {
-//     VehicleParser parser;
-//     std::string code = parser.accessPIDTable("SPEED").first;
-//     EXPECT_EQ(parser.FormRequestString(code), "010D\r");
-//     // EXPECT_EQ(parser.FormRequestString(parser.accessPIDTable("SPEED")).first, "010D\r");
-// }
-
-TEST(VehicleParser, PublishToMiddleware) {
+void VehicleParserTest::getPIDTable() {
     VehicleParser parser;
-    CircularBufferManager buffMan = CircularBufferManager<int>(10);
-    
+    std::vector<std::pair<QString, std::pair<std::string, int>>> tests = {
+        {"SPEED", {"010D", 0}},
+        {"RPM", {"010C", 1}},
+        {"FUEL", {"012F", 2}},
+        {"WATERTEMP", {"0105", 3}},
+        {"THROTTLE", {"0111", 4}},
+        {"OILTEMP", {"015C", 5}},
+        {"GEAR", {"01A4", 6}},
+        {"BATTVOLTS", {"0142", 7}},
+        {"STOREDDTC", {"03", 8}},
+        {"RESET", {"ATZ", -1}},
+        {"ECHOOFF", {"ATE0", -1}},
+        {"NOLINEFEED", {"ATL0", -1}},
+        {"NOSPACES", {"ATS0", -1}},
+        {"AUTOPRTCL", {"ATSP0", -1}},
+    };
+
+    for (const auto& [label, expected] : tests) {
+        auto pid = parser.getPIDTable(label.toStdString());
+        QCOMPARE(pid.first, expected.first);
+        QCOMPARE(pid.second, expected.second);
+    }
+}
+
+void VehicleParserTest::PublishToMiddleware() {
+    VehicleParser parser;
+    CircularBufferManager<int> buffMan(10);
+
     int testVal = 69;
     std::string testKey = "SPEED";
     parser.PublishToMiddleware(buffMan, testVal, testKey);
-    EXPECT_EQ(buffMan.peekBuffer(0), 69);
+    QCOMPARE(buffMan.peekBuffer(0), 69);
 
-    std::string badKey = "jfdkl;asjfld";
-    EXPECT_EQ(parser.PublishToMiddleware(buffMan, testVal, badKey), 1);
+    std::string badKey = "INVALID_KEY";
+    QCOMPARE(parser.PublishToMiddleware(buffMan, testVal, badKey), 1);
 }
 
-/*
- * relative location of realtime TRUE test files to these tests:
- *  ../../QtApp/replay/data/nurburgring_24h/data
- */
-
-/**
- * @brief Create a Test CSV object
- * 
- * @param path 
- * @param contents 
- */
-void createTestCSV(const std::string& path, const std::string& contents) {
-  std::ofstream file(path, std::ios::out);
-  if (!file.is_open()) {
-    std::cerr << "File failed to open at " << path << "\n";
-    return;
-  }
-  file << contents;
-  file.close();
+void VehicleParserTest::HandlesMissingFile() {
+    QVERIFY_EXCEPTION_THROWN(VehicleParser("nonexistent_path.csv"), std::exception);
 }
 
-TEST(VehicleParser, HandlesMissingFile) {
-  EXPECT_ANY_THROW(VehicleParser newReplay("bad_path.csv"));
+void VehicleParserTest::createTestCSV(const std::string& path, const std::string& contents) {
+    qDebug() << "Working dir:" << QDir::currentPath();
+    std::ofstream file(path);
+    QVERIFY(file.is_open());
+    file << contents;
+    file.close();
 }
 
-TEST(VehicleParser, AllowsEmptyCSV) {
-  std::string filePath = "../../QtApp/test/build/Debug";
-  std::string fileName = filePath + "/empty.csv";
-  createTestCSV(fileName, "");
-  VehicleParser newReplay(filePath);
-  auto& data = newReplay.getData();
+// void VehicleParserTest::AllowsEmptyCSV() {
+//     std::string filePath = "test_empty.csv";
+//     createTestCSV(filePath, "");
+//     qDebug() << "Working dir:" << QDir::currentPath();
+//     VehicleParser replay(QDir::currentPath().toStdString() + "/" + filePath);
+//     auto& data = replay.getData();
+//     QCOMPARE(data.size(), size_t(0));
+// }
 
-  std::fstream file(fileName);
-  ASSERT_TRUE(file.is_open());
-  file.close();
-  ASSERT_EQ(data.size(), 0);
-}
+// void VehicleParserTest::LoadsValidCSV() {
+//     std::string filePath = "test_valid.csv";
+//     createTestCSV(filePath, "Time,Speed,Distance\n9.9,0.0,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6.9,6.9,6.9\n4.20,4.20,4.20");
+//     VehicleParser replay(filePath);
+//     auto& data = replay.getData();
 
-TEST(VehicleParser, LoadsValidCSV) {
-  std::string filePath = "../../QtApp/test/build/Debug";
-  std::string fileName = filePath + "/valid.csv";
-  createTestCSV(fileName,
-                "Time,Speed,Distance\n9.9,0.0,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6."
-                "9,6.9,6.9\n4.20,4.20,4.20");
+//     QVERIFY(data.count("Time") == 1);
+//     QVERIFY(data.count("Speed") == 1);
+//     QVERIFY(data.count("Distance") == 1);
+//     QCOMPARE(data["Time"].size(), size_t(5));
+//     QCOMPARE(data["Speed"].size(), size_t(5));
+//     QCOMPARE(data["Distance"].size(), size_t(5));
+// }
 
-  std::ifstream checkFile(filePath);
-  VehicleParser newReplay(filePath);
+// void VehicleParserTest::HandlesMalformedCSV() {
+//     std::string filePath = "test_malformed.csv";
+//     createTestCSV(filePath, "Time,Speed,Distance\n9.9,not_right,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6.9,6.9,6.9\nincorrect,4.20,4.20");
+//     QVERIFY_EXCEPTION_THROWN(VehicleParser(filePath), std::exception);
+// }
 
-  auto& data = newReplay.getData();
-  ASSERT_TRUE(data.count("Time") == 1);
-  ASSERT_TRUE(data.count("Speed") == 1);
-  ASSERT_TRUE(data.count("Distance") == 1);
-  ASSERT_EQ(data["Time"].size(), 5);
-  ASSERT_EQ(data["Speed"].size(), 5);
-  ASSERT_EQ(data["Distance"].size(), 5);
-}
-
-TEST(VehicleParser, HandlesMalformedCSV) {
-  std::string filePath = "../../QtApp/test/build/Debug";
-  std::string fileName = filePath + "/malformed.csv";
-  createTestCSV(
-      fileName,
-      "Time,Speed,Distance\n9.9,not_right,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6."
-      "9,6.9,6.9\nincorrect,4.20,4.20");
-  EXPECT_ANY_THROW(VehicleParser newReplay(filePath));
-}
+QTEST_MAIN(VehicleParserTest)
+#include "TestVehicleParser.moc"

@@ -18,11 +18,19 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
   loadPidTable();
   std::filesystem::path directoryPath = filePath;
 
-  if (!exists(directoryPath)) {
-    throw std::invalid_argument("Invalid File Location");
-  } else {
-    loadSave(directoryPath);
+  std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+  
+
+  if (!std::filesystem::exists(directoryPath)) {
+    throw std::invalid_argument("File does not exist: " + filePath);
   }
+
+  if (!std::filesystem::is_regular_file(directoryPath)) {
+      throw std::invalid_argument("Expected a regular file: " + filePath);
+  }
+ 
+  loadSave(directoryPath);
+  
   this->timer26 = new QTimer();
   connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
   timer26->start(26);
@@ -103,23 +111,22 @@ std::optional<std::string> VehicleParser::Request(const std::string& request) {
 
 /// @brief Extracts the last two bytes of the response data from the vehicle
 /// @param hexString
-/// @return Returns an integer with the last two bytes of the response data.
-/// Returns std::nullopt if conversion doesn't work
-std::optional<int> VehicleParser::ExtractData(const std::string& hexString) {
+/// @return Returns a std::pair<bool, int> representing if the conversion is successful and what the value is.
+std::pair<bool, int> VehicleParser::ExtractData(const std::string& hexString) {
   try {
     size_t processed = 0;
     int value = std::stoi(hexString, &processed, 16);
 
     if (processed != hexString.size()) {
-      return std::nullopt;
+      return {false, INT_MIN};
     }
 
     value &= 0xFF;
 
-    return value;
+    return {true, value};
   } catch (const std::exception& e) {
     std::cerr << "Hex conversion error: " << e.what() << '\n';
-    return std::nullopt;
+    return {false, INT_MIN};
   }
 }
 

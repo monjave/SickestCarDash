@@ -1,84 +1,92 @@
-#include "gtest/gtest.h"
+#include <QtTest/QtTest>
 #include "CircularBufferManager.h"
 
-TEST(TestCircularBufferManager, InitBuffersAndSizeCheck) {
-    CircularBufferManager buffMan = CircularBufferManager<int>(1024);
-    ASSERT_EQ(buffMan.getBufferCount(), 1024);
-    ASSERT_EQ(buffMan.getByteSize(), 4194304);
-    ASSERT_EQ(buffMan.accessBuffer(0).getCapacity(), 1024);
-    ASSERT_EQ(buffMan.accessBuffer(1023).getCapacity(), 1024);
+class CircularBufferManagerTest : public QObject {
+    Q_OBJECT
+
+private slots:
+    void InitBuffersAndSizeCheck();
+    void Publish();
+    void DoubleParamPublish();
+    void DoubleParamPublishInvalidInput();
+    void PublishInputTooLong();
+    void ImproperAccessBuffer();
+    void ImproperPeekBuffer();
+    void ProperAccessBuffer();
+    void ConsumeAll();
+};
+
+void CircularBufferManagerTest::InitBuffersAndSizeCheck() {
+    CircularBufferManager<int> buffMan(1024);
+    QCOMPARE(buffMan.getBufferCount(), 1024);
+    QCOMPARE(buffMan.getByteSize(), 1024 * 1024 * sizeof(int)); // 4 194 304
+    QCOMPARE(buffMan.accessBuffer(0).getCapacity(), 1024);
+    QCOMPARE(buffMan.accessBuffer(1023).getCapacity(), 1024);
 }
 
-TEST(TestCircularBufferManager, Publish) {
-    CircularBufferManager buffMan = CircularBufferManager<int>(5);
-
+void CircularBufferManagerTest::Publish() {
+    CircularBufferManager<int> buffMan(5);
     std::vector<int> input = {1, 2, 3, 4, 5};
     buffMan.publish(input);
 
-    ASSERT_EQ(buffMan.peekBuffer(0), 1);
-    ASSERT_EQ(buffMan.peekBuffer(1), 2);
-    ASSERT_EQ(buffMan.peekBuffer(2), 3);
-    ASSERT_EQ(buffMan.peekBuffer(3), 4);
-    ASSERT_EQ(buffMan.peekBuffer(4), 5);
+    QCOMPARE(buffMan.peekBuffer(0), 1);
+    QCOMPARE(buffMan.peekBuffer(1), 2);
+    QCOMPARE(buffMan.peekBuffer(2), 3);
+    QCOMPARE(buffMan.peekBuffer(3), 4);
+    QCOMPARE(buffMan.peekBuffer(4), 5);
 }
 
-TEST(TestCircularBufferManager, DoubleParamPublish) {
-    CircularBufferManager buffMan = CircularBufferManager<int>(5);
-
-    for (int idx = 0; idx < 5; ++idx) {
-        buffMan.publish(idx + 1, idx);
+void CircularBufferManagerTest::DoubleParamPublish() {
+    CircularBufferManager<int> buffMan(5);
+    for (int i = 0; i < 5; ++i) {
+        QCOMPARE(buffMan.publish(i + 1, i), 0);
     }
-
-    ASSERT_EQ(buffMan.peekBuffer(0), 1);
-    ASSERT_EQ(buffMan.peekBuffer(1), 2);
-    ASSERT_EQ(buffMan.peekBuffer(2), 3);
-    ASSERT_EQ(buffMan.peekBuffer(3), 4);
-    ASSERT_EQ(buffMan.peekBuffer(4), 5);
+    QCOMPARE(buffMan.peekBuffer(0), 1);
+    QCOMPARE(buffMan.peekBuffer(1), 2);
+    QCOMPARE(buffMan.peekBuffer(2), 3);
+    QCOMPARE(buffMan.peekBuffer(3), 4);
+    QCOMPARE(buffMan.peekBuffer(4), 5);
 }
 
-TEST(TestCircularManager, DoubleParamPublishInvalidInput) {
-    CircularBufferManager buffMan = CircularBufferManager<int>(5);
-
-    ASSERT_EQ(buffMan.publish(69, -420), 1);
-    ASSERT_EQ(buffMan.publish(-420, 69), 1);
+void CircularBufferManagerTest::DoubleParamPublishInvalidInput() {
+    CircularBufferManager<int> buffMan(5);
+    QCOMPARE(buffMan.publish(69, -420), 1);
+    QCOMPARE(buffMan.publish(-420, 69), 1);
 }
 
-TEST(TestCircularBufferManager, PublishInputTooLong) {
-    CircularBufferManager buffMan = CircularBufferManager<int>(4);
-
+void CircularBufferManagerTest::PublishInputTooLong() {
+    CircularBufferManager<int> buffMan(4);
     std::vector<int> input = {1, 2, 3, 4, 5};
-    ASSERT_THROW(buffMan.publish(input), std::invalid_argument);
+    // replaced deprecated QVERIFY_EXCEPTION_THROWN:
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, buffMan.publish(input));
 }
 
-TEST(TestCircularBufferManager, ImproperAccessBuffer) {
+void CircularBufferManagerTest::ImproperAccessBuffer() {
     CircularBufferManager<int> buffMan(5);
-
-    ASSERT_THROW(buffMan.accessBuffer(69), std::out_of_range);
-    ASSERT_THROW(buffMan.accessBuffer(5), std::out_of_range);
-    ASSERT_THROW(buffMan.accessBuffer(-1), std::out_of_range);
+    // replaced deprecated QVERIFY_EXCEPTION_THROWN:
+    QVERIFY_THROWS_EXCEPTION(std::out_of_range, buffMan.accessBuffer(69));
+    QVERIFY_THROWS_EXCEPTION(std::out_of_range, buffMan.accessBuffer(5));
+    QVERIFY_THROWS_EXCEPTION(std::out_of_range, buffMan.accessBuffer(-1));
 }
 
-TEST(TestCircularBufferManager, ImproperPeekBuffer) {
+void CircularBufferManagerTest::ImproperPeekBuffer() {
     CircularBufferManager<int> buffMan(5);
-
-    ASSERT_THROW(buffMan.peekBuffer(69), std::out_of_range);
-    ASSERT_THROW(buffMan.peekBuffer(5), std::out_of_range);
-    ASSERT_THROW(buffMan.peekBuffer(-1), std::out_of_range);
+    // replaced deprecated QVERIFY_EXCEPTION_THROWN:
+    QVERIFY_THROWS_EXCEPTION(std::out_of_range, buffMan.peekBuffer(69));
+    QVERIFY_THROWS_EXCEPTION(std::out_of_range, buffMan.peekBuffer(5));
+    QVERIFY_THROWS_EXCEPTION(std::out_of_range, buffMan.peekBuffer(-1));
 }
 
-TEST(TestCircularBufferManager, ProperAccessBuffer) {
+void CircularBufferManagerTest::ProperAccessBuffer() {
     CircularBufferManager<int> buffMan(5);
-
-    ASSERT_EQ(buffMan.accessBuffer(0).getSize(), 0);
-    ASSERT_EQ(buffMan.accessBuffer(0).getCapacity(), 1024);
-    
-    ASSERT_EQ(buffMan.accessBuffer(1).getSize(), 0);
-    ASSERT_EQ(buffMan.accessBuffer(1).getCapacity(), 1024);
+    QCOMPARE(buffMan.accessBuffer(0).getSize(), 0);
+    QCOMPARE(buffMan.accessBuffer(0).getCapacity(), 1024);
+    QCOMPARE(buffMan.accessBuffer(1).getSize(), 0);
+    QCOMPARE(buffMan.accessBuffer(1).getCapacity(), 1024);
 }
 
-TEST(TestCircularBufferManager, ConsumeAll) {
+void CircularBufferManagerTest::ConsumeAll() {
     CircularBufferManager<int> buffMan(5);
-
     buffMan.accessBuffer(0).push(0);
     buffMan.accessBuffer(1).push(1);
     buffMan.accessBuffer(2).push(2);
@@ -86,6 +94,8 @@ TEST(TestCircularBufferManager, ConsumeAll) {
     buffMan.accessBuffer(4).push(4);
 
     std::vector<int> expected = {0,1,2,3,4};
-
-    ASSERT_EQ(buffMan.consumeAll(), expected);
+    QCOMPARE(buffMan.consumeAll(), expected);
 }
+
+QTEST_MAIN(CircularBufferManagerTest)
+#include "TestCircularBufferManager.moc"

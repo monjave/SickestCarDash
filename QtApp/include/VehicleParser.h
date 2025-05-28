@@ -47,7 +47,7 @@ class VehicleParser : public QObject {
   int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, double& data,
                              std::string& pidTableKey);
   std::optional<std::string> Request(const std::string& request);
-  std::optional<int> ExtractData(const std::string& hexString);
+  std::pair<bool, int> ExtractData(const std::string& hexString);
   std::pair<std::string, int> getPIDTable(const std::string& key);
   void printValueToFile(std::string desiredFileLocation);
   std::map<std::string, std::vector<double>>& getData();
