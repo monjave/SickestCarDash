@@ -154,12 +154,12 @@ void CircularBufferTest::PeekNonDestructive() {
 
     auto p1 = buf.peek();
     QVERIFY(p1.has_value());
-    QCOMPARE(*p1, QString("second"));
+    QCOMPARE(*p1, std::string("second"));
     QCOMPARE(buf.getSize(), 2);
 
     auto p2 = buf.peek();
     QVERIFY(p2.has_value());
-    QCOMPARE(*p2, QString("second"));
+    QCOMPARE(*p2, std::string("second"));
     QCOMPARE(buf.getSize(), 2);
 }
 

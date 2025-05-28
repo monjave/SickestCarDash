@@ -1,14 +1,14 @@
-
-# cmake_minimum_required(VERSION 3.21.1)
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
+
 message(STATUS
   "---- Found Qt6: "
   "${Qt6_VERSION_MAJOR}."
   "${Qt6_VERSION_MINOR}."
   "${Qt6_VERSION_PATCH} ----"
 )
+
 qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
@@ -53,10 +53,6 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
 
-
-    include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
-    include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
-
     qt_add_executable(CarDashboardApp
         App/main.cpp
         include/CircularBuffer.h
@@ -80,29 +76,29 @@ if(BUILD_GUI)
     )
 
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
-    qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
-        PREFIX "/"
-        FILES
-            assets/qtquickcontrols2.conf
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
+        qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
+            PREFIX "/"
+            FILES
+                assets/qtquickcontrols2.conf
+        )
+    endif()
+    include(qds)
+
+    if (BUILD_QDS_COMPONENTS)
+        include(qmlcomponents OPTIONAL)
+    endif()
+
+    if (LINK_INSIGHT)
+        include(insight OPTIONAL)
+    endif ()
+
+    include(GNUInstallDirs)
+    install(TARGETS ${CMAKE_PROJECT_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
-endif()
-include(qds)
-
-if (BUILD_QDS_COMPONENTS)
-    include(qmlcomponents OPTIONAL)
-endif()
-
-if (LINK_INSIGHT)
-    include(insight OPTIONAL)
-endif ()
-
-include(GNUInstallDirs)
-install(TARGETS ${CMAKE_PROJECT_NAME}
-  BUNDLE DESTINATION .
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
 endif()
 
 # ================== Unit Tests (Optional) ==================
