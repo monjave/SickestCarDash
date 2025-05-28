@@ -171,6 +171,11 @@ Item {
             width: 300
             height: 300
             source: "images/Gear_dark.png"
+            x: 676
+            y: 446
+            width: 300
+            height: 300
+            source: "images/Gear_dark.png"
             fillMode: Image.PreserveAspectFit
 
             Image {
@@ -179,7 +184,6 @@ Item {
                 y: 0
                 width: 300
                 height: 300
-                visible: false
                 source: "images/Gear_P.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -190,7 +194,6 @@ Item {
                 y: 0
                 width: 300
                 height: 300
-                visible: false
                 source: "images/Gear_R.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -201,7 +204,6 @@ Item {
                 y: 0
                 width: 300
                 height: 300
-                visible: false
                 source: "images/Gear_N.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -212,7 +214,6 @@ Item {
                 y: 0
                 width: 300
                 height: 300
-                visible: false
                 source: "images/Gear_D.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -223,7 +224,6 @@ Item {
                 y: 0
                 width: 300
                 height: 300
-                visible: false
                 source: "images/Gear_1.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -234,7 +234,6 @@ Item {
                 y: 0
                 width: 300
                 height: 300
-                visible: false
                 source: "images/Gear_2.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -245,7 +244,6 @@ Item {
                 y: 0
                 width: 300
                 height: 300
-                visible: false
                 source: "images/Gear_3.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -311,7 +309,53 @@ Item {
             width: 25
             height: 25
             source: "images/Colon.png"
+            id: clockColon
+            x: 948
+            y: 120
+            width: 25
+            height: 25
+            source: "images/Colon.png"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: clockOnes
+                x: 50
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockTens
+                x: 25
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockHundreds
+                x: -25
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockThousands
+                x: -50
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
 
             Image {
                 id: clockOnes
@@ -356,10 +400,10 @@ Item {
 
         Image {
             id: turnIndicatorL
-            x: 646
-            y: 0
-            width: 300
-            height: 300
+            x: 698
+            y: 33
+            width: 200
+            height: 200
             source: "images/LeftTurnSignal.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
@@ -376,8 +420,8 @@ Item {
 
             Button {
                 id: playButton
-                x: 797
-                y: 647
+                x: 846
+                y: 680
                 text: qsTr("Play/Pause")
             }
         }
@@ -388,24 +432,17 @@ Item {
             y: 514
             width: 100
             height: 100
-            source: "images/RightTurnSignal.png"
+            source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
-
-            Button {
-                id: playButton
-                x: 846
-                y: 680
-                text: qsTr("Play/Pause")
-            }
         }
 
         Image {
-            id: seatbeltIndicator
+            id: absIndicator
             x: 0
-            y: 546
+            y: 620
             width: 100
             height: 100
-            source: "images/Seatbelt.png"
+            source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -525,8 +562,8 @@ Item {
 
         Image {
             id: highLightsIndicator
-            x: 106
-            y: 546
+            x: 108
+            y: 514
             width: 100
             height: 100
             source: "images/High_beams.png"
@@ -536,10 +573,20 @@ Item {
         Image {
             id: parkingIndicator
             x: 214
-            y: 546
+            y: 620
             width: 100
             height: 100
             source: "images/Parking_break.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: engineCheckIndicator
+            x: 108
+            y: 620
+            width: 100
+            height: 100
+            source: "images/Check_engine.png"
             fillMode: Image.PreserveAspectFit
         }
     }
@@ -713,6 +760,7 @@ Item {
         }
 
         KeyframeGroup {
+            target: clockColon
             target: clockColon
             property: "opacity"
             Keyframe {
