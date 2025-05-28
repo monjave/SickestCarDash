@@ -166,12 +166,82 @@ Item {
 
         Image {
             id: gearSelect
-            x: 766
-            y: 483
-            width: 180
-            height: 180
-            source: "dials/DialBgSmall.PNG"
+            x: 676
+            y: 446
+            width: 300
+            height: 300
+            source: "images/Gear_dark.png"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: gearP
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                source: "images/Gear_P.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gearR
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                source: "images/Gear_R.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gearN
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                source: "images/Gear_N.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gearD
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                source: "images/Gear_D.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gear1
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                source: "images/Gear_1.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gear2
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                source: "images/Gear_2.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gear3
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                source: "images/Gear_3.png"
+                fillMode: Image.PreserveAspectFit
+            }
         }
 
         Image {
@@ -213,21 +283,61 @@ Item {
         }
 
         Image {
-            id: clock
-            x: 894
-            y: 34
-            width: 133
-            height: 100
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            id: clockColon
+            x: 948
+            y: 120
+            width: 25
+            height: 25
+            source: "images/Colon.png"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: clockOnes
+                x: 50
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockTens
+                x: 25
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockHundreds
+                x: -25
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockThousands
+                x: -50
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
         }
 
         Image {
             id: turnIndicatorL
-            x: 646
-            y: 0
-            width: 300
-            height: 300
+            x: 698
+            y: 33
+            width: 200
+            height: 200
             source: "images/LeftTurnSignal.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
@@ -235,10 +345,10 @@ Item {
 
         Image {
             id: turnIndicatorR
-            x: 974
-            y: 0
-            width: 300
-            height: 300
+            x: 1023
+            y: 33
+            width: 200
+            height: 200
             source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
 
@@ -253,10 +363,20 @@ Item {
         Image {
             id: seatbeltIndicator
             x: 0
-            y: 546
+            y: 514
             width: 100
             height: 100
             source: "images/Seatbelt.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: absIndicator
+            x: 0
+            y: 620
+            width: 100
+            height: 100
+            source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -357,8 +477,8 @@ Item {
 
         Image {
             id: highLightsIndicator
-            x: 106
-            y: 546
+            x: 108
+            y: 514
             width: 100
             height: 100
             source: "images/High_beams.png"
@@ -368,10 +488,20 @@ Item {
         Image {
             id: parkingIndicator
             x: 214
-            y: 546
+            y: 620
             width: 100
             height: 100
             source: "images/Parking_break.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: engineCheckIndicator
+            x: 108
+            y: 620
+            width: 100
+            height: 100
+            source: "images/Check_engine.png"
             fillMode: Image.PreserveAspectFit
         }
     }
@@ -545,7 +675,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: clock
+            target: clockColon
             property: "opacity"
             Keyframe {
                 value: 0
