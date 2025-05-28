@@ -9,7 +9,7 @@ message(STATUS
   "${Qt6_VERSION_PATCH} ----"
 )
 
-qt_standard_project_setup(REQUIRES 6.9.0)
+qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
