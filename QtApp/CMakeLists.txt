@@ -120,5 +120,7 @@ endif()
     # Use the macro to add tests
     add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
     add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
+    add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
+    add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
 endif()
 >>>>>>> 80e27dc (Merged Dom's code and fixed merge conflicts)
