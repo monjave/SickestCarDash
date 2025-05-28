@@ -3,6 +3,12 @@
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
+message(STATUS
+  "---- Found Qt6: "
+  "${Qt6_VERSION_MAJOR}."
+  "${Qt6_VERSION_MINOR}."
+  "${Qt6_VERSION_PATCH} ----"
+)
 qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
