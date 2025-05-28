@@ -1,7 +1,8 @@
 #include <QtTest/QtTest>
+#include <QtTest/QtTest>
 #include "VehicleParser.h"
 #include "CircularBuffer.h"
-// #include "CircularBufferManager.h"
+#include "CircularBuffer.h"
 #include <fstream>
 
 class VehicleParserTest : public QObject {
@@ -11,7 +12,7 @@ private slots:
     void ExtractData_data();
     void ExtractData();
 
-    // void Initialization();
+    void Initialization();
     void getPIDTable();
     void PublishToMiddleware();
 
@@ -69,24 +70,23 @@ void VehicleParserTest::ExtractData() {
 }
 
 
-// void VehicleParserTest::Initialization() {
-//     VehicleParser parser;
-//     VehicleConnection vc;
-//     QCOMPARE(parser.Request("RESET"), "ATZ");
-//     QCOMPARE(parser.Request("ECHOOFF"), "ATE0");
-//     QCOMPARE(parser.Request("NOLINEFEED"), "ATL0");
-//     QCOMPARE(parser.Request("NOSPACES"), "ATS0");
-//     QCOMPARE(parser.Request("AUTOPRTCL"), "ATSP0");
-//     QCOMPARE(parser.Request("SPEED"), "010D");
-//     QCOMPARE(parser.Request("RPM"), "010C");
-//     QCOMPARE(parser.Request("FUEL"), "012F");
-//     QCOMPARE(parser.Request("WATERTEMP"), "0105");
-//     QCOMPARE(parser.Request("THROTTLE"), "0111");
-//     QCOMPARE(parser.Request("OILTEMP"), "015C");
-//     QCOMPARE(parser.Request("GEAR"), "01A4");
-//     QCOMPARE(parser.Request("BATTVOLTS"), "0142");
-//     QCOMPARE(parser.Request("STOREDDTC"), "03");
-// }
+void VehicleParserTest::Initialization() {
+    VehicleParser parser;
+    QCOMPARE(parser.Request("RESET"), "ATZ");
+    QCOMPARE(parser.Request("ECHOOFF"), "ATE0");
+    QCOMPARE(parser.Request("NOLINEFEED"), "ATL0");
+    QCOMPARE(parser.Request("NOSPACES"), "ATS0");
+    QCOMPARE(parser.Request("AUTOPRTCL"), "ATSP0");
+    QCOMPARE(parser.Request("SPEED"), "010D");
+    QCOMPARE(parser.Request("RPM"), "010C");
+    QCOMPARE(parser.Request("FUEL"), "012F");
+    QCOMPARE(parser.Request("WATERTEMP"), "0105");
+    QCOMPARE(parser.Request("THROTTLE"), "0111");
+    QCOMPARE(parser.Request("OILTEMP"), "015C");
+    QCOMPARE(parser.Request("GEAR"), "01A4");
+    QCOMPARE(parser.Request("BATTVOLTS"), "0142");
+    QCOMPARE(parser.Request("STOREDDTC"), "03");
+}
 
 void VehicleParserTest::getPIDTable() {
     VehicleParser parser;
