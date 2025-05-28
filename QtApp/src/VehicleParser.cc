@@ -125,15 +125,16 @@ void VehicleParser::replayStart(){
   timer20->start(20);
 }
 
-/// @brief Makes a request to the device
-/// @param request
-/// @return
-/// NOTE: This should be run in its own thread since it will probably block
-/// while waiting for a response from the vehicle. Add a timeout
-std::optional<std::string> VehicleParser::Request(const std::string& request) {
+/// @brief Makes a request to the OBD-II Interface
+/// @param request The request to be made to the OBD-II Interface
+/// @return Returns
+void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
-
+  
+  connection->sendCommand(obdCode);
+  QString obdCode = QString::fromStdString(code);
+  
   connection->sendCommand(obdCode);
 }
 
