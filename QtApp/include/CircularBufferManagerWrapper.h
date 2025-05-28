@@ -15,13 +15,13 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(int clock READ clock WRITE setClock NOTIFY clockChanged)
     Q_PROPERTY(int enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
     Q_PROPERTY(int oiltemp READ oiltemp WRITE setOilTemp NOTIFY oilTempChanged)
-    //Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
+    Q_PROPERTY(int gearshift READ gearshift WRITE setGearShift NOTIFY gearshiftChanged)
 
     Q_PROPERTY(bool paused READ paused WRITE setPaused NOTIFY togglePausedChanged)
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
-        m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_ispaused(true) {
+        m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_ispaused(true) {
         timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
         //timer->start(1500);
@@ -76,9 +76,9 @@ public:
         return m_oiltemp;
     }
 
-    /*int speed() const{
-        return m_speed;
-    }*/
+    int gearshift() const{
+        return m_gearshift;
+    }
 
     void setPaused(bool paused) {
         if (m_ispaused == paused) return;
@@ -146,12 +146,12 @@ public:
         }
     };
 
-    /*void setSpeed(int newSpeed) {
-        if (newSpeed != m_speed) {
-            m_speed = newSpeed;
-            emit speedChanged();
+    void setGearShift(int newGearShift) {
+        if (newGearShift != m_gearshift) {
+            m_gearshift = newGearShift;
+            emit gearshiftChanged();
         }
-    };*/
+    };
 
     Q_INVOKABLE void togglePaused() {
         if (timer->isActive()) {
@@ -170,7 +170,7 @@ signals:
     void clockChanged();
     void enginetempChanged();
     void oilTempChanged();
-    //void speedChanged();
+    void gearshiftChanged();
 
     void togglePausedChanged(bool paused);
 
@@ -217,7 +217,7 @@ private:
     int m_clock;
     int m_enginetemp;
     int m_oiltemp;
-    //int m_speed;
+    int m_gearshift;
 
     QTimer *timer;
 

@@ -9,6 +9,8 @@ Window {
     visible: true
     title: "CarDashboard"
 
+    //visibility: Window.FullScreen
+
     property int speedVar: speedToAngle(speedValue.speed)
     property int rpmVar: rpmToAngle(rpmValue.rpm)
     property int fuelVar: fuelToAngle(fuelValue.fuel)
