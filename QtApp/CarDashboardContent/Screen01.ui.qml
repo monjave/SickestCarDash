@@ -387,7 +387,7 @@ Item {
             y: 514
             width: 100
             height: 100
-            visible: true
+            visible: seatbeltBool
             source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -398,7 +398,7 @@ Item {
             y: 620
             width: 100
             height: 100
-            visible: true
+            visible: absBool
             source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -504,7 +504,7 @@ Item {
             y: 514
             width: 100
             height: 100
-            visible: true
+            visible: highlightsBool
             source: "images/High_beams.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -515,7 +515,7 @@ Item {
             y: 620
             width: 100
             height: 100
-            visible: true
+            visible: parkingBool
             source: "images/Parking_break.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -526,7 +526,7 @@ Item {
             y: 620
             width: 100
             height: 100
-            visible: true
+            visible: enginecheckBool
             source: "images/Check_engine.png"
             fillMode: Image.PreserveAspectFit
         }
