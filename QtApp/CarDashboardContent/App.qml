@@ -17,6 +17,20 @@ Window {
     property int tempVar: tempToAngle(tempValue.temp)
     property int oilTempVar: oilTempToAngle(oilTempValue.oiltemp)
 
+    property bool seatbeltBool: speedValue.seatbelt
+    property bool highlightsBool: speedValue.highlights
+    property bool absBool: speedValue.abs
+    property bool enginecheckBool: speedValue.enginecheck
+    property bool parkingBool: speedValue.parking
+
+    property bool gearPark: false
+    property bool gearReverse: false
+    property bool gearNeutral: false
+    property bool gearDrive: false
+    property bool gearFirst: false
+    property bool gearSecond: false
+    property bool gearThird: false
+
     property int speedNumber: speedValue.speed
     property int rpmNumber: rpmValue.rpm
     property int fuelNumber: fuelValue.fuel
