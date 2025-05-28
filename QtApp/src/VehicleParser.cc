@@ -18,11 +18,30 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
   loadPidTable();
   std::filesystem::path directoryPath = filePath;
 
-  if (!exists(directoryPath)) {
-    throw std::invalid_argument("Invalid File Location");
-  } else {
-    loadSave(directoryPath);
+  std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+  
+
+  if (!std::filesystem::exists(directoryPath)) {
+    throw std::invalid_argument("File does not exist: " + filePath);
   }
+
+  if (!std::filesystem::is_regular_file(directoryPath)) {
+      throw std::invalid_argument("Expected a regular file: " + filePath);
+  }
+ 
+  loadSave(directoryPath);
+  
+  this->timer26 = new QTimer();
+  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer26->start(26);
+
+  this->timer78 = new QTimer();
+  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer78->start(78);
+
+  this->timer20 = new QTimer();
+  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer20->start(20);
 }
 
 /**
