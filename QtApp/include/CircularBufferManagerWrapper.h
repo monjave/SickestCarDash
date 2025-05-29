@@ -24,34 +24,14 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(bool enginecheck READ enginecheck WRITE setEngineCheck NOTIFY enginecheckChanged)
     Q_PROPERTY(bool parking READ parking WRITE setParking NOTIFY parkingChanged)
 
-    Q_PROPERTY(bool paused READ paused WRITE setPaused NOTIFY togglePausedChanged)
-
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
         m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(10000), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
-        m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true), m_ispaused(true) {
+        m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
         timer = new QTimer(this);
         timerIcons = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
         connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
-        //timer->start(1500);
-
-
-    }
-
-    /*Q_INVOKABLE void toggleTimer() {
-        if (m_ispaused) {
-            timer->stop();
-        } else {
-            timer->start(1500);
-        }
-    }; */
-    //CircularBufferManager<int> manager;
-    //std::vector<int> data = manager.consumeAll();
-    //std::vector<int> data = {speedVal};
-
-    bool paused() const {
-        return m_ispaused;
     }
 
     int speed() const{
@@ -108,16 +88,6 @@ public:
 
     int parking() const{
         return m_parking;
-    }
-
-    void setPaused(bool paused) {
-        if (m_ispaused == paused) return;
-        m_ispaused = paused;
-        emit togglePausedChanged(m_ispaused);
-        if (m_ispaused)
-            timer->stop();
-        else
-            timer->start(1500);
     }
 
     void setSpeed(int newSpeed) {
@@ -303,16 +273,6 @@ private slots:
         emit gearshiftChanged();
     }
 
-    /*void pause() {
-        if (m_ispaused) {
-            timer->stop();
-        } else {
-            timer->start(1500);
-        }
-    } */
-
-
-
 private:
     int m_speed;
     int m_rpm;
@@ -333,8 +293,6 @@ private:
 
     QTimer *timer;
     QTimer *timerIcons;
-
-    bool m_ispaused;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H
