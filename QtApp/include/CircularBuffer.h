@@ -26,4 +26,5 @@ public:
 	void printBuffer() const;
 };
 
+#include "CircularBuffer.cc"
 #endif //CIRCULARBUFFERS_H

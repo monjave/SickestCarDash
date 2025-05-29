@@ -1,8 +1,15 @@
-
-# cmake_minimum_required(VERSION 3.21.1)
+cmake_policy(SET CMP0048 NEW)
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
+
+message(STATUS
+  "---- Found Qt6: "
+  "${Qt6_VERSION_MAJOR}."
+  "${Qt6_VERSION_MINOR}."
+  "${Qt6_VERSION_PATCH} ----"
+)
+
 qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
@@ -13,15 +20,10 @@ option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
-    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBuffer.cc
-    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp
-
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
-
-
 )
 
 # Link QtCore to core lib
@@ -52,17 +54,11 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
 # ================== Qt GUI App (Optional) ==================
 if(BUILD_GUI)
 
-
-    include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
-    include_directories(${CMAKE_CURRENT_LIST_DIR}/src)
-
     qt_add_executable(CarDashboardApp
         App/main.cpp
         include/CircularBuffer.h
         include/CircularBufferManager.h
         include/CircularBufferManagerWrapper.h
-        src/CircularBuffer.cc
-        src/CircularBufferManager.cc
         src/CircularBufferManagerWrapper.cpp
         include/VehicleConnection.h
         src/VehicleConnection.cpp
@@ -81,54 +77,55 @@ if(BUILD_GUI)
     )
 
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
-    qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
-        PREFIX "/"
-        FILES
-            assets/qtquickcontrols2.conf
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/assets/qtquickcontrols2.conf")
+        qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
+            PREFIX "/"
+            FILES
+                assets/qtquickcontrols2.conf
+        )
+    endif()
+    include(qds)
+
+    if (BUILD_QDS_COMPONENTS)
+        include(qmlcomponents OPTIONAL)
+    endif()
+
+    if (LINK_INSIGHT)
+        include(insight OPTIONAL)
+    endif ()
+
+    include(GNUInstallDirs)
+    install(TARGETS ${CMAKE_PROJECT_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
-endif()
-include(qds)
-
-if (BUILD_QDS_COMPONENTS)
-    include(qmlcomponents OPTIONAL)
-endif()
-
-if (LINK_INSIGHT)
-    include(insight OPTIONAL)
-endif ()
-
-include(GNUInstallDirs)
-install(TARGETS ${CMAKE_PROJECT_NAME}
-  BUNDLE DESTINATION .
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
 endif()
 
 # ================== Unit Tests (Optional) ==================
 if(BUILD_TESTING)
     enable_testing()
 
-    include(FetchContent)
-    FetchContent_Declare(
-      googletest
-        URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
-    )
-    FetchContent_MakeAvailable(googletest)
+    macro(add_qt_test TEST_NAME TEST_SOURCE)
+        qt_add_executable(${TEST_NAME}
+            ${TEST_SOURCE}
+        )
 
-    add_executable(unit_tests
-        test/TestCircularBuffer.cc
-        test/TestCircularBufferManager.cc
-        test/TestVehicleParser.cc
-        test/TestVehicleConnection.cc
-    )
+        target_link_libraries(${TEST_NAME}
+            PRIVATE
+            core
+            Qt6::Test
+        )
 
-    target_link_libraries(unit_tests
-        core
-        gtest_main
-    )
+        add_test(
+            NAME    ${TEST_NAME}
+            COMMAND ${TEST_NAME}
+        )
+    endmacro()
 
-    include(GoogleTest)
-    gtest_discover_tests(unit_tests)
+    # Use the macro to add tests
+    add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
+    add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
+    add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
+    add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
 endif()
