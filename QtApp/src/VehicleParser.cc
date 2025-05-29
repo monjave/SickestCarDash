@@ -103,6 +103,9 @@ void VehicleParser::Request(VehicleConnection* connection, const std::string& re
   connection->sendCommand(obdCode);
 }
 
+
+// TODO - Need to be able to take in a QString, not just a regular string
+
 /// @brief Extracts the last two bytes of the response data from the vehicle
 /// @param hexString
 /// @return Returns a std::pair<bool, int> representing if the conversion is successful and what the value is.
@@ -124,13 +127,12 @@ std::pair<bool, int> VehicleParser::ExtractData(const std::string& hexString) {
   }
 }
 
-/// TODO
-/// @brief
-/// @note Change implementation based on how the dongle device works -- if
-/// there's some form of way to validate connection status we should return 1 or
-/// -1 based on connection status
-void VehicleParser::initOBDConnection(VehicleConnection* connection) {
-  connection->beginInitSequence();
+/// @brief Initializes the OBD-II connection by creating a new VehicleConnection object 
+/// @returns Returns a pointer to the newly created VehicleConnection object
+VehicleConnection* VehicleParser::initOBDConnection() {
+  VehicleConnection* connection = new VehicleConnection();
+
+  return connection;
 }
 
 // @brief Publish to the middleware what an OBD query has returned.
@@ -244,14 +246,14 @@ void VehicleParser::readCSV(std::fstream& file) {
   file.close();
 }
 
-/// @brief 
-/// @param parent  
+/// @brief Starts the replay process of 
+/// @param parent TODO -- Why do we need to pass in a parent object here?
 void VehicleParser::startReplay(QObject* parent = nullptr) {
 
 }
 
-/// @brief 
-/// @return 
+/// @brief Get the stored replay data from the Vehicleparser object
+/// @return Returns a map holding the data.
 std::map<std::string, std::vector<double>>& VehicleParser::getData() {
   return _replayData;
 }

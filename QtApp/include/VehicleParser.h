@@ -33,7 +33,7 @@ class VehicleParser : public QObject {
 
   void loadSave(std::filesystem::path file);
   void readCSV(std::fstream& file);
-  void initOBDConnection();
+  VehicleConnection* initOBDConnection();
   void loadPidTable();
   void removeReplayDataFromFront(std::string key);
 
