@@ -16,7 +16,7 @@ qt_standard_project_setup(REQUIRES 6.4.2)
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 option(BUILD_GUI "Build the Qt GUI application" ON)
-# option(BUILD_TESTING "Build unit tests" ON)
+option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
@@ -103,7 +103,7 @@ if(BUILD_GUI)
 endif()
 
 # ================== Unit Tests (Optional) ==================
-#[[if(BUILD_TESTING)
+if(BUILD_TESTING)
     enable_testing()
 
     macro(add_qt_test TEST_NAME TEST_SOURCE)
