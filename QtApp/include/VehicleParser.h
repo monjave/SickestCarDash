@@ -56,10 +56,6 @@ class VehicleParser : public QObject {
   std::map<std::string, std::vector<double>>& getData();
   void startReplay(QObject* parent);
   // std::pair<std::string, int> accessPIDTable(const std::string key);
-signals:
-
-private slots:
-
 };
 
 #endif
