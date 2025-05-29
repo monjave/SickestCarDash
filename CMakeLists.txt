@@ -6,6 +6,10 @@ project(CarDashboardApp LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if(CMAKE_GENERATOR STREQUAL "Xcode")
+    set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+endif()
+
 # Enable testing across all subdirectories if desired
 option(BUILD_TESTING "Enable unit tests" ON)
 option(BUILD_GUI "Build the Qt GUI" ON)
