@@ -36,6 +36,7 @@ Window {
     property int fuelNumber: fuelValue.fuel
     property int tempNumber: tempValue.temp
     property int oilTempNumber: oilTempValue.oiltemp
+    property int gearShiftNumber: gearShiftValue.gearshift
 
     DataSpeed {
         id: speedValue
@@ -55,6 +56,10 @@ Window {
 
     DataOilTemp {
         id: oilTempValue
+    }
+
+    DataGearShift {
+        id: gearShiftValue
     }
 
     function speedToAngle(speed) {
@@ -114,6 +119,48 @@ Window {
         return angle;
     }
 
+    function gearShift() {
+        mainScreen.parkingGear.visible = false;
+        mainScreen.reverseGear.visible = false;
+        mainScreen.neutralGear.visible = false;
+        mainScreen.drivingGear.visible = false;
+        mainScreen.firstGear.visible = false;
+        mainScreen.secondGear.visible = false;
+        mainScreen.thirdGear.visible = false;
+
+        switch (gearShiftNumber) {
+
+        case 1:
+            mainScreen.parkingGear.visible = true
+            break;
+
+        case 2:
+            mainScreen.reverseGear.visible = true;
+            break;
+
+        case 3:
+            mainScreen.neutralGear.visible = true;
+            break;
+
+        case 4:
+            mainScreen.drivingGear.visible = true;
+            break;
+
+        case 5:
+            mainScreen.firstGear.visible = true;
+            break;
+
+        case 6:
+            mainScreen.secondGear.visible = true;
+            break;
+
+        case 7:
+            mainScreen.thirdGear.visible = true;
+            break;
+        }
+
+    }
+
     Screen01 {
         id: mainScreen 
     }
@@ -125,7 +172,13 @@ Window {
             fuelValue.togglePaused()
             tempValue.togglePaused()
             oilTempValue.togglePaused()
+            gearShiftValue.togglePaused()
         })
     }
+
+    onGearShiftNumberChanged: {
+        gearShift()
+    }
+
 }
 
