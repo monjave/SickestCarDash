@@ -31,7 +31,9 @@ public:
         m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
         m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true), m_ispaused(true) {
         timer = new QTimer(this);
+        timerIcons = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
+        connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
         //timer->start(1500);
 
 
@@ -222,6 +224,12 @@ public:
         } else {
         timer->start(1500);
         }
+
+        if (timerIcons->isActive()) {
+            timerIcons->stop();
+        } else {
+            timerIcons->start(500);
+        }
     };
 
 signals:
@@ -278,6 +286,15 @@ private slots:
         emit absChanged();
         emit enginecheckChanged();
         emit parkingChanged();
+    }
+
+    void geartime() {
+        if (m_gearshift >= 7) {
+            m_gearshift = 0;
+        } else {
+        m_gearshift++;
+        }
+        emit gearshiftChanged();
     }
 
     /*void pause() {
