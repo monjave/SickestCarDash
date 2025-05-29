@@ -23,20 +23,14 @@ Window {
     property bool enginecheckBool: speedValue.enginecheck
     property bool parkingBool: speedValue.parking
 
-    property bool gearPark: false
-    property bool gearReverse: false
-    property bool gearNeutral: false
-    property bool gearDrive: false
-    property bool gearFirst: false
-    property bool gearSecond: false
-    property bool gearThird: false
-
     property int speedNumber: speedValue.speed
     property int rpmNumber: rpmValue.rpm
     property int fuelNumber: fuelValue.fuel
     property int tempNumber: tempValue.temp
     property int oilTempNumber: oilTempValue.oiltemp
     property int gearShiftNumber: gearShiftValue.gearshift
+
+    property int time: clockValue.clock
 
     DataSpeed {
         id: speedValue
@@ -56,6 +50,10 @@ Window {
 
     DataOilTemp {
         id: oilTempValue
+    }
+
+    DataClock {
+        id: clockValue
     }
 
     DataGearShift {
@@ -161,6 +159,13 @@ Window {
 
     }
 
+    function clock() {
+        mainScreen.clockThousand.source = "images/" + (time.toString()[1]) + ".png"
+        mainScreen.clockHundred.source = "images/" + (time.toString()[2]) + ".png"
+        mainScreen.clockTen.source = "images/" + (time.toString()[3]) + ".png"
+        mainScreen.clockOne.source = "images/" + (time.toString()[4]) + ".png"
+    }
+
     Screen01 {
         id: mainScreen 
     }
@@ -172,12 +177,17 @@ Window {
             fuelValue.togglePaused()
             tempValue.togglePaused()
             oilTempValue.togglePaused()
+            clockValue.togglePaused()
             gearShiftValue.togglePaused()
         })
     }
 
     onGearShiftNumberChanged: {
         gearShift()
+    }
+
+    onTimeChanged: {
+        clock()
     }
 
 }
