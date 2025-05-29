@@ -15,33 +15,33 @@ VehicleParser::VehicleParser() { loadPidTable(); };
  * @param filePath
  */
 VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
-  loadPidTable();
-  std::filesystem::path directoryPath = filePath;
+    loadPidTable();
+    std::filesystem::path directoryPath = filePath;
 
-  std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+    std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+    
+
+    if (!std::filesystem::exists(directoryPath)) {
+      throw std::invalid_argument("File does not exist: " + filePath);
+    }
+
+    if (!std::filesystem::is_regular_file(directoryPath)) {
+        throw std::invalid_argument("Expected a regular file: " + filePath);
+    }
   
+    loadSave(directoryPath);
+    
+    this->timer26 = new QTimer();
+    connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+    timer26->start(26);
 
-  if (!std::filesystem::exists(directoryPath)) {
-    throw std::invalid_argument("File does not exist: " + filePath);
-  }
+    this->timer78 = new QTimer();
+    connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+    timer78->start(78);
 
-  if (!std::filesystem::is_regular_file(directoryPath)) {
-      throw std::invalid_argument("Expected a regular file: " + filePath);
-  }
- 
-  loadSave(directoryPath);
-  
-  this->timer26 = new QTimer();
-  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer26->start(26);
-
-  this->timer78 = new QTimer();
-  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer78->start(78);
-
-  this->timer20 = new QTimer();
-  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer20->start(20);
+    this->timer20 = new QTimer();
+    connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+    timer20->start(20);
 }
 
 /**
@@ -96,11 +96,10 @@ void VehicleParser::dataRegulator() {
 
 /// @brief Makes a request to the OBD-II Interface
 /// @param request The request to be made to the OBD-II Interface
-/// @return Returns
 void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
-  
+
   connection->sendCommand(obdCode);
 }
 
@@ -125,38 +124,13 @@ std::pair<bool, int> VehicleParser::ExtractData(const std::string& hexString) {
   }
 }
 
-/// @brief Forms the OBD string to interface with the vehicle ECU.
-/// @param serviceMode The service mode to be used (OBD2 Standard, SAEJ1979)
-/// @param code The code to be used
-/// @return The OBD string
-/// @note - Are there beneficial purposes where knowing the serviceMode in the
-/// response is useful? Need to investigate further.
-std::string VehicleParser::FormRequestString(int& serviceMode,
-                                             std::string& code) {
-    return "";
-  // return (std::string)serviceMode + code + "\r";
-}
-
-/// @brief Forms the OBD string to interface with the vehicle ECU.
-/// @param code The code to be used
-/// @return The OBD string
-std::string VehicleParser::FormRequestString(std::string code) {
-  return code + "\r";
-}
-
+/// TODO
 /// @brief
 /// @note Change implementation based on how the dongle device works -- if
 /// there's some form of way to validate connection status we should return 1 or
 /// -1 based on connection status
-void VehicleParser::initOBDConnection() {
-  // Write to
-
-  // InsertFunctionNameHere(FormRequestString("RESET"))
-  // InsertFunctionNameHere(FormRequestString("ECHOOFF"))     # Echo off
-  // InsertFunctionNameHere(FormRequestString("NOLINEFEED"))     # No linefeeds
-  // InsertFunctionNameHere(FormRequestString("NOSPACES"))     # No spaces
-  // InsertFunctionNameHere(FormRequestString("AUTOPRTCL"))    # Auto protocol
-  // InsertFunctionNameHere(FormRequestString("STOREDDTC"))       # Request DTCs
+void VehicleParser::initOBDConnection(VehicleConnection* connection) {
+  connection->beginInitSequence();
 }
 
 // @brief Publish to the middleware what an OBD query has returned.
@@ -195,19 +169,6 @@ std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
 
   return _pidTable[key];
 }
-
-// /// @brief
-// /// @param key
-// /// @return
-// std::pair<std::string, int> VehicleParser::accessPIDTable(const std::string
-// key) {
-//     if (_pidTable.find(pidTableKey) == _pidTable.end()) {
-//         std::cout << "Key provided has no value in _pidTable.\n";
-//         return 1;
-//     }
-
-//     return _pidTable[key];
-// }
 
 /**
  * @brief stages all the data files from their parent directory and calls them
@@ -283,8 +244,14 @@ void VehicleParser::readCSV(std::fstream& file) {
   file.close();
 }
 
-void VehicleParser::startReplay(QObject* parent = nullptr) {}
+/// @brief 
+/// @param parent  
+void VehicleParser::startReplay(QObject* parent = nullptr) {
 
+}
+
+/// @brief 
+/// @return 
 std::map<std::string, std::vector<double>>& VehicleParser::getData() {
   return _replayData;
 }
