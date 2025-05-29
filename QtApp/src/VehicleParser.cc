@@ -156,24 +156,6 @@ void VehicleParser::replayStart(){
   timer20->start(20);
 }
 
-/**
- * @brief starts the timers.
- * 
- */
-void VehicleParser::replayStart(){
-  this->timer26 = new QTimer(this); //! May need to remove the `this` object in QTimer() if there are issues
-  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer26->start(26);
-
-  this->timer78 = new QTimer(this);
-  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer78->start(78);
-
-  this->timer20 = new QTimer(this);
-  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer20->start(20);
-}
-
 /// @brief Makes a request to the device
 /// @param request
 /// @return
