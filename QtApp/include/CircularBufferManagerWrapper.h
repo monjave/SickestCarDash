@@ -28,7 +28,7 @@ class CircularBufferManagerWrapper : public QObject {
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
-        m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
+        m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(10000), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
         m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true), m_ispaused(true) {
         timer = new QTimer(this);
         timerIcons = new QTimer(this);
@@ -268,6 +268,12 @@ private slots:
 
         if (m_oiltemp >= 80) m_oiltemp = 0;
         else m_oiltemp += 20;
+
+        if (clock() >= 19999) {
+            setClock(10000);
+        } else {
+        setClock(m_clock + 1);
+        }
 
         m_seatbelt = !m_seatbelt;
         m_highlights = !m_highlights;

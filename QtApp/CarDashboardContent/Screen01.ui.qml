@@ -32,6 +32,11 @@ Item {
     property alias engineCheck: engineCheckIndicator
     property alias parking: parkingIndicator
 
+    property alias clockOne: clockOnes
+    property alias clockTen: clockTens
+    property alias clockHundred: clockHundreds
+    property alias clockThousand: clockThousands
+
     Image {
         id: bgArt
         x: 0
