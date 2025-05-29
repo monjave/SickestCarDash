@@ -6,17 +6,33 @@ class VehicleConnectionTest : public QObject {
     Q_OBJECT
 
 private slots:
-    // Declare test functions here
-    void initTest();
+    void constructorTest();
+    void sendCommandPass();
+    void sendCommandFail();
+    void ReadyReadPass();
+    void ReadyReadFail();
+
 };
 
-void VehicleConnectionTest::initTest() {
+void VehicleConnectionTest::constructorTest() {
+    
+}
+
+void VehicleConnectionTest::sendCommandPass() {
 
 }
 
+void VehicleConnectionTest::sendCommandFail() {
 
+}
 
+void VehicleConnectionTest::ReadyReadPass() {
 
+}
+
+void VehicleConnectionTest::ReadyReadFail() {
+
+}
 
 QTEST_MAIN(VehicleConnectionTest)
 #include "TestVehicleConnection.moc"
