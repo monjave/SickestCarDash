@@ -31,6 +31,8 @@ Window {
     property int gearShiftNumber: gearShiftValue.gearshift
 
     property int time: clockValue.clock
+    property int minutes: 0
+    property int hours: 0
 
     DataSpeed {
         id: speedValue
