@@ -40,7 +40,7 @@ class VehicleParser : public QObject {
   void removeReplayDataFromFront(std::string key);
 
  public:
-  explicit explicit VehicleParser(QObject* parent = nullptr);
+  explicit VehicleParser();
   explicit VehicleParser(std::string filePath, QObject* parent = nullptr);
 
   int8_t PublishToMiddleware(CircularBufferManager& BuffMan, int& data,

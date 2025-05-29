@@ -110,9 +110,6 @@ void VehicleParser::Request(VehicleConnection* connection, const std::string& re
   QString obdCode = QString::fromStdString(code);
 
   connection->sendCommand(obdCode);
-  QString obdCode = QString::fromStdString(code);
-  
-  connection->sendCommand(obdCode);
 }
 
 
