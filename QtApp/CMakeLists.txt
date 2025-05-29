@@ -57,7 +57,8 @@ if(BUILD_GUI)
         src/VehicleConnection.cpp
         include/VehicleParser.h
         src/VehicleParser.cc
-        src/CircularBufferManager.cc
+        include/MockQSerialPort.h
+        include/MockQSerialPort.cpp
     )
 
     target_link_libraries(CarDashboardApp
