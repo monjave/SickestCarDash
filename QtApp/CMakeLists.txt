@@ -1,3 +1,4 @@
+cmake_policy(SET CMP0048 NEW)
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
