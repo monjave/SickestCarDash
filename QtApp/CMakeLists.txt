@@ -56,6 +56,8 @@ if(BUILD_GUI)
         src/VehicleConnection.cpp
         include/VehicleParser.h
         src/VehicleParser.cc
+        include/MockQSerialPort.h
+        include/MockQSerialPort.cpp
         src/CircularBufferManager.cc
         include/MockQSerialPort.h
         test/MockQSerialPort.cpp
@@ -119,6 +121,6 @@ endif()
 
   # Use the macro to add tests
   add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
-  add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
+  add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc test/MockQSerialPort.cpp)
   add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
   add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
