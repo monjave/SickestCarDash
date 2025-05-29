@@ -30,18 +30,6 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
   }
  
   loadSave(directoryPath);
-  
-  this->timer26 = new QTimer();
-  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer26->start(26);
-
-  this->timer78 = new QTimer();
-  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer78->start(78);
-
-  this->timer20 = new QTimer();
-  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer20->start(20);
 }
 
 /**
@@ -94,6 +82,78 @@ void VehicleParser::dataRegulator() {
     timer20->stop();
   }
   // pop the most recent data and send it to BufferManager (no particular order)
+}
+
+/**
+ * @brief starts the timers.
+ * 
+ */
+void VehicleParser::replayStart(){
+  this->timer26 = new QTimer(this); //! May need to remove the `this` object in QTimer() if there are issues
+  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer26->start(26);
+
+  this->timer78 = new QTimer(this);
+  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer78->start(78);
+
+  this->timer20 = new QTimer(this);
+  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer20->start(20);
+}
+
+/**
+ * @brief starts the timers.
+ * 
+ */
+void VehicleParser::replayStart(){
+  this->timer26 = new QTimer(this); //! May need to remove the `this` object in QTimer() if there are issues
+  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer26->start(26);
+
+  this->timer78 = new QTimer(this);
+  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer78->start(78);
+
+  this->timer20 = new QTimer(this);
+  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer20->start(20);
+}
+
+/**
+ * @brief starts the timers.
+ * 
+ */
+void VehicleParser::replayStart(){
+  this->timer26 = new QTimer(this); //! May need to remove the `this` object in QTimer() if there are issues
+  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer26->start(26);
+
+  this->timer78 = new QTimer(this);
+  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer78->start(78);
+
+  this->timer20 = new QTimer(this);
+  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer20->start(20);
+}
+
+/**
+ * @brief starts the timers.
+ * 
+ */
+void VehicleParser::replayStart(){
+  this->timer26 = new QTimer(this); //! May need to remove the `this` object in QTimer() if there are issues
+  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer26->start(26);
+
+  this->timer78 = new QTimer(this);
+  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer78->start(78);
+
+  this->timer20 = new QTimer(this);
+  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  timer20->start(20);
 }
 
 /**
