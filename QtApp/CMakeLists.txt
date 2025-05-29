@@ -7,7 +7,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 option(BUILD_GUI "Build the Qt GUI application" ON)
-# option(BUILD_TESTING "Build unit tests" ON)
+option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
