@@ -31,8 +31,6 @@ class VehicleParser : public QObject {
   QTimer* timer78;
   QTimer* timer20;
 
-  std::string FormRequestString(int& serviceMode, std::string& code);
-  std::string FormRequestString(std::string code);
   void loadSave(std::filesystem::path file);
   void readCSV(std::fstream& file);
   void initOBDConnection();
