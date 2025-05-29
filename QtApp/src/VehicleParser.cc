@@ -18,11 +18,19 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
   loadPidTable();
   std::filesystem::path directoryPath = filePath;
 
-  if (!exists(directoryPath)) {
-    throw std::invalid_argument("Invalid File Location");
-  } else {
-    loadSave(directoryPath);
+  std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+  
+
+  if (!std::filesystem::exists(directoryPath)) {
+    throw std::invalid_argument("File does not exist: " + filePath);
   }
+
+  if (!std::filesystem::is_regular_file(directoryPath)) {
+      throw std::invalid_argument("Expected a regular file: " + filePath);
+  }
+ 
+  loadSave(directoryPath);
+  
   this->timer26 = new QTimer();
   connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
   timer26->start(26);
@@ -86,40 +94,34 @@ void VehicleParser::dataRegulator() {
   // pop the most recent data and send it to BufferManager (no particular order)
 }
 
-/// @brief Makes a request to the device
-/// @param request
-/// @return
-/// NOTE: This should be run in its own thread since it will probably block
-/// while waiting for a response from the vehicle. Add a timeout
-std::optional<std::string> VehicleParser::Request(const std::string& request) {
+/// @brief Makes a request to the OBD-II Interface
+/// @param request The request to be made to the OBD-II Interface
+/// @return Returns
+void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
-
-  /* TODO
-      Insert logic once we know what device we're running with
-  */
-
-  return code;
+  QString obdCode = QString::fromStdString(code);
+  
+  connection->sendCommand(obdCode);
 }
 
 /// @brief Extracts the last two bytes of the response data from the vehicle
 /// @param hexString
-/// @return Returns an integer with the last two bytes of the response data.
-/// Returns std::nullopt if conversion doesn't work
-std::optional<int> VehicleParser::ExtractData(const std::string& hexString) {
+/// @return Returns a std::pair<bool, int> representing if the conversion is successful and what the value is.
+std::pair<bool, int> VehicleParser::ExtractData(const std::string& hexString) {
   try {
     size_t processed = 0;
     int value = std::stoi(hexString, &processed, 16);
 
     if (processed != hexString.size()) {
-      return std::nullopt;
+      return {false, INT_MIN};
     }
 
     value &= 0xFF;
 
-    return value;
+    return {true, value};
   } catch (const std::exception& e) {
     std::cerr << "Hex conversion error: " << e.what() << '\n';
-    return std::nullopt;
+    return {false, INT_MIN};
   }
 }
 
@@ -131,6 +133,7 @@ std::optional<int> VehicleParser::ExtractData(const std::string& hexString) {
 /// response is useful? Need to investigate further.
 std::string VehicleParser::FormRequestString(int& serviceMode,
                                              std::string& code) {
+    return "";
   // return (std::string)serviceMode + code + "\r";
 }
 

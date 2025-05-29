@@ -107,12 +107,12 @@ void CircularBuffer<T>::printBuffer() const {
     std::cout << "End: " << _end << "\n";
 }
 
-template class CircularBuffer<int>;
-template class CircularBuffer<uint8_t>;
-template class CircularBuffer<int8_t>;
-template class CircularBuffer<long>;
-template class CircularBuffer<long long>;
-template class CircularBuffer<float>;
-template class CircularBuffer<double>;
-template class CircularBuffer<std::string>;
-template class CircularBuffer<char>;
+// template class CircularBuffer<int>;
+// template class CircularBuffer<uint8_t>;
+// template class CircularBuffer<int8_t>;
+// template class CircularBuffer<long>;
+// template class CircularBuffer<long long>;
+// template class CircularBuffer<float>;
+// template class CircularBuffer<double>;
+// template class CircularBuffer<std::string>;
+// template class CircularBuffer<char>;

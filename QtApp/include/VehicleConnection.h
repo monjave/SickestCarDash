@@ -16,7 +16,6 @@ public:
     void beginInitSequence();
 
 signals:
-    
     void initComplete();
     void errorOccurred(QString error);
     void rawHexReceived(const QString &hex);  // New signal for clean hex

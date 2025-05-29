@@ -103,13 +103,3 @@ std::vector<int> CircularBufferManager<T>::consumeAll() {
 
     return packet;
 }
-
-template class CircularBufferManager<int>;
-template class CircularBufferManager<uint8_t>;
-template class CircularBufferManager<int8_t>;
-template class CircularBufferManager<long>;
-template class CircularBufferManager<long long>;
-template class CircularBufferManager<float>;
-template class CircularBufferManager<double>;
-// template class CircularBufferManager<std::string>;
-template class CircularBufferManager<char>;

@@ -2,9 +2,12 @@
 #include "VehicleConnection.h"
 
 /* -- Change log --
-    - Moved include for QDebug over to the header file
+    - Moved include for QDebug over to the header file  
+    - Added doxygen comments
 */
 
+/// @brief Constructs a new VehicleConnection object and initializes the QSerialPort object, the QTimer object, cmdIndex value to 0, and fills initCommands.
+/// @param parent Give the new VehicleConnection a parent QObject, defaults to nullptr
 VehicleConnection::VehicleConnection(QObject *parent)
     : QObject(parent), serial(new QSerialPort(this)), cmdIndex(0) {
 
@@ -26,19 +29,23 @@ VehicleConnection::VehicleConnection(QObject *parent)
     initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP2"};
 }
 
+/// @brief Write a command to the QSerialPort object
+/// @param command The command to be written passed in as a QString object
+/// @note toLatin1() converts QString to QByteArray better suited for raw hex 
 void VehicleConnection::sendCommand(const QString &command) {
     if (serial->isOpen()) {
         QString fullCommand = command + "\r";
-        serial->write(fullCommand.toLatin1()); 
-        // toLatin1() converts QString to QByteArray better suited for raw hex
+        serial->write(fullCommand.toLatin1());   
     }
 }
 
+/// @brief Begins the initialization sequence by initializing cmdIndex and starting a QTimer for 1 second
 void VehicleConnection::beginInitSequence() {
     cmdIndex = 0;
     initTimer.start(1000);  // Send each command 1 second apart
 }
 
+/// @brief A slot that writes the next initCommand to the QSerialPort object.
 void VehicleConnection::sendNextInitCommand() {
     if (cmdIndex < initCommands.size()) {
         sendCommand(initCommands[cmdIndex++]);
@@ -48,6 +55,7 @@ void VehicleConnection::sendNextInitCommand() {
     }
 }
 
+/// @brief A slot that processes responses from QSerialPort and emits a rawHexReceived signal
 void VehicleConnection::handleReadyRead() {
     buffer.append(serial->readAll());
 
@@ -58,6 +66,5 @@ void VehicleConnection::handleReadyRead() {
         QString hexString = responseBytes.toHex(' ').toUpper();
 
         emit rawHexReceived(hexString);
-    }
-    
+    }   
 }
