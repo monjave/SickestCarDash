@@ -18,18 +18,11 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
     loadPidTable();
     std::filesystem::path directoryPath = filePath;
 
-  std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
-  
-
-  if (!std::filesystem::exists(directoryPath)) {
-    throw std::invalid_argument("File does not exist: " + filePath);
-  }
-
-  // if (!std::filesystem::is_regular_file(directoryPath)) {
-  //     throw std::invalid_argument("Expected a regular file: " + filePath);
-  // }
-  
+  if (!exists(directoryPath)) {
+    throw std::invalid_argument("Invalid File Location");
+  } else {
     loadSave(directoryPath);
+  }
 }
 
 /**
@@ -49,21 +42,22 @@ void VehicleParser::dataRegulator() {
     int8_t success;
     int location = 0;
     int location = 0;
+    int location = 0;
     if (timer == nullptr) {
       qDebug("Signal from QTimer not found");
       return;
-    } else if (timer == timer26) { // push speed, rpm, and throttle to middleware
-      qDebug() << "Tick 26!";
-      data = _replayData["speed"][location];
+    } else if (&timer == &timer26) { // push speed, rpm, and throttle to middleware
       data = _replayData["speed"][location];
       pidTableKey = "SPEED";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
 
       data = _replayData["rpms"][location];
       data = _replayData["rpms"][location];
+      data = _replayData["rpms"][location];
       pidTableKey = "RPM";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
 
+      data = _replayData["throttle"][location];
       data = _replayData["throttle"][location];
       data = _replayData["throttle"][location];
       pidTableKey = "THROTTLE";
@@ -72,18 +66,13 @@ void VehicleParser::dataRegulator() {
       //removeReplayDataFromFront("speed");
       //removeReplayDataFromFront("rpms");
       //removeReplayDataFromFront("throttle");
-    } else if (timer == timer78) { // push gear to middlewear
-      qDebug() << "Tick 78!";
-      data = _replayData["gear"][location];
+    } else if (&timer == &timer78) { // push gear to middlewear
       data = _replayData["gear"][location];
       pidTableKey = "GEAR";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
       
       //removeReplayDataFromFront("gear");
-    } else if (timer == timer20) { // reduce time to know when to stop timers
-      //removeReplayDataFromFront("time");
-      qDebug() << "Tick 20!";
-      location++;
+    } else if (&timer == &timer20) { // reduce time to know when to stop timers
       //removeReplayDataFromFront("time");
       location++;
     }
@@ -113,10 +102,12 @@ void VehicleParser::replayStart(){
   timer20->start(20);
 }
 
-/// @brief Makes a request to the OBD-II Interface
-/// @param request The request to be made to the OBD-II Interface
-/// @return Returns
-void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
+/// @brief Makes a request to the device
+/// @param request
+/// @return
+/// NOTE: This should be run in its own thread since it will probably block
+/// while waiting for a response from the vehicle. Add a timeout
+std::optional<std::string> VehicleParser::Request(const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
   
@@ -306,6 +297,7 @@ std::map<std::string, std::vector<double>>& VehicleParser::getData() {
 }
 
 /**
+ * @brief removes the first value of the vector associated with a provided key. Not currently used anymore to preserve data structure integrity.
  * @brief removes the first value of the vector associated with a provided key. Not currently used anymore to preserve data structure integrity.
  * @brief removes the first value of the vector associated with a provided key. Not currently used anymore to preserve data structure integrity.
  *
