@@ -15,7 +15,7 @@ qt_standard_project_setup(REQUIRES 6.4.2)
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 option(BUILD_GUI "Build the Qt GUI application" ON)
-# option(BUILD_TESTING "Build unit tests" ON)
+option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
@@ -105,27 +105,27 @@ if(BUILD_GUI)
 endif()
 
 # ================== Unit Tests (Optional) ==================
-    enable_testing()
+  enable_testing()
 
-    macro(add_qt_test TEST_NAME TEST_SOURCE)
-        qt_add_executable(${TEST_NAME}
-            ${TEST_SOURCE}
-        )
+  macro(add_qt_test TEST_NAME TEST_SOURCE)
+      qt_add_executable(${TEST_NAME}
+          ${TEST_SOURCE}
+      )
 
-        target_link_libraries(${TEST_NAME}
-            PRIVATE
-            core
-            Qt6::Test
-        )
+      target_link_libraries(${TEST_NAME}
+          PRIVATE
+          core
+          Qt6::Test
+      )
 
-        add_test(
-            NAME    ${TEST_NAME}
-            COMMAND ${TEST_NAME}
-        )
-    endmacro()
+      add_test(
+          NAME    ${TEST_NAME}
+          COMMAND ${TEST_NAME}
+      )
+  endmacro()
 
-    # Use the macro to add tests
-    add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
-    add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
-    add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
-    add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
+  # Use the macro to add tests
+  add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
+  add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
+  add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
+  add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
