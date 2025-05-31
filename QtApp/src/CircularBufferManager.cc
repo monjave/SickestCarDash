@@ -88,4 +88,8 @@ CircularBuffer<double>& CircularBufferManager::accessBuffer(int buffNum) {
 //     return packet;
 // }
 
+// void CircularBufferManager::dataReady() {
+
+// }
+
 CircularBufferManager::~CircularBufferManager() = default;
