@@ -19,6 +19,7 @@ class VehicleParser : public QObject {
   Q_OBJECT
 
  public slots:
+  void replayStart();
   void dataRegulator();
   
  private:
@@ -35,6 +36,7 @@ class VehicleParser : public QObject {
   void readCSV(std::fstream& file);
   VehicleConnection* initOBDConnection();
   void loadPidTable();
+  [[deprecated("Deletes values from _replayData")]]
   void removeReplayDataFromFront(std::string key);
 
  public:
