@@ -46,6 +46,7 @@ void VehicleConnection::beginInitSequence() {
 }
 
 /// @brief A slot that writes the next initCommand to the QSerialPort object.
+/// @note Delete initTimer after initialization is complete if we need to optimize memory usage?
 void VehicleConnection::sendNextInitCommand() {
     if (cmdIndex < initCommands.size()) {
         sendCommand(initCommands[cmdIndex++]);

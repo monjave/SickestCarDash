@@ -15,15 +15,15 @@ VehicleParser::VehicleParser() { loadPidTable(); };
  * @param filePath
  */
 VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
-  loadPidTable();
-  std::filesystem::path directoryPath = filePath;
+    loadPidTable();
+    std::filesystem::path directoryPath = filePath;
 
-  std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
-  
+    std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+    
 
-  if (!std::filesystem::exists(directoryPath)) {
-    throw std::invalid_argument("File does not exist: " + filePath);
-  }
+    if (!std::filesystem::exists(directoryPath)) {
+      throw std::invalid_argument("File does not exist: " + filePath);
+    }
 
   if (!std::filesystem::is_regular_file(directoryPath)) {
       throw std::invalid_argument("Expected a regular file: " + filePath);
@@ -41,7 +41,7 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
 void VehicleParser::dataRegulator() {
   qDebug() << "Tick!";  // for when we migrate to QTest
   QTimer* timer = qobject_cast<QTimer*>(sender());
-  CircularBufferManager buffMan = CircularBufferManager<int>(4);
+  CircularBufferManager buffMan = CircularBufferManager(4);
   if (!_replayData["time"].empty()) {
     double data;
     std::string pidTableKey;
@@ -104,13 +104,15 @@ void VehicleParser::replayStart(){
 
 /// @brief Makes a request to the OBD-II Interface
 /// @param request The request to be made to the OBD-II Interface
-/// @return Returns
 void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
-  
+
   connection->sendCommand(obdCode);
 }
+
+
+// TODO - Need to be able to take in a QString, not just a regular string
 
 /// @brief Extracts the last two bytes of the response data from the vehicle
 /// @param hexString
@@ -133,46 +135,30 @@ std::pair<bool, int> VehicleParser::ExtractData(const std::string& hexString) {
   }
 }
 
-/// @brief Forms the OBD string to interface with the vehicle ECU.
-/// @param serviceMode The service mode to be used (OBD2 Standard, SAEJ1979)
-/// @param code The code to be used
-/// @return The OBD string
-/// @note - Are there beneficial purposes where knowing the serviceMode in the
-/// response is useful? Need to investigate further.
-std::string VehicleParser::FormRequestString(int& serviceMode,
-                                             std::string& code) {
-    return "";
-  // return (std::string)serviceMode + code + "\r";
+/// @brief An overload for ExtractData() that takes in a QString instead of a C string
+/// @param hexString The hex string to be converted to an int
+/// @return Returns a std::pair<bool, int> representing if the conversion is successful and what the value is.
+std::pair<bool, int> VehicleParser::ExtractData(const QString& hexString) {
+  return ExtractData(hexString.toStdString());
 }
 
-/// @brief Forms the OBD string to interface with the vehicle ECU.
-/// @param code The code to be used
-/// @return The OBD string
-std::string VehicleParser::FormRequestString(std::string code) {
-  return code + "\r";
-}
 
-/// @brief
-/// @note Change implementation based on how the dongle device works -- if
-/// there's some form of way to validate connection status we should return 1 or
-/// -1 based on connection status
-void VehicleParser::initOBDConnection() {
-  // Write to
+/// @brief Initializes the OBD-II connection by creating a new VehicleConnection object 
+/// @returns Returns a pointer to the newly created VehicleConnection object
+VehicleConnection* VehicleParser::initOBDConnection() {
+  VehicleConnection* connection = new VehicleConnection();
 
-  // InsertFunctionNameHere(FormRequestString("RESET"))
-  // InsertFunctionNameHere(FormRequestString("ECHOOFF"))     # Echo off
-  // InsertFunctionNameHere(FormRequestString("NOLINEFEED"))     # No linefeeds
-  // InsertFunctionNameHere(FormRequestString("NOSPACES"))     # No spaces
-  // InsertFunctionNameHere(FormRequestString("AUTOPRTCL"))    # Auto protocol
-  // InsertFunctionNameHere(FormRequestString("STOREDDTC"))       # Request DTCs
+  return connection;
 }
 
 // @brief Publish to the middleware what an OBD query has returned.
 // @param data
 // @return Return 0 if successful, return a 1 if there's an issue.
 // Need to validate if BuffMan is a valid CircularBufferManager object, but how?
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
-                                          int& data, std::string& pidTableKey) {
+int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
+                                          int& data,
+                                          std::string& pidTableKey) 
+  {
   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
@@ -184,9 +170,10 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
 /// @brief Publish to the middleware what an OBD query has returned.
 /// @param data
 /// @return Return 0 if successful, return a 1 if there's an issue.
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
+int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
                                           double& data,
-                                          std::string& pidTableKey) {
+                                          std::string& pidTableKey) 
+  {
   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
@@ -196,26 +183,14 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
 }
 
 std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
-  if (_pidTable.find(key) == _pidTable.end()) {
+  if (_pidTable.find(key) == _pidTable.end()) 
+  {
     std::cout << "Key provided to getPIDTAble() is invalid.";
     return {};
   }
 
   return _pidTable[key];
 }
-
-// /// @brief
-// /// @param key
-// /// @return
-// std::pair<std::string, int> VehicleParser::accessPIDTable(const std::string
-// key) {
-//     if (_pidTable.find(pidTableKey) == _pidTable.end()) {
-//         std::cout << "Key provided has no value in _pidTable.\n";
-//         return 1;
-//     }
-
-//     return _pidTable[key];
-// }
 
 /**
  * @brief stages all the data files from their parent directory and calls them
@@ -291,8 +266,14 @@ void VehicleParser::readCSV(std::fstream& file) {
   file.close();
 }
 
-void VehicleParser::startReplay(QObject* parent = nullptr) {}
+/// @brief Starts the replay process of 
+/// @param parent TODO -- Why do we need to pass in a parent object here?
+void VehicleParser::startReplay(QObject* parent = nullptr) {
 
+}
+
+/// @brief Get the stored replay data from the Vehicleparser object
+/// @return Returns a map holding the data.
 std::map<std::string, std::vector<double>>& VehicleParser::getData() {
   return _replayData;
 }

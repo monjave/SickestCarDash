@@ -32,11 +32,9 @@ class VehicleParser : public QObject {
   QTimer* timer78;
   QTimer* timer20;
 
-  std::string FormRequestString(int& serviceMode, std::string& code);
-  std::string FormRequestString(std::string code);
   void loadSave(std::filesystem::path file);
   void readCSV(std::fstream& file);
-  void initOBDConnection();
+  VehicleConnection* initOBDConnection();
   void loadPidTable();
   [[deprecated("Deletes values from _replayData")]]
   void removeReplayDataFromFront(std::string key);
@@ -45,12 +43,13 @@ class VehicleParser : public QObject {
   explicit VehicleParser();
   explicit VehicleParser(std::string filePath, QObject* parent = nullptr);
 
-  int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, int& data,
+  int8_t PublishToMiddleware(CircularBufferManager& BuffMan, int& data,
                             std::string& pidTableKey);
-  int8_t PublishToMiddleware(CircularBufferManager<int>& BuffMan, double& data,
+  int8_t PublishToMiddleware(CircularBufferManager& BuffMan, double& data,
                              std::string& pidTableKey);
   void Request(VehicleConnection* connection, const std::string& request);
   std::pair<bool, int> ExtractData(const std::string& hexString);
+  std::pair<bool, int> ExtractData(const QString& hexString);
   std::pair<std::string, int> getPIDTable(const std::string& key);
   void printValueToFile(std::string desiredFileLocation);
   std::map<std::string, std::vector<double>>& getData();

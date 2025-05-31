@@ -3,7 +3,7 @@
 //
 
 /*
-    Need to determine how many buffers to initialize
+    Template classes not supported by Q_OBJECT, EVERYTHING IS NOW A DOUBLE
 */
 
 #ifndef CIRCULARBUFFERMANAGER_H
@@ -11,30 +11,38 @@
 
 #include <vector>
 #include "CircularBuffer.h"
+#include <QObject>
 
 #define BUFFER_SIZE 1024
-// #define BUFFERS_TO_INIT 1024
+#define BUFFERS_TO_INIT 9
 
-template <class T>
-class CircularBufferManager {
+class CircularBufferManager : public QObject {
+    Q_OBJECT
+
 private:
-    std::vector<CircularBuffer<T>> _buffers;
-    std::vector<T> _packet;
+    std::vector<CircularBuffer<double>> _buffers;
+    std::vector<double> _packet;
     void writeToBuffer();
     int _bufferByteSize;
     int _bufferCount;
 
+private slots:
+
+signals:
+    // void dataReady();
+
 public:
     CircularBufferManager(int numBuffers);
-    void publish(std::vector<T> values);
-    int8_t publish(T data, int buffIdx);
-    std::vector<int> consumeAll();
+    ~CircularBufferManager();
+    void publish(std::vector<double> values);
+    int8_t publish(double data, int buffIdx);
+    // std::vector<int> consumeAll();  // DEPRECATED PROBABLY
     // void packetReady();  // Wrte this if we decide on event-driven
     int getByteSize() const;
     int getBufferCount() const;
-    std::optional<T> peekBuffer(int buffNum) const;
-    CircularBuffer<T>& accessBuffer(int buffNum);
+    std::optional<double> peekBuffer(int buffNum) const;
+    CircularBuffer<double>& accessBuffer(int buffNum);
 };
 
-#include "CircularBufferManager.cc"
+// #include "CircularBufferManager.cc"
 #endif //CIRCULARBUFFERMANAGER_H

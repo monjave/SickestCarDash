@@ -1,4 +1,3 @@
-
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
@@ -22,8 +21,10 @@ option(BUILD_GUI "Build the Qt GUI application" ON)
 add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
 )
 
 # Link QtCore to core lib
@@ -64,6 +65,7 @@ if(BUILD_GUI)
         src/VehicleConnection.cpp
         include/VehicleParser.h
         src/VehicleParser.cc
+        src/CircularBufferManager.cc
     )
 
     target_link_libraries(CarDashboardApp
