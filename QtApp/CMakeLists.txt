@@ -1,4 +1,4 @@
-cmake_policy(SET CMP0048 NEW)
+
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
@@ -16,7 +16,7 @@ qt_standard_project_setup(REQUIRES 6.4.2)
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 option(BUILD_GUI "Build the Qt GUI application" ON)
-option(BUILD_TESTING "Build unit tests" ON)
+# option(BUILD_TESTING "Build unit tests" ON)
 
 # ================== Core Library ==================
 add_library(core STATIC
@@ -103,7 +103,6 @@ if(BUILD_GUI)
 endif()
 
 # ================== Unit Tests (Optional) ==================
-if(BUILD_TESTING)
     enable_testing()
 
     macro(add_qt_test TEST_NAME TEST_SOURCE)
@@ -128,4 +127,3 @@ if(BUILD_TESTING)
     add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
     add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
     add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
-endif()

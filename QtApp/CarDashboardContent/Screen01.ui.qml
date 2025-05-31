@@ -11,12 +11,31 @@ import QtQuick.Controls
 import CarDashboard
 import QtQuick.Timeline 1.0
 
-//Middleware Integration Values
-//import CircularBuffer.Data
 Item {
     id: cluster
     width: Constants.width
     height: Constants.height
+
+    property alias exposedButton: playButton
+
+    property alias parkingGear: gearP
+    property alias reverseGear: gearR
+    property alias neutralGear: gearN
+    property alias drivingGear: gearD
+    property alias firstGear: gear1
+    property alias secondGear: gear2
+    property alias thirdGear: gear3
+
+    property alias seatbelt: seatbeltIndicator
+    property alias abs: absIndicator
+    property alias highlights: highLightsIndicator
+    property alias engineCheck: engineCheckIndicator
+    property alias parking: parkingIndicator
+
+    property alias clockOne: clockOnes
+    property alias clockTen: clockTens
+    property alias clockHundred: clockHundreds
+    property alias clockThousand: clockThousands
 
     Image {
         id: bgArt
@@ -56,7 +75,8 @@ Item {
             y: 140
             width: 440
             height: 440
-            source: "dials/DialBg.png"
+            source: "dials/DialBgBig.PNG"
+            mirror: false
             fillMode: Image.PreserveAspectFit
 
             Image {
@@ -65,18 +85,41 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
+                rotation: speedVar
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: speedNumbers
+                x: 20
+                y: 20
+                width: 400
+                height: 400
+                source: "dialNumbers/mphNumbers.PNG"
+                z: -1
                 fillMode: Image.PreserveAspectFit
             }
 
             Text {
                 id: speedNum
-                x: 95
-                y: 95
-                width: 250
-                height: 250
-                text: qsTr("Text")
-                font.pixelSize: 12
+                x: 208
+                y: 304
+                width: 24
+                height: 21
+                visible: false
+                color: "#ffffff"
+                text: speedNumber
+                font.pixelSize: 28
+                font.styleName: "Bold"
+                font.family: "Times New Roman"
             }
         }
 
@@ -86,7 +129,7 @@ Item {
             y: 140
             width: 440
             height: 440
-            source: "dials/DialBg.png"
+            source: "dials/DialBgBig.PNG"
             fillMode: Image.PreserveAspectFit
 
             Image {
@@ -95,19 +138,38 @@ Item {
                 y: 20
                 width: 400
                 height: 400
-                source: "pointers/Needle.png"
+                source: "pointers/NeedleBig.PNG"
+                rotation: rpmVar
+                fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+            }
+
+            Image {
+                id: rpmNumbers
+                x: 20
+                y: 20
+                width: 400
+                height: 400
+                source: "dialNumbers/rpmNumbers.PNG"
+                z: -1
                 fillMode: Image.PreserveAspectFit
             }
 
             Text {
                 id: rpmNum
-                x: 95
-                y: 95
-                width: 250
-                height: 250
+                x: 190
+                y: 284
                 visible: false
-                text: qsTr("Text")
-                font.pixelSize: 12
+                color: "#ffffff"
+                text: rpmNumber
+                font.pixelSize: 28
+                font.family: "Times New Roman"
+                font.styleName: "Bold"
             }
         }
 
@@ -123,72 +185,264 @@ Item {
 
         Image {
             id: gearSelect
-            x: 766
-            y: 483
-            width: 180
-            height: 180
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            x: 676
+            y: 446
+            width: 300
+            height: 300
+            source: "images/Gear_dark.png"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: gearP
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                visible: false
+                source: "images/Gear_P.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gearR
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                visible: false
+                source: "images/Gear_R.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gearN
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                visible: false
+                source: "images/Gear_N.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gearD
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                visible: false
+                source: "images/Gear_D.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gear1
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                visible: false
+                source: "images/Gear_1.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gear2
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                visible: false
+                source: "images/Gear_2.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: gear3
+                x: 0
+                y: 0
+                width: 300
+                height: 300
+                visible: false
+                source: "images/Gear_3.png"
+                fillMode: Image.PreserveAspectFit
+            }
         }
 
         Image {
             id: fuelAmount
-            x: 974
-            y: 483
-            width: 180
-            height: 180
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            x: 893
+            y: 460
+            width: 381
+            height: 381
+            source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: fuelNeedle
+                x: 0
+                y: 0
+                width: 381
+                height: 381
+                source: "pointers/NeedleSmall.PNG"
+                rotation: fuelVar
+                fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+            }
+
+            Image {
+                id: fuelNumbers
+                x: 0
+                y: 0
+                width: 381
+                height: 381
+                source: "dialNumbers/fuelNumbers.PNG"
+                z: -1
+                fillMode: Image.PreserveAspectFit
+            }
         }
 
         Image {
-            id: clock
-            x: 894
-            y: 34
-            width: 133
-            height: 100
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            id: clockColon
+            x: 948
+            y: 120
+            width: 25
+            height: 25
+            source: "images/Colon.png"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: clockOnes
+                x: 50
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockTens
+                x: 25
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockHundreds
+                x: -25
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: clockThousands
+                x: -50
+                y: 0
+                width: 25
+                height: 25
+                source: "images/0.png"
+                fillMode: Image.PreserveAspectFit
+            }
         }
 
         Image {
             id: turnIndicatorL
-            x: 766
-            y: 112
-            width: 100
-            height: 100
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            x: 698
+            y: 33
+            width: 200
+            height: 200
+            source: "images/LeftTurnSignal.png"
+            mirror: false
             fillMode: Image.PreserveAspectFit
         }
 
         Image {
             id: turnIndicatorR
-            x: 1054
-            y: 112
+            x: 1023
+            y: 33
+            width: 200
+            height: 200
+            source: "images/RightTurnSignal.png"
+            fillMode: Image.PreserveAspectFit
+
+            Button {
+                id: playButton
+                x: 797
+                y: 647
+                text: qsTr("Play/Pause")
+            }
+        }
+
+        Image {
+            id: seatbeltIndicator
+            x: 0
+            y: 514
             width: 100
             height: 100
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            visible: seatbeltBool
+            source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
         }
 
         Image {
-            id: iconIndicators
+            id: absIndicator
             x: 0
-            y: 355
-            width: 235
-            height: 365
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            y: 620
+            width: 100
+            height: 100
+            visible: absBool
+            source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
         }
 
         Image {
-            id: coolantEngineTemp
-            x: 1685
+            id: oilTemp
+            x: 1610
             y: 355
-            width: 235
-            height: 365
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            width: 385
+            height: 298
+            source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: oilTempNumbers
+                x: 0
+                y: 0
+                width: 385
+                height: 298
+                source: "dialNumbers/oilTempNumbers.PNG"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: needleOilTemp
+                x: 0
+                y: 0
+                width: 385
+                height: 298
+                source: "pointers/NeedleSmall.PNG"
+                rotation: oilTempVar
+                fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+            }
         }
 
         Image {
@@ -196,7 +450,7 @@ Item {
             x: 0
             y: 0
             width: 235
-            height: 260
+            height: 265
             source: "qrc:/qtquickplugin/images/template_image.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -208,6 +462,77 @@ Item {
             width: 235
             height: 260
             source: "qrc:/qtquickplugin/images/template_image.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: temp
+            x: 1426
+            y: 502
+            width: 385
+            height: 298
+            opacity: 0
+            source: "dials/DialBgSmall.PNG"
+            fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: tempNumbers
+                x: 0
+                y: 0
+                width: 385
+                height: 298
+                source: "dialNumbers/tempNumbers.PNG"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: needleTemp
+                x: 0
+                y: 0
+                width: 385
+                height: 298
+                source: "pointers/NeedleSmall.PNG"
+                rotation: tempVar
+                fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+            }
+        }
+
+        Image {
+            id: highLightsIndicator
+            x: 108
+            y: 514
+            width: 100
+            height: 100
+            visible: highlightsBool
+            source: "images/High_beams.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: parkingIndicator
+            x: 214
+            y: 620
+            width: 100
+            height: 100
+            visible: parkingBool
+            source: "images/Parking_break.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: engineCheckIndicator
+            x: 108
+            y: 620
+            width: 100
+            height: 100
+            visible: enginecheckBool
+            source: "images/Check_engine.png"
             fillMode: Image.PreserveAspectFit
         }
     }
@@ -381,7 +706,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: clock
+            target: clockColon
             property: "opacity"
             Keyframe {
                 value: 0
@@ -438,7 +763,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: iconIndicators
+            target: seatbeltIndicator
             property: "opacity"
             Keyframe {
                 value: 0
@@ -457,7 +782,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: coolantEngineTemp
+            target: oilTemp
             property: "opacity"
             Keyframe {
                 value: 0
@@ -510,6 +835,101 @@ Item {
             Keyframe {
                 value: 0
                 frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: temp
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: highLightsIndicator
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: absIndicator
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: engineCheckIndicator
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+        }
+
+        KeyframeGroup {
+            target: parkingIndicator
+            property: "opacity"
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+
+            Keyframe {
+                value: 1
+                frame: 3500
             }
         }
     }
