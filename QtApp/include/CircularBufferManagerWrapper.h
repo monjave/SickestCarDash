@@ -274,7 +274,7 @@ private slots:
         emit gearshiftChanged();
     }
 
-    void dataReady(int buffNum, int value) {
+    void dataReady(int buffNum, double value) {
         switch(buffNum) {
         case 0:
             setSpeed(value);
@@ -286,6 +286,7 @@ private slots:
             setFuel(value);
             break;
         case 3:
+            setCoolanttemp(value);
             break;
         case 4:
             break;
