@@ -53,7 +53,7 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
 void VehicleParser::dataRegulator() {
   qDebug() << "Tick!";  // for when we migrate to QTest
   QTimer* timer = qobject_cast<QTimer*>(sender());
-  CircularBufferManager buffMan = CircularBufferManager<int>(4);
+  CircularBufferManager buffMan = CircularBufferManager(4);
   if (!_replayData["time"].empty()) {
     double data;
     std::string pidTableKey;
@@ -127,6 +127,14 @@ std::pair<bool, int> VehicleParser::ExtractData(const std::string& hexString) {
   }
 }
 
+/// @brief An overload for ExtractData() that takes in a QString instead of a C string
+/// @param hexString The hex string to be converted to an int
+/// @return Returns a std::pair<bool, int> representing if the conversion is successful and what the value is.
+std::pair<bool, int> VehicleParser::ExtractData(const QString& hexString) {
+  return ExtractData(hexString.toStdString());
+}
+
+
 /// @brief Initializes the OBD-II connection by creating a new VehicleConnection object 
 /// @returns Returns a pointer to the newly created VehicleConnection object
 VehicleConnection* VehicleParser::initOBDConnection() {
@@ -139,8 +147,10 @@ VehicleConnection* VehicleParser::initOBDConnection() {
 // @param data
 // @return Return 0 if successful, return a 1 if there's an issue.
 // Need to validate if BuffMan is a valid CircularBufferManager object, but how?
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
-                                          int& data, std::string& pidTableKey) {
+int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
+                                          int& data,
+                                          std::string& pidTableKey) 
+  {
   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
@@ -152,9 +162,10 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
 /// @brief Publish to the middleware what an OBD query has returned.
 /// @param data
 /// @return Return 0 if successful, return a 1 if there's an issue.
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
+int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
                                           double& data,
-                                          std::string& pidTableKey) {
+                                          std::string& pidTableKey) 
+  {
   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
@@ -164,7 +175,8 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager<int>& BuffMan,
 }
 
 std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
-  if (_pidTable.find(key) == _pidTable.end()) {
+  if (_pidTable.find(key) == _pidTable.end()) 
+  {
     std::cout << "Key provided to getPIDTAble() is invalid.";
     return {};
   }
