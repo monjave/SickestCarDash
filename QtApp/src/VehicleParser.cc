@@ -49,6 +49,7 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
  * ! This is quick and dirty, fix this later
  * ! Add a early stop function
  *
+ * @note Switch case for readability, can also take in parameters
  */
 void VehicleParser::dataRegulator() {
   qDebug() << "Tick!";  // for when we migrate to QTest
@@ -202,8 +203,9 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
   }
-
-  return BuffMan.publish(data, _pidTable[pidTableKey].second);
+  BuffMan.publish(data, _pidTable[pidTableKey].second);
+  emit BuffMan.dataReady();
+  return 0;
 }
 
 std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
