@@ -29,7 +29,7 @@ private:
 private slots:
 
 signals:
-    // void dataReady();
+    void dataReady();
 
 public:
     CircularBufferManager(int numBuffers);

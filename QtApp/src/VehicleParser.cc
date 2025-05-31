@@ -25,11 +25,11 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
       throw std::invalid_argument("File does not exist: " + filePath);
     }
 
-  if (!std::filesystem::is_regular_file(directoryPath)) {
-      throw std::invalid_argument("Expected a regular file: " + filePath);
-  }
- 
-  loadSave(directoryPath);
+  // if (!std::filesystem::is_regular_file(directoryPath)) {
+  //     throw std::invalid_argument("Expected a regular file: " + filePath);
+  // }
+  
+    loadSave(directoryPath);
 }
 
 /**
@@ -37,6 +37,7 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
  * ! This is quick and dirty, fix this later
  * ! Add a early stop function
  *
+ * @note Switch case for readability, can also take in parameters
  */
 void VehicleParser::dataRegulator() {
   qDebug() << "Tick!";  // for when we migrate to QTest
@@ -155,17 +156,17 @@ VehicleConnection* VehicleParser::initOBDConnection() {
 // @param data
 // @return Return 0 if successful, return a 1 if there's an issue.
 // Need to validate if BuffMan is a valid CircularBufferManager object, but how?
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
-                                          int& data,
-                                          std::string& pidTableKey) 
-  {
-  if (_pidTable.find(pidTableKey) == _pidTable.end()) {
-    std::cout << "Key provided has no value in _pidTable.\n";
-    return 1;
-  }
+// int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
+//                                           int& data,
+//                                           std::string& pidTableKey) 
+//   {
+//   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
+//     std::cout << "Key provided has no value in _pidTable.\n";
+//     return 1;
+//   }
 
-  return BuffMan.publish(data, _pidTable[pidTableKey].second);
-}
+//   return BuffMan.publish(data, _pidTable[pidTableKey].second);
+// }
 
 /// @brief Publish to the middleware what an OBD query has returned.
 /// @param data
@@ -178,8 +179,9 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
     std::cout << "Key provided has no value in _pidTable.\n";
     return 1;
   }
-
-  return BuffMan.publish(data, _pidTable[pidTableKey].second);
+  BuffMan.publish(data, _pidTable[pidTableKey].second);
+  emit BuffMan.dataReady();
+  return 0;
 }
 
 std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
@@ -205,6 +207,7 @@ void VehicleParser::loadSave(std::filesystem::path directoryPath) {
     std::filesystem::path filePath = path_fileName.path();
     std::fstream file(filePath.string());
     readCSV(file);
+    // std::cout << "FILE SIZE: " << file.tellg() << "\n";
     file.close();
   }
 }

@@ -10,4 +10,4 @@ echo "[3/3] Running tests..."
 cd build/QtApp && ctest --output-on-failure
 
 cd ../../QtApp/test/build/Debug
-rm -rf "empty.csv" "malformed.csv" "valid.csv"
+rm -rf "test_empty.csv" "test_malformed.csv" "test_valid.csv"
