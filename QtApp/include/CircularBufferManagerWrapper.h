@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include "CircularBufferManager.h"
+#include "VehicleParser.h"
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
@@ -30,6 +31,10 @@ public:
         m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
         timer = new QTimer(this);
         timerIcons = new QTimer(this);
+        VehicleParser* carData = new VehicleParser("QtApp/replay/data/example_nurburgring_24h/data");
+        carData->replayStart(); 
+        // Connect start button to replayStart method
+        // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
         connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
     }
@@ -41,7 +46,7 @@ public:
     int rpm() const{
         return m_rpm;
     }
-
+    
     int fuel() const{
         return m_fuel;
     }
