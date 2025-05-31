@@ -25,9 +25,9 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
     throw std::invalid_argument("File does not exist: " + filePath);
   }
 
-  if (!std::filesystem::is_regular_file(directoryPath)) {
-      throw std::invalid_argument("Expected a regular file: " + filePath);
-  }
+  // if (!std::filesystem::is_regular_file(directoryPath)) {
+  //     throw std::invalid_argument("Expected a regular file: " + filePath);
+  // }
  
   loadSave(directoryPath);
   
@@ -229,6 +229,7 @@ void VehicleParser::loadSave(std::filesystem::path directoryPath) {
     std::filesystem::path filePath = path_fileName.path();
     std::fstream file(filePath.string());
     readCSV(file);
+    // std::cout << "FILE SIZE: " << file.tellg() << "\n";
     file.close();
   }
 }

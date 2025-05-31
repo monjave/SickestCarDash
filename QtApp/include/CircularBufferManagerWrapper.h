@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include "CircularBufferManager.h"
+#include "VehicleParser.h"
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
@@ -25,11 +26,18 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(bool parking READ parking WRITE setParking NOTIFY parkingChanged)
 
 public:
-    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(160),
-    m_rpm(75), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0) {}
-    //CircularBufferManager<int> manager;
-    //std::vector<int> data = manager.consumeAll();
-    //std::vector<int> data = {speedVal};
+    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
+        m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(10000), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
+        m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
+        timer = new QTimer(this);
+        timerIcons = new QTimer(this);
+        VehicleParser* carData = new VehicleParser("QtApp/replay/data/example_nurburgring_24h/data");
+        carData->replayStart(); 
+        // Connect start button to replayStart method
+        // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
+        connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
+        connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
+    }
 
     int speed() const{
         return m_speed;
@@ -38,7 +46,7 @@ public:
     int rpm() const{
         return m_rpm;
     }
-
+    
     int fuel() const{
         return m_fuel;
     }
