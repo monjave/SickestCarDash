@@ -60,7 +60,7 @@ if(BUILD_GUI)
         include/VehicleParser.h
         src/VehicleParser.cc
         include/MockQSerialPort.h
-        include/MockQSerialPort.cpp
+        test/MockQSerialPort.cpp
         src/CircularBufferManager.cc
         include/MockQSerialPort.h
         test/MockQSerialPort.cpp
@@ -109,13 +109,25 @@ if(BUILD_TESTING)
     macro(add_qt_test TEST_NAME)
     qt_add_executable(${TEST_NAME} ${ARGN})
     set_target_properties(${TEST_NAME} PROPERTIES AUTOMOC ON)
+    macro(add_qt_test TEST_NAME)
+    qt_add_executable(${TEST_NAME} ${ARGN})
+    set_target_properties(${TEST_NAME} PROPERTIES AUTOMOC ON)
 
     target_link_libraries(${TEST_NAME}
         PRIVATE
         core
         Qt6::Test
     )
+    target_link_libraries(${TEST_NAME}
+        PRIVATE
+        core
+        Qt6::Test
+    )
 
+    add_test(
+        NAME    ${TEST_NAME}
+        COMMAND ${TEST_NAME}
+    )
     add_test(
         NAME    ${TEST_NAME}
         COMMAND ${TEST_NAME}
@@ -129,31 +141,3 @@ if(BUILD_TESTING)
     add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
     add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
 endif()
-
-
-# if(BUILD_TESTING)
-#     enable_testing()
-
-#     include(FetchContent)
-#     FetchContent_Declare(
-#       googletest
-#         URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
-#     )
-#     FetchContent_MakeAvailable(googletest)
-
-#     add_executable(unit_tests
-#         test/TestCircularBuffer.cc
-#         test/TestCircularBufferManager.cc
-#         test/TestVehicleParser.cc
-#         test/TestVehicleConnection.cc
-#         # test/ReplayParser.cc
-#     )
-
-#     target_link_libraries(unit_tests
-#         core
-#         gtest_main
-#     )
-
-#     include(GoogleTest)
-#     gtest_discover_tests(unit_tests)
-# endif()
