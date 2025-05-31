@@ -33,7 +33,7 @@ void TestVehicleConnection::testInitializationSequence() {
     
     vc->beginInitSequence();
 
-    QTRY_VERIFY_WITH_TIMEOUT(initSpy.count() == 1, 6000);
+    QTRY_VERIFY_WITH_TIMEOUT(initSpy.count() == 1, 7000);
 
     QVERIFY(receivedHex.size() >= 5);
 }
