@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include "CircularBufferManager.h"
+#include "VehicleParser.h"
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
@@ -271,6 +272,34 @@ private slots:
         m_gearshift++;
         }
         emit gearshiftChanged();
+    }
+
+    void dataReady(int buffNum, int value) {
+        switch(buffNum) {
+        case 0:
+            setSpeed(value);
+            break;
+        case 1:
+            setRPM(value);
+            break;
+        case 2:
+            setFuel(value);
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            setOilTemp(value);
+            break;
+        case 6:
+            setGearShift(value);
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        }
     }
 
 private:
