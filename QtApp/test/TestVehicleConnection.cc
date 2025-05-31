@@ -6,24 +6,36 @@ class VehicleConnectionTest : public QObject {
     Q_OBJECT
 
 private slots:
-    void constructorTest();
-    void sendCommandPass();
-    void sendCommandFail();
-    void ReadyReadPass();
-    void ReadyReadFail();
+    void init();
+    void testInitializationSequence();
+    void testHandlesEmptySerialPort();
 
+private:
+    MockQSerialPort *mockPort;
+    VehicleConnection *vc;
+    QStringList receivedHex;
 };
 
-void VehicleConnectionTest::constructorTest() {
+
+void TestVehicleConnection::init() {
+    mockPort = new MockQSerialPort(this);
+    vc = new VehicleConnection(mockPort);
+
+    connect(vc, &VehicleConnection::rawHexReceived, this, [&](const QString &hex) {
+        receivedHex.append(hex);
+    });
+}
+
+void TestVehicleConnection::testInitializationSequence() {
+    mockPort->setResponse({"ELM327", "OK", "OK", "OK", "OK"});
+
+    QSignalSpy initSpy(vc, &VehicleConnection::initComplete);
     
-}
+    vc->beginInitSequence();
 
-void VehicleConnectionTest::sendCommandPass() {
+    QTRY_VERIFY_WITH_TIMEOUT(initSpy.count() == 1, 7000);
 
-}
-
-void VehicleConnectionTest::sendCommandFail() {
-
+    QVERIFY(receivedHex.size() >= 5);
 }
 
 void VehicleConnectionTest::ReadyReadPass() {
