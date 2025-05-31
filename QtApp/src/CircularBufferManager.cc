@@ -11,6 +11,9 @@ CircularBufferManager::CircularBufferManager(int numBuffers) {
         _buffers.push_back(newBuffer);
         _bufferByteSize += sizeof(double) * BUFFER_SIZE;
     }
+
+    // TODO CONNECT THIS SHIT TO THE FRONT END :)
+    // connect(this, &CircularBufferManager::dataReady, &CircularBu)
 }
 
 /// @brief Get the combined byte size of all the buffers. 

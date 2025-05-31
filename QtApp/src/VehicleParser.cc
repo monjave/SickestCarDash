@@ -28,20 +28,8 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
   // if (!std::filesystem::is_regular_file(directoryPath)) {
   //     throw std::invalid_argument("Expected a regular file: " + filePath);
   // }
- 
-  loadSave(directoryPath);
   
-  this->timer26 = new QTimer();
-  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer26->start(26);
-
-  this->timer78 = new QTimer();
-  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer78->start(78);
-
-  this->timer20 = new QTimer();
-  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer20->start(20);
+    loadSave(directoryPath);
 }
 
 /**
@@ -180,17 +168,17 @@ VehicleConnection* VehicleParser::initOBDConnection() {
 // @param data
 // @return Return 0 if successful, return a 1 if there's an issue.
 // Need to validate if BuffMan is a valid CircularBufferManager object, but how?
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
-                                          int& data,
-                                          std::string& pidTableKey) 
-  {
-  if (_pidTable.find(pidTableKey) == _pidTable.end()) {
-    std::cout << "Key provided has no value in _pidTable.\n";
-    return 1;
-  }
+// int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
+//                                           int& data,
+//                                           std::string& pidTableKey) 
+//   {
+//   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
+//     std::cout << "Key provided has no value in _pidTable.\n";
+//     return 1;
+//   }
 
-  return BuffMan.publish(data, _pidTable[pidTableKey].second);
-}
+//   return BuffMan.publish(data, _pidTable[pidTableKey].second);
+// }
 
 /// @brief Publish to the middleware what an OBD query has returned.
 /// @param data

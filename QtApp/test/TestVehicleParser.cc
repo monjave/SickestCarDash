@@ -119,7 +119,7 @@ void VehicleParserTest::PublishToMiddleware() {
     VehicleParser parser;
     CircularBufferManager buffMan(10);
 
-    int testVal = 69;
+    double testVal = 69;
     std::string testKey = "SPEED";
     parser.PublishToMiddleware(buffMan, testVal, testKey);
     QCOMPARE(buffMan.peekBuffer(0), 69);

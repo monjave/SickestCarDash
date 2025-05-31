@@ -75,8 +75,8 @@ public:
   explicit VehicleParser();
   explicit VehicleParser(std::string filePath, QObject* parent = nullptr);
 
-  int8_t PublishToMiddleware(CircularBufferManager& BuffMan, int& data,
-                            std::string& pidTableKey);
+  // int8_t PublishToMiddleware(CircularBufferManager& BuffMan, int& data,
+  //                           std::string& pidTableKey);
   int8_t PublishToMiddleware(CircularBufferManager& BuffMan, double& data,
                              std::string& pidTableKey);
   void Request(VehicleConnection* connection, const std::string& request);
