@@ -8,16 +8,16 @@
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(int rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
-    Q_PROPERTY(int fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
-    Q_PROPERTY(int temp READ temp WRITE setTemp NOTIFY tempChanged)
-    Q_PROPERTY(int coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
-    Q_PROPERTY(int clock READ clock WRITE setClock NOTIFY clockChanged)
-    Q_PROPERTY(int enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
-    Q_PROPERTY(int oiltemp READ oiltemp WRITE setOilTemp NOTIFY oilTempChanged)
+    Q_PROPERTY(double speed READ speed WRITE setSpeed NOTIFY speedChanged)
+    Q_PROPERTY(double rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
+    Q_PROPERTY(double fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
+    Q_PROPERTY(double temp READ temp WRITE setTemp NOTIFY tempChanged)
+    Q_PROPERTY(double coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
+    Q_PROPERTY(double clock READ clock WRITE setClock NOTIFY clockChanged)
+    Q_PROPERTY(double enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
+    Q_PROPERTY(double oiltemp READ oiltemp WRITE setOilTemp NOTIFY oilTempChanged)
 
-    Q_PROPERTY(int gearshift READ gearshift WRITE setGearShift NOTIFY gearshiftChanged)
+    Q_PROPERTY(double gearshift READ gearshift WRITE setGearShift NOTIFY gearshiftChanged)
 
     Q_PROPERTY(bool seatbelt READ seatbelt WRITE setSeatBelt NOTIFY seatbeltChanged)
     Q_PROPERTY(bool highlights READ highlights WRITE setHighlights NOTIFY highlightsChanged)
@@ -39,119 +39,119 @@ public:
         connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
     }
 
-    int speed() const{
+    double speed() const{
         return m_speed;
     }
 
-    int rpm() const{
+    double rpm() const{
         return m_rpm;
     }
     
-    int fuel() const{
+    double fuel() const{
         return m_fuel;
     }
 
-    int temp() const{
+    double temp() const{
         return m_temp;
     }
 
-    int coolanttemp() const{
+    double coolanttemp() const{
         return m_coolanttemp;
     }
 
-    int clock() const{
+    double clock() const{
         return m_clock;
     }
 
-    int enginetemp() const{
+    double enginetemp() const{
         return m_enginetemp;
     }
 
-    int oiltemp() const{
+    double oiltemp() const{
         return m_oiltemp;
     }
 
-    int gearshift() const{
+    double gearshift() const{
         return m_gearshift;
     }
 
-    int seatbelt() const{
+    double seatbelt() const{
         return m_seatbelt;
     }
 
-    int highlights() const{
+    double highlights() const{
         return m_highlights;
     }
 
-    int abs() const{
+    double abs() const{
         return m_abs;
     }
 
-    int enginecheck() const{
+    double enginecheck() const{
         return m_enginecheck;
     }
 
-    int parking() const{
+    double parking() const{
         return m_parking;
     }
 
-    void setSpeed(int newSpeed) {
+    void setSpeed(double newSpeed) {
         if (newSpeed != m_speed) {
             m_speed = newSpeed;
             emit speedChanged();
         }
     };
 
-    void setRPM(int newRPM) {
+    void setRPM(double newRPM) {
         if (newRPM != m_rpm) {
             m_rpm = newRPM;
             emit rpmChanged();
         }
     };
 
-    void setFuel(int newFuel) {
+    void setFuel(double newFuel) {
         if (newFuel != m_fuel) {
             m_fuel = newFuel;
             emit fuelChanged();
         }
     };
 
-    void setTemp(int newTemp) {
+    void setTemp(double newTemp) {
         if (newTemp != m_temp) {
             m_temp = newTemp;
             emit tempChanged();
         }
     };
 
-    void setCoolanttemp(int newCoolanttemp) {
+    void setCoolanttemp(double newCoolanttemp) {
         if (newCoolanttemp != m_coolanttemp) {
             m_coolanttemp = newCoolanttemp;
             emit coolanttempChanged();
         }
     };
 
-    void setClock(int newClock) {
+    void setClock(double newClock) {
         if (newClock != m_clock) {
             m_clock = newClock;
             emit clockChanged();
         }
     };
 
-    void setEnginetemp(int newEnginetemp) {
+    void setEnginetemp(double newEnginetemp) {
         if (newEnginetemp != m_enginetemp) {
             m_enginetemp = newEnginetemp;
             emit enginetempChanged();
         }
     };
 
-    void setOilTemp(int newOilTemp) {
+    void setOilTemp(double newOilTemp) {
         if (newOilTemp != m_speed) {
             m_speed = newOilTemp;
             emit oilTempChanged();
         }
     };
 
-    void setGearShift(int newGearShift) {
+    void setGearShift(double newGearShift) {
         if (newGearShift != m_gearshift) {
             m_gearshift = newGearShift;
             emit gearshiftChanged();
@@ -279,16 +279,16 @@ private slots:
     }
 
 private:
-    int m_speed;
-    int m_rpm;
-    int m_fuel;
-    int m_temp;
-    int m_coolanttemp;
-    int m_clock;
-    int m_enginetemp;
-    int m_oiltemp;
+    double m_speed;
+    double m_rpm;
+    double m_fuel;
+    double m_temp;
+    double m_coolanttemp;
+    double m_clock;
+    double m_enginetemp;
+    double m_oiltemp;
 
-    int m_gearshift;
+    double m_gearshift;
 
     bool m_seatbelt;
     bool m_highlights;
