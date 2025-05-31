@@ -1,6 +1,7 @@
 #include <QtTest/QtTest>
 #include "VehicleParser.h"
 #include "CircularBuffer.h"
+// #include "CircularBufferManager.h"
 #include <fstream>
 
 class VehicleParserTest : public QObject {
@@ -115,7 +116,7 @@ void VehicleParserTest::getPIDTable() {
 
 void VehicleParserTest::PublishToMiddleware() {
     VehicleParser parser;
-    CircularBufferManager<int> buffMan(10);
+    CircularBufferManager buffMan(10);
 
     int testVal = 69;
     std::string testKey = "SPEED";
