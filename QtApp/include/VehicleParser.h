@@ -11,6 +11,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#define BUFFERS_TO_INIT 9
 
 #include "CircularBufferManager.h"
 #include "VehicleConnection.h"
@@ -63,6 +64,7 @@ private:
   QTimer* timer26;
   QTimer* timer78;
   QTimer* timer20;
+  CircularBufferManager _buffMan = CircularBufferManager(BUFFERS_TO_INIT);
 
   void loadSave(std::filesystem::path file);
   void readCSV(std::fstream& file);
