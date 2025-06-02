@@ -66,8 +66,6 @@ if(BUILD_GUI)
         include/VehicleParser.h
         src/VehicleParser.cc
         src/CircularBufferManager.cc
-        include/IntegrationTests.h
-        src/IntegrationTests.cpp
     )
 
     target_link_libraries(CarDashboardApp
@@ -131,3 +129,4 @@ endif()
   add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
   add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
   add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
+  add_qt_test(CircularBufferManagerWrapperTest test/TestCircularBufferManagerWrapper.cpp)

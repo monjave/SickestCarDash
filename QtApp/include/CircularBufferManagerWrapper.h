@@ -32,9 +32,10 @@ public:
         m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
         timer = new QTimer(this);
         timerIcons = new QTimer(this);
-        VehicleParser* carData = new VehicleParser("../../../QtApp/replay/data/example_nurburgring_24h/data");
         //qDebug() << "Working dir:" << QDir::currentPath();
-        carData->replayStart(); 
+        //VehicleParser* carData = new VehicleParser("replay/data/example_nurburgring_24h/data");
+        //qDebug() << "Working dir:" << QDir::currentPath();
+        //carData->replayStart();
         // Connect start button to replayStart method
         // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
