@@ -38,13 +38,9 @@ void TestVehicleConnection::testInitializationSequence() {
     QVERIFY(receivedHex.size() >= 5);
 }
 
-void VehicleConnectionTest::ReadyReadPass() {
+void TestVehicleConnection::ReadyReadPass() {
 
 }
 
-
-
-
-
-QTEST_MAIN(VehicleConnectionTest)
+QTEST_MAIN(TestVehicleConnection)
 #include "TestVehicleConnection.moc"
