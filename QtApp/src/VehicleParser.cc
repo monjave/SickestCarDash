@@ -41,7 +41,6 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
  */
 void VehicleParser::dataRegulator() {
   QTimer* timer = qobject_cast<QTimer*>(sender());
-  CircularBufferManager buffMan = CircularBufferManager(4);
   if (!_replayData["time"].empty()) {
     double data;
     std::string pidTableKey;
@@ -54,15 +53,15 @@ void VehicleParser::dataRegulator() {
       qDebug() << "Tick 26!";
       data = _replayData["speed"][location];
       pidTableKey = "SPEED";
-      success = PublishToMiddleware(buffMan, data, pidTableKey);
+      success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
       data = _replayData["rpms"][location];
       pidTableKey = "RPM";
-      success = PublishToMiddleware(buffMan, data, pidTableKey);
+      success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
       data = _replayData["throttle"][location];
       pidTableKey = "THROTTLE";
-      success = PublishToMiddleware(buffMan, data, pidTableKey);
+      success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
       //removeReplayDataFromFront("speed");
       //removeReplayDataFromFront("rpms");
@@ -71,7 +70,7 @@ void VehicleParser::dataRegulator() {
       qDebug() << "Tick 78!";
       data = _replayData["gear"][location];
       pidTableKey = "GEAR";
-      success = PublishToMiddleware(buffMan, data, pidTableKey);
+      success = PublishToMiddleware(_buffMan, data, pidTableKey);
       
       //removeReplayDataFromFront("gear");
     } else if (timer == timer20) { // reduce time to know when to stop timers
