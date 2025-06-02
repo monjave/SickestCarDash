@@ -33,6 +33,7 @@ public:
         m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
         timer = new QTimer(this);
         timerIcons = new QTimer(this);
+        carData = new VehicleParser("../../QtApp/replay/data/example_nurburgring_24h/data");
         //qDebug() << "Working dir:" << QDir::currentPath();
         // Connect start button to replayStart method
         // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
@@ -195,7 +196,8 @@ public:
 
     Q_INVOKABLE void togglePaused() {
         emit startReplay();
-        /*if (timer->isActive()) {
+
+        if (timer->isActive()) {
             timer->stop();
         } else {
         timer->start(1500);
@@ -205,7 +207,7 @@ public:
             timerIcons->stop();
         } else {
             timerIcons->start(500);
-        } */
+        }
     };
 
 signals:
@@ -282,7 +284,6 @@ private slots:
     }
 
     void startReplay() {
-        VehicleParser* carData = new VehicleParser("../../QtApp/replay/data/example_nurburgring_24h/data");
         carData->replayStart();
     }
 
@@ -335,6 +336,8 @@ private:
 
     QTimer *timer;
     QTimer *timerIcons;
+
+    VehicleParser* carData;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H
