@@ -11,34 +11,38 @@ Window {
 
     //visibility: Window.FullScreen
 
-    property int speedVar: speedToAngle(speedValue.speed)
-    property int rpmVar: rpmToAngle(rpmValue.rpm)
-    property int fuelVar: fuelToAngle(fuelValue.fuel)
-    property int tempVar: tempToAngle(tempValue.temp)
-    property int oilTempVar: oilTempToAngle(oilTempValue.oiltemp)
+    property int speedVar: speedToAngle(carData.speed)
+    property int rpmVar: rpmToAngle(carData.rpm)
+    property int fuelVar: fuelToAngle(carData.fuel)
+    property int tempVar: tempToAngle(carData.temp)
+    property int oilTempVar: oilTempToAngle(carData.oiltemp)
 
-    property bool seatbeltBool: speedValue.seatbelt
-    property bool highlightsBool: speedValue.highlights
-    property bool absBool: speedValue.abs
-    property bool enginecheckBool: speedValue.enginecheck
-    property bool parkingBool: speedValue.parking
+    property bool seatbeltBool: carData.seatbelt
+    property bool highlightsBool: carData.highlights
+    property bool absBool: carData.abs
+    property bool enginecheckBool: carData.enginecheck
+    property bool parkingBool: carData.parking
 
-    property int speedNumber: speedValue.speed
-    property int rpmNumber: rpmValue.rpm
-    property int fuelNumber: fuelValue.fuel
-    property int tempNumber: tempValue.temp
-    property int oilTempNumber: oilTempValue.oiltemp
-    property int gearShiftNumber: gearShiftValue.gearshift
+    property int speedNumber: carData.speed
+    property int rpmNumber: carData.rpm
+    property int fuelNumber: carData.fuel
+    property int tempNumber: carData.temp
+    property int oilTempNumber: carData.oiltemp
+    property int gearShiftNumber: carData.gearshift
 
-    property int time: clockValue.clock
+    property int time: carData.clock
     property int minutes: 0
     property int hours: 0
 
-    DataSpeed {
-        id: speedValue
+    CarData {
+        id: carData
     }
 
-    DataRPM {
+    //DataSpeed {
+    //    id: speedValue
+    //}
+
+    /*DataRPM {
         id: rpmValue
     }
 
@@ -60,7 +64,7 @@ Window {
 
     DataGearShift {
         id: gearShiftValue
-    }
+    } */
 
     function speedToAngle(speed) {
         const speedMin = 0;
@@ -120,43 +124,43 @@ Window {
     }
 
     function gearShift() {
-        mainScreen.parkingGear.visible = false;
-        mainScreen.reverseGear.visible = false;
-        mainScreen.neutralGear.visible = false;
-        mainScreen.drivingGear.visible = false;
-        mainScreen.firstGear.visible = false;
-        mainScreen.secondGear.visible = false;
-        mainScreen.thirdGear.visible = false;
+        mainScreen.gear.visible = true
 
         switch (gearShiftNumber) {
 
         case 1:
-            mainScreen.parkingGear.visible = true
+            mainScreen.gear.source = "images/P-center.png"
             break;
 
         case 2:
-            mainScreen.reverseGear.visible = true;
+            mainScreen.gear.source = "images/R-center.png"
             break;
 
         case 3:
-            mainScreen.neutralGear.visible = true;
+            mainScreen.gear.source = "images/N-center.png"
             break;
 
         case 4:
-            mainScreen.drivingGear.visible = true;
+            mainScreen.gear.source = "images/1.png"
             break;
 
         case 5:
-            mainScreen.firstGear.visible = true;
+            mainScreen.gear.source = "images/2.png"
             break;
 
         case 6:
-            mainScreen.secondGear.visible = true;
+            mainScreen.gear.source = "images/3.png"
             break;
 
         case 7:
-            mainScreen.thirdGear.visible = true;
+            mainScreen.gear.source = "images/4.png"
             break;
+
+        case 8:
+            mainScreen.gear.source = "images/5.png"
+            break;
+
+        default: mainScreen.gear.visible = false
         }
 
     }
@@ -174,13 +178,14 @@ Window {
 
     Component.onCompleted: {
         mainScreen.exposedButton.clicked.connect(function() {
-            speedValue.togglePaused()
+            /*speedValue.togglePaused()
             rpmValue.togglePaused()
             fuelValue.togglePaused()
             tempValue.togglePaused()
             oilTempValue.togglePaused()
             clockValue.togglePaused()
-            gearShiftValue.togglePaused()
+            gearShiftValue.togglePaused() */
+            carData.togglePaused()
         })
     }
 
