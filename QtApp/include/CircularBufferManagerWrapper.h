@@ -33,12 +33,14 @@ public:
         m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
         timer = new QTimer(this);
         timerIcons = new QTimer(this);
-        //qDebug() << "Working dir:" << QDir::currentPath();
+        qDebug() << "Working dir888:" << QDir::currentPath();
         // Connect start button to replayStart method
         // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
         connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
     }
+
+    std::string _replayPath = "QtApp/replay/data/example_nurburgring_24h/data";
 
     double speed() const{
         return m_speed;
@@ -230,6 +232,8 @@ signals:
 
 private slots:
     void increment() {
+        VehicleParser* carData = new VehicleParser(_replayPath);
+        carData->replayStart();
 
         if (m_speed >= 140) m_speed = 0;
         else m_speed += 10;
