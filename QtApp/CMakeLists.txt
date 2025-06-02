@@ -1,8 +1,6 @@
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
-# qt_standard_project_setup(REQUIRES 6.4.2)
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
 # qt_standard_project_setup(REQUIRES 6.4.2)
 
 # # ================== Configurable Options ==================
