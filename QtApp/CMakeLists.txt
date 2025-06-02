@@ -66,6 +66,8 @@ if(BUILD_GUI)
         include/VehicleParser.h
         src/VehicleParser.cc
         src/CircularBufferManager.cc
+        include/IntegrationTests.h
+        src/IntegrationTests.cpp
     )
 
     target_link_libraries(CarDashboardApp
