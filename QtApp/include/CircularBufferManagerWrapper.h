@@ -194,7 +194,8 @@ public:
     };
 
     Q_INVOKABLE void togglePaused() {
-        if (timer->isActive()) {
+        emit startReplay();
+        /*if (timer->isActive()) {
             timer->stop();
         } else {
         timer->start(1500);
@@ -204,7 +205,7 @@ public:
             timerIcons->stop();
         } else {
             timerIcons->start(500);
-        }
+        } */
     };
 
 signals:
@@ -229,10 +230,8 @@ signals:
 
 private slots:
     void increment() {
-        VehicleParser* carData = new VehicleParser("../../QtApp/replay/data/example_nurburgring_24h/data");
-        carData->replayStart();
 
-        /*if (m_speed >= 140) m_speed = 0;
+        if (m_speed >= 140) m_speed = 0;
         else m_speed += 10;
 
         if (m_rpm >= 7000) m_rpm = 0;
@@ -269,17 +268,22 @@ private slots:
         emit highlightsChanged();
         emit absChanged();
         emit enginecheckChanged();
-        emit parkingChanged(); */
+        emit parkingChanged();
 
     }
 
     void geartime() {
-        if (m_gearshift >= 8) {
+        if (m_gearshift >= 9) {
             m_gearshift = 0;
         } else {
         m_gearshift++;
         }
         emit gearshiftChanged();
+    }
+
+    void startReplay() {
+        VehicleParser* carData = new VehicleParser("../../QtApp/replay/data/example_nurburgring_24h/data");
+        carData->replayStart();
     }
 
     void dataReady(int buffNum, double value) {

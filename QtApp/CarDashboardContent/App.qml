@@ -160,6 +160,10 @@ Window {
             mainScreen.gear.source = "images/5.png"
             break;
 
+        case 9:
+            mainScreen.gear.source = "images/6.png"
+            break;
+
         default: mainScreen.gear.visible = false
         }
 
