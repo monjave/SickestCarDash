@@ -103,7 +103,6 @@ if(BUILD_GUI)
 endif()
 
 # ================== Unit Tests (Optional) ==================
-if(BUILD_TESTING)
     enable_testing()
 
     macro(add_qt_test TEST_NAME)
@@ -140,5 +139,4 @@ if(BUILD_TESTING)
         include/MockQSerialPort.h)
     add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
     add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
-endif()
 
