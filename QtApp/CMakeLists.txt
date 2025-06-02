@@ -65,8 +65,6 @@ if(BUILD_GUI)
         src/VehicleConnection.cpp
         include/VehicleParser.h
         src/VehicleParser.cc
-        include/MockQSerialPort.h
-        test/MockQSerialPort.cpp
         src/CircularBufferManager.cc
         include/MockQSerialPort.h
         test/MockQSerialPort.cpp
