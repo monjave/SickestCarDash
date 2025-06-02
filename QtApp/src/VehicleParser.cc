@@ -18,30 +18,18 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
     loadPidTable();
     std::filesystem::path directoryPath = filePath;
 
-  std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+    std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+    
+
+    if (!std::filesystem::exists(directoryPath)) {
+      throw std::invalid_argument("File does not exist: " + filePath);
+    }
+
+  // if (!std::filesystem::is_regular_file(directoryPath)) {
+  //     throw std::invalid_argument("Expected a regular file: " + filePath);
+  // }
   
-
-  if (!std::filesystem::exists(directoryPath)) {
-    throw std::invalid_argument("File does not exist: " + filePath);
-  }
-
-  if (!std::filesystem::is_regular_file(directoryPath)) {
-      throw std::invalid_argument("Expected a regular file: " + filePath);
-  }
- 
-  loadSave(directoryPath);
-  
-  this->timer26 = new QTimer();
-  connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer26->start(26);
-
-  this->timer78 = new QTimer();
-  connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer78->start(78);
-
-  this->timer20 = new QTimer();
-  connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer20->start(20);
+    loadSave(directoryPath);
 }
 
 /**
@@ -54,30 +42,24 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
 void VehicleParser::dataRegulator() {
   QTimer* timer = qobject_cast<QTimer*>(sender());
   CircularBufferManager buffMan = CircularBufferManager(4);
-  CircularBufferManager buffMan = CircularBufferManager(4);
   if (!_replayData["time"].empty()) {
     double data;
     std::string pidTableKey;
     int8_t success;
     int location = 0;
-    int location = 0;
-    int location = 0;
     if (timer == nullptr) {
       qDebug("Signal from QTimer not found");
       return;
-    } else if (&timer == &timer26) { // push speed, rpm, and throttle to middleware
+    } else if (timer == timer26) { // push speed, rpm, and throttle to middleware
+      qDebug() << "Tick 26!";
       data = _replayData["speed"][location];
       pidTableKey = "SPEED";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
 
       data = _replayData["rpms"][location];
-      data = _replayData["rpms"][location];
-      data = _replayData["rpms"][location];
       pidTableKey = "RPM";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
 
-      data = _replayData["throttle"][location];
-      data = _replayData["throttle"][location];
       data = _replayData["throttle"][location];
       pidTableKey = "THROTTLE";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
@@ -85,14 +67,16 @@ void VehicleParser::dataRegulator() {
       //removeReplayDataFromFront("speed");
       //removeReplayDataFromFront("rpms");
       //removeReplayDataFromFront("throttle");
-    } else if (&timer == &timer78) { // push gear to middlewear
+    } else if (timer == timer78) { // push gear to middlewear
+      qDebug() << "Tick 78!";
       data = _replayData["gear"][location];
       pidTableKey = "GEAR";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
       
       //removeReplayDataFromFront("gear");
-    } else if (&timer == &timer20) { // reduce time to know when to stop timers
+    } else if (timer == timer20) { // reduce time to know when to stop timers
       //removeReplayDataFromFront("time");
+      qDebug() << "Tick 20!";
       location++;
     }
   } else {
@@ -123,11 +107,10 @@ void VehicleParser::replayStart(){
 
 /// @brief Makes a request to the OBD-II Interface
 /// @param request The request to be made to the OBD-II Interface
-/// @return Returns
 void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
-  
+
   connection->sendCommand(obdCode);
   QString obdCode = QString::fromStdString(code);
   
@@ -165,15 +148,6 @@ std::pair<bool, int> VehicleParser::ExtractData(const QString& hexString) {
   return ExtractData(hexString.toStdString());
 }
 
-
-/// @brief An overload for ExtractData() that takes in a QString instead of a C string
-/// @param hexString The hex string to be converted to an int
-/// @return Returns a std::pair<bool, int> representing if the conversion is successful and what the value is.
-std::pair<bool, int> VehicleParser::ExtractData(const QString& hexString) {
-  return ExtractData(hexString.toStdString());
-}
-
-
 /// @brief Initializes the OBD-II connection by creating a new VehicleConnection object 
 /// @returns Returns a pointer to the newly created VehicleConnection object
 VehicleConnection* VehicleParser::initOBDConnection() {
@@ -186,14 +160,14 @@ VehicleConnection* VehicleParser::initOBDConnection() {
 // @param data
 // @return Return 0 if successful, return a 1 if there's an issue.
 // Need to validate if BuffMan is a valid CircularBufferManager object, but how?
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
-                                          int& data,
-                                          std::string& pidTableKey) 
-  {
-  if (_pidTable.find(pidTableKey) == _pidTable.end()) {
-    std::cout << "Key provided has no value in _pidTable.\n";
-    return 1;
-  }
+// int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
+//                                           int& data,
+//                                           std::string& pidTableKey) 
+//   {
+//   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
+//     std::cout << "Key provided has no value in _pidTable.\n";
+//     return 1;
+//   }
 
 //   return BuffMan.publish(data, _pidTable[pidTableKey].second);
 // }
@@ -202,10 +176,7 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
 /// @param data
 /// @return Return 0 if successful, return a 1 if there's an issue.
 int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
-int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
                                           double& data,
-                                          std::string& pidTableKey) 
-  {
                                           std::string& pidTableKey) 
   {
   if (_pidTable.find(pidTableKey) == _pidTable.end()) {
@@ -218,8 +189,6 @@ int8_t VehicleParser::PublishToMiddleware(CircularBufferManager& BuffMan,
 }
 
 std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
-  if (_pidTable.find(key) == _pidTable.end()) 
-  {
   if (_pidTable.find(key) == _pidTable.end()) 
   {
     std::cout << "Key provided to getPIDTAble() is invalid.";
@@ -317,8 +286,6 @@ std::map<std::string, std::vector<double>>& VehicleParser::getData() {
 }
 
 /**
- * @brief removes the first value of the vector associated with a provided key. Not currently used anymore to preserve data structure integrity.
- * @brief removes the first value of the vector associated with a provided key. Not currently used anymore to preserve data structure integrity.
  * @brief removes the first value of the vector associated with a provided key. Not currently used anymore to preserve data structure integrity.
  *
  * @param key

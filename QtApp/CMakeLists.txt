@@ -16,9 +16,9 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
-    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
 )
 
 # Link QtCore to core lib
@@ -141,3 +141,4 @@ if(BUILD_TESTING)
     add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
     add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
 endif()
+

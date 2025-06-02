@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
 
     //qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "CarData");
 
+    //qmlRegisterSingletonType<CircularBufferManagerWrapper>("Car.Data", 1, 0, "CarData") [] (;
+
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataSpeed");
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataRPM");
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataFuel");
@@ -23,7 +25,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataClock");
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataEnginetemp");
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataOilTemp");
-    //qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Speed", 1, 0, "DataSpeed");
+    qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "DataGearShift");
 
     /*
     CircularBufferManagerWrapper data;

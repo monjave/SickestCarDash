@@ -2,7 +2,7 @@
 #include <QtTest/QtTest>
 #include "VehicleParser.h"
 #include "CircularBuffer.h"
-#include "CircularBuffer.h"
+// #include "CircularBufferManager.h"
 #include <fstream>
 
 class VehicleParserTest : public QObject {
