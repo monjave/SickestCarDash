@@ -71,20 +71,20 @@ Item {
 
         Image {
             id: speedometer
-            x: 320
-            y: 140
-            width: 440
-            height: 440
+            x: -27
+            y: -70
+            width: 925
+            height: 925
             source: "dials/DialBgBig.PNG"
             mirror: false
             fillMode: Image.PreserveAspectFit
 
             Image {
                 id: needleSpeed
-                x: 20
-                y: 20
-                width: 400
-                height: 400
+                x: 25
+                y: 25
+                width: 875
+                height: 875
                 source: "pointers/NeedleBig.PNG"
                 rotation: speedVar
                 Behavior on rotation {
@@ -99,45 +99,31 @@ Item {
 
             Image {
                 id: speedNumbers
-                x: 20
-                y: 20
-                width: 400
-                height: 400
+                x: 25
+                y: 25
+                width: 875
+                height: 875
                 source: "dialNumbers/mphNumbers.PNG"
                 z: -1
                 fillMode: Image.PreserveAspectFit
-            }
-
-            Text {
-                id: speedNum
-                x: 208
-                y: 304
-                width: 24
-                height: 21
-                visible: false
-                color: "#ffffff"
-                text: speedNumber
-                font.pixelSize: 28
-                font.styleName: "Bold"
-                font.family: "Times New Roman"
             }
         }
 
         Image {
             id: rpm
-            x: 1160
-            y: 140
-            width: 440
-            height: 440
+            x: 1023
+            y: -70
+            width: 925
+            height: 925
             source: "dials/DialBgBig.PNG"
             fillMode: Image.PreserveAspectFit
 
             Image {
                 id: needleRPM
-                x: 20
-                y: 20
-                width: 400
-                height: 400
+                x: 25
+                y: 25
+                width: 875
+                height: 875
                 source: "pointers/NeedleBig.PNG"
                 rotation: rpmVar
                 fillMode: Image.PreserveAspectFit
@@ -151,44 +137,23 @@ Item {
 
             Image {
                 id: rpmNumbers
-                x: 20
-                y: 20
-                width: 400
-                height: 400
+                x: 25
+                y: 25
+                width: 875
+                height: 875
                 source: "dialNumbers/rpmNumbers.PNG"
                 z: -1
                 fillMode: Image.PreserveAspectFit
             }
-
-            Text {
-                id: rpmNum
-                x: 190
-                y: 284
-                visible: false
-                color: "#ffffff"
-                text: rpmNumber
-                font.pixelSize: 28
-                font.family: "Times New Roman"
-                font.styleName: "Bold"
-            }
-        }
-
-        Image {
-            id: centerDesign
-            x: 860
-            y: 218
-            width: 200
-            height: 255
-            source: "qrc:/qtquickplugin/images/template_image.png"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
             id: gearSelect
-            x: 676
-            y: 446
-            width: 300
-            height: 300
+            x: 735
+            y: 135
+            width: 450
+            height: 450
+            visible: true
             source: "images/Gear_dark.png"
             fillMode: Image.PreserveAspectFit
 
@@ -196,8 +161,8 @@ Item {
                 id: gearP
                 x: 0
                 y: 0
-                width: 300
-                height: 300
+                width: 450
+                height: 450
                 visible: false
                 source: "images/Gear_P.png"
                 fillMode: Image.PreserveAspectFit
@@ -207,8 +172,8 @@ Item {
                 id: gearR
                 x: 0
                 y: 0
-                width: 300
-                height: 300
+                width: 450
+                height: 450
                 visible: false
                 source: "images/Gear_R.png"
                 fillMode: Image.PreserveAspectFit
@@ -218,8 +183,8 @@ Item {
                 id: gearN
                 x: 0
                 y: 0
-                width: 300
-                height: 300
+                width: 450
+                height: 450
                 visible: false
                 source: "images/Gear_N.png"
                 fillMode: Image.PreserveAspectFit
@@ -229,8 +194,8 @@ Item {
                 id: gearD
                 x: 0
                 y: 0
-                width: 300
-                height: 300
+                width: 450
+                height: 450
                 visible: false
                 source: "images/Gear_D.png"
                 fillMode: Image.PreserveAspectFit
@@ -240,8 +205,8 @@ Item {
                 id: gear1
                 x: 0
                 y: 0
-                width: 300
-                height: 300
+                width: 450
+                height: 450
                 visible: false
                 source: "images/Gear_1.png"
                 fillMode: Image.PreserveAspectFit
@@ -251,8 +216,8 @@ Item {
                 id: gear2
                 x: 0
                 y: 0
-                width: 300
-                height: 300
+                width: 450
+                height: 450
                 visible: false
                 source: "images/Gear_2.png"
                 fillMode: Image.PreserveAspectFit
@@ -262,8 +227,8 @@ Item {
                 id: gear3
                 x: 0
                 y: 0
-                width: 300
-                height: 300
+                width: 450
+                height: 450
                 visible: false
                 source: "images/Gear_3.png"
                 fillMode: Image.PreserveAspectFit
@@ -276,6 +241,7 @@ Item {
             y: 460
             width: 381
             height: 381
+            visible: false
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -310,49 +276,50 @@ Item {
 
         Image {
             id: clockColon
-            x: 948
-            y: 120
-            width: 25
-            height: 25
+            x: 923
+            y: 96
+            width: 75
+            height: 75
+            visible: true
             source: "images/Colon.png"
             fillMode: Image.PreserveAspectFit
 
             Image {
                 id: clockOnes
-                x: 50
+                x: 120
                 y: 0
-                width: 25
-                height: 25
+                width: 75
+                height: 75
                 source: "images/0.png"
                 fillMode: Image.PreserveAspectFit
             }
 
             Image {
                 id: clockTens
-                x: 25
+                x: 50
                 y: 0
-                width: 25
-                height: 25
+                width: 75
+                height: 75
                 source: "images/0.png"
                 fillMode: Image.PreserveAspectFit
             }
 
             Image {
                 id: clockHundreds
-                x: -25
+                x: -50
                 y: 0
-                width: 25
-                height: 25
+                width: 75
+                height: 75
                 source: "images/0.png"
                 fillMode: Image.PreserveAspectFit
             }
 
             Image {
                 id: clockThousands
-                x: -50
+                x: -120
                 y: 0
-                width: 25
-                height: 25
+                width: 75
+                height: 75
                 source: "images/0.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -360,10 +327,11 @@ Item {
 
         Image {
             id: turnIndicatorL
-            x: 698
-            y: 33
-            width: 200
-            height: 200
+            x: 641
+            y: -92
+            width: 320
+            height: 320
+            visible: false
             source: "images/LeftTurnSignal.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
@@ -371,19 +339,20 @@ Item {
 
         Image {
             id: turnIndicatorR
-            x: 1023
-            y: 33
-            width: 200
-            height: 200
+            x: 967
+            y: -92
+            width: 320
+            height: 320
+            visible: false
             source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
+        }
 
-            Button {
-                id: playButton
-                x: 797
-                y: 647
-                text: qsTr("Play/Pause")
-            }
+        Button {
+            id: playButton
+            x: 1820
+            y: 680
+            text: qsTr("Play/Pause")
         }
 
         Image {
@@ -392,18 +361,18 @@ Item {
             y: 514
             width: 100
             height: 100
-            visible: seatbeltBool
+            visible: false
             source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
         }
 
         Image {
             id: absIndicator
-            x: 0
-            y: 620
-            width: 100
-            height: 100
-            visible: absBool
+            x: 825
+            y: 439
+            width: 250
+            height: 250
+            visible: true
             source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -414,6 +383,7 @@ Item {
             y: 355
             width: 385
             height: 298
+            visible: false
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -472,6 +442,7 @@ Item {
             width: 385
             height: 298
             opacity: 0
+            visible: false
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -509,7 +480,7 @@ Item {
             y: 514
             width: 100
             height: 100
-            visible: highlightsBool
+            visible: false
             source: "images/High_beams.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -520,7 +491,7 @@ Item {
             y: 620
             width: 100
             height: 100
-            visible: parkingBool
+            visible: false
             source: "images/Parking_break.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -531,7 +502,7 @@ Item {
             y: 620
             width: 100
             height: 100
-            visible: enginecheckBool
+            visible: false
             source: "images/Check_engine.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -631,25 +602,6 @@ Item {
 
         KeyframeGroup {
             target: rpm
-            property: "opacity"
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-        }
-
-        KeyframeGroup {
-            target: centerDesign
             property: "opacity"
             Keyframe {
                 value: 0
@@ -940,3 +892,10 @@ Item {
         }
     ]
 }
+
+/*##^##
+Designer {
+    D{i:0}D{i:42;invisible:true}D{i:43;invisible:true}
+}
+##^##*/
+

@@ -34,7 +34,7 @@ public:
         timerIcons = new QTimer(this);
         VehicleParser* carData = new VehicleParser("../../QtApp/replay/data/example_nurburgring_24h/data");
         //qDebug() << "Working dir:" << QDir::currentPath();
-        carData->replayStart(); 
+        //carData->replayStart();
         // Connect start button to replayStart method
         // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
@@ -278,6 +278,35 @@ private slots:
         m_gearshift++;
         }
         emit gearshiftChanged();
+    }
+
+    void dataReady(int buffNum, double value) {
+        switch(buffNum) {
+        case 0:
+            setSpeed(value);
+            break;
+        case 1:
+            setRPM(value);
+            break;
+        case 2:
+            setFuel(value);
+            break;
+        case 3:
+            setCoolanttemp(value);
+            break;
+        case 4:
+            break;
+        case 5:
+            setOilTemp(value);
+            break;
+        case 6:
+            setGearShift(value);
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        }
     }
 
 private:
