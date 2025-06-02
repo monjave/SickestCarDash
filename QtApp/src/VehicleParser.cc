@@ -110,9 +110,6 @@ void VehicleParser::replayStart(){
 void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
-
-  connection->sendCommand(obdCode);
-  QString obdCode = QString::fromStdString(code);
   
   connection->sendCommand(obdCode);
 }
