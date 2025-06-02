@@ -883,25 +883,6 @@ Item {
                 frame: 3500
             }
         }
-
-        KeyframeGroup {
-            target: temp
-            property: "opacity"
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-        }
     }
 
     states: [
