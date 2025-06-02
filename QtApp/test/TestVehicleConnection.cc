@@ -2,7 +2,7 @@
 #include "VehicleConnection.h"
 #include "MockQSerialPort.h"
 
-class VehicleConnectionTest : public QObject {
+class TestVehicleConnection : public QObject {
     Q_OBJECT
 
 private slots:
