@@ -33,9 +33,7 @@ public:
         m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
         timer = new QTimer(this);
         timerIcons = new QTimer(this);
-        VehicleParser* carData = new VehicleParser("../../QtApp/replay/data/example_nurburgring_24h/data");
         //qDebug() << "Working dir:" << QDir::currentPath();
-        //carData->replayStart();
         // Connect start button to replayStart method
         // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
         connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
@@ -231,7 +229,10 @@ signals:
 
 private slots:
     void increment() {
-        if (m_speed >= 140) m_speed = 0;
+        VehicleParser* carData = new VehicleParser("../../QtApp/replay/data/example_nurburgring_24h/data");
+        carData->replayStart();
+
+        /*if (m_speed >= 140) m_speed = 0;
         else m_speed += 10;
 
         if (m_rpm >= 7000) m_rpm = 0;
@@ -268,11 +269,12 @@ private slots:
         emit highlightsChanged();
         emit absChanged();
         emit enginecheckChanged();
-        emit parkingChanged();
+        emit parkingChanged(); */
+
     }
 
     void geartime() {
-        if (m_gearshift >= 7) {
+        if (m_gearshift >= 8) {
             m_gearshift = 0;
         } else {
         m_gearshift++;

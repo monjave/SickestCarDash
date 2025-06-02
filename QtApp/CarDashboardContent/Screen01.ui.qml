@@ -18,13 +18,7 @@ Item {
 
     property alias exposedButton: playButton
 
-    property alias parkingGear: gearP
-    property alias reverseGear: gearR
-    property alias neutralGear: gearN
-    property alias drivingGear: gearD
-    property alias firstGear: gear1
-    property alias secondGear: gear2
-    property alias thirdGear: gear3
+    property alias gear: gearSelect
 
     property alias seatbelt: seatbeltIndicator
     property alias abs: absIndicator
@@ -149,90 +143,13 @@ Item {
 
         Image {
             id: gearSelect
-            x: 735
-            y: 135
-            width: 450
-            height: 450
+            x: 885
+            y: 318
+            width: 150
+            height: 150
             visible: true
-            source: "images/Gear_dark.png"
+            source: "images/P-center.png"
             fillMode: Image.PreserveAspectFit
-
-            Image {
-                id: gearP
-                x: 0
-                y: 0
-                width: 450
-                height: 450
-                visible: false
-                source: "images/Gear_P.png"
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Image {
-                id: gearR
-                x: 0
-                y: 0
-                width: 450
-                height: 450
-                visible: false
-                source: "images/Gear_R.png"
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Image {
-                id: gearN
-                x: 0
-                y: 0
-                width: 450
-                height: 450
-                visible: false
-                source: "images/Gear_N.png"
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Image {
-                id: gearD
-                x: 0
-                y: 0
-                width: 450
-                height: 450
-                visible: false
-                source: "images/Gear_D.png"
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Image {
-                id: gear1
-                x: 0
-                y: 0
-                width: 450
-                height: 450
-                visible: false
-                source: "images/Gear_1.png"
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Image {
-                id: gear2
-                x: 0
-                y: 0
-                width: 450
-                height: 450
-                visible: false
-                source: "images/Gear_2.png"
-                fillMode: Image.PreserveAspectFit
-            }
-
-            Image {
-                id: gear3
-                x: 0
-                y: 0
-                width: 450
-                height: 450
-                visible: false
-                source: "images/Gear_3.png"
-                fillMode: Image.PreserveAspectFit
-            }
         }
 
         Image {
