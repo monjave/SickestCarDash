@@ -6,12 +6,15 @@
 #include <QSerialPort>
 #include <QDebug>
 #include <QTimer>
+#include <QIODevice> // for testing
 
 class VehicleConnection : public QObject {
     Q_OBJECT
 
 public:
     explicit VehicleConnection(QObject *parent = nullptr);
+    explicit VehicleConnection(QIODevice *device, QObject *parent = nullptr);
+    
     void sendCommand(const QString &command);
     void beginInitSequence();
 
@@ -25,11 +28,14 @@ private slots:
     void sendNextInitCommand();
 
 private:
-    QSerialPort *serial;
+    QIODevice *serial;
     QByteArray buffer;
     QStringList initCommands;
     int cmdIndex;
     QTimer initTimer;
+
+    void configureSerialPort();
+    // helper to configure if using QSerialPort
 };
 
 #endif // VEHICLECONNECTION_H

@@ -9,6 +9,7 @@
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
+
     Q_PROPERTY(double speed READ speed WRITE setSpeed NOTIFY speedChanged)
     Q_PROPERTY(double rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
     Q_PROPERTY(double fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
@@ -149,8 +150,7 @@ public:
     void setOilTemp(double newOilTemp) {
         if (newOilTemp != m_speed) {
             m_speed = newOilTemp;
-            emit oilTempChanged();
-        }
+            emit oilTempChanged();   }
     };
 
     void setGearShift(double newGearShift) {

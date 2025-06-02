@@ -19,6 +19,7 @@ CircularBufferManager::CircularBufferManager(int numBuffers) {
 /// @brief Get the combined byte size of all the buffers. 
 /// @return Returns the combined byte size of all the buffers.
 int CircularBufferManager::getByteSize() const {
+
     return _bufferByteSize;
 }
 
@@ -33,6 +34,7 @@ int CircularBufferManager::getBufferCount() const {
 // TODO
 // If there is no value to update, then don't push anything to the idx'th buffer
 void CircularBufferManager::publish(std::vector<double> values) {
+
     if (_bufferCount != values.size()) {
         throw std::invalid_argument("Argument size does not match number of buffers");
     }
@@ -46,6 +48,7 @@ void CircularBufferManager::publish(std::vector<double> values) {
 /// @param buffIdx The index of the target buffer to be pushed to.
 /// @return Returns a 0 if the publish was successful, otherwise return a 1;
 int8_t CircularBufferManager::publish(double data, int buffIdx) {
+
     if (buffIdx >= _bufferCount || buffIdx < 0) {
         std::cout << "Invalid buffer index provided to publish()";
         return 1;
@@ -58,6 +61,7 @@ int8_t CircularBufferManager::publish(double data, int buffIdx) {
 /// @param buffNum The idx of the buffer to be accessed.
 /// @return Returns the most recent value for a given buffer.
 std::optional<double> CircularBufferManager::peekBuffer(int buffNum) const {
+
     if (buffNum < 0 || buffNum >= _bufferCount) {
         throw std::out_of_range("Buffer index out of range");
     }
@@ -68,6 +72,7 @@ std::optional<double> CircularBufferManager::peekBuffer(int buffNum) const {
 /// @param buffNum The idx of the buffer to be accessed. 
 /// @return Returns the buffer stored at the buffNum idx in BufferManager.
 CircularBuffer<double>& CircularBufferManager::accessBuffer(int buffNum) {
+
     if (buffNum < 0 || buffNum >= _bufferCount) {
         throw std::out_of_range("Buffer index out of range");
     }
@@ -89,10 +94,6 @@ CircularBuffer<double>& CircularBufferManager::accessBuffer(int buffNum) {
 //     }
 
 //     return packet;
-// }
-
-// void CircularBufferManager::dataReady() {
-
 // }
 
 CircularBufferManager::~CircularBufferManager() = default;

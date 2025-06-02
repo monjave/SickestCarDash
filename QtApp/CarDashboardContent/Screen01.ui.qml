@@ -473,7 +473,6 @@ Item {
                 }
             }
         }
-
         Image {
             id: highLightsIndicator
             x: 108

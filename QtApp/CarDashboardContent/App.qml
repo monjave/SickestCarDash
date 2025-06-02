@@ -172,6 +172,7 @@ Window {
         id: mainScreen 
     }
 
+
     Component.onCompleted: {
         mainScreen.exposedButton.clicked.connect(function() {
             speedValue.togglePaused()

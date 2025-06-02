@@ -66,6 +66,8 @@ if(BUILD_GUI)
         include/VehicleParser.h
         src/VehicleParser.cc
         src/CircularBufferManager.cc
+        include/MockQSerialPort.h
+        test/MockQSerialPort.cpp
     )
 
     target_link_libraries(CarDashboardApp
@@ -105,29 +107,29 @@ if(BUILD_GUI)
 endif()
 
 # ================== Unit Tests (Optional) ==================
-  enable_testing()
+    enable_testing()
 
-  macro(add_qt_test TEST_NAME TEST_SOURCE)
-      qt_add_executable(${TEST_NAME}
-          ${TEST_SOURCE}
-      )
+    macro(add_qt_test TEST_NAME)
+    qt_add_executable(${TEST_NAME} ${ARGN})
+    set_target_properties(${TEST_NAME} PROPERTIES AUTOMOC ON)
 
-      target_link_libraries(${TEST_NAME}
-          PRIVATE
-          core
-          Qt6::Test
-      )
+    target_link_libraries(${TEST_NAME}
+        PRIVATE
+        core
+        Qt6::Test
+    )
+    add_test(
+        NAME    ${TEST_NAME}
+        COMMAND ${TEST_NAME}
+    )
+    endmacro()
 
-      add_test(
-          NAME    ${TEST_NAME}
-          COMMAND ${TEST_NAME}
-      )
-  endmacro()
-
-  # Use the macro to add tests
+    # Use the macro to add tests
   add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
-  add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc)
   add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
   add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
   add_qt_test(TestParserToBufferManager test/TestParserToBufferManager.cpp)
   add_qt_test(CircularBufferManagerWrapperTest test/TestCircularBufferManagerWrapper.cpp)
+  add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc test/MockQSerialPort.cpp 
+        include/MockQSerialPort.h)
+
