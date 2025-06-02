@@ -108,9 +108,6 @@ endif()
     macro(add_qt_test TEST_NAME)
     qt_add_executable(${TEST_NAME} ${ARGN})
     set_target_properties(${TEST_NAME} PROPERTIES AUTOMOC ON)
-    macro(add_qt_test TEST_NAME)
-    qt_add_executable(${TEST_NAME} ${ARGN})
-    set_target_properties(${TEST_NAME} PROPERTIES AUTOMOC ON)
 
     target_link_libraries(${TEST_NAME}
         PRIVATE
