@@ -114,16 +114,6 @@ endif()
         core
         Qt6::Test
     )
-    target_link_libraries(${TEST_NAME}
-        PRIVATE
-        core
-        Qt6::Test
-    )
-
-    add_test(
-        NAME    ${TEST_NAME}
-        COMMAND ${TEST_NAME}
-    )
     add_test(
         NAME    ${TEST_NAME}
         COMMAND ${TEST_NAME}
