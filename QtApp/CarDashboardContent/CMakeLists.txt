@@ -9,9 +9,8 @@ qt6_add_qml_module(CarDashboardContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "App.qml"
-        "App.qml"
         "Screen01.ui.qml"
+        "App.qml"
     RESOURCES
         "images/logoBg.png"
         "images/1.png"
