@@ -6,27 +6,61 @@
     - Added doxygen comments
 */
 
-/// @brief Constructs a new VehicleConnection object and initializes the QSerialPort object, the QTimer object, cmdIndex value to 0, and fills initCommands.
+/// @brief Constructs a new VehicleConnection object with a parent QObject, initializes the QTimer object, cmdIndex value to 0, and fills initCommands.
+/// @details This constructor sets up a QSerialPort object, configures it, and connects signals and slots for handling incoming data.
 /// @param parent Give the new VehicleConnection a parent QObject, defaults to nullptr
+
 VehicleConnection::VehicleConnection(QObject *parent)
     : QObject(parent), serial(new QSerialPort(this)), cmdIndex(0) {
 
-    serial->setPortName("/dev/ttyUSB0");
-    serial->setBaudRate(QSerialPort::Baud38400);
-    serial->setDataBits(QSerialPort::Data8);
-    serial->setParity(QSerialPort::NoParity);
-    serial->setStopBits(QSerialPort::OneStop);
-    serial->setFlowControl(QSerialPort::NoFlowControl);
-
-    if (!serial->open(QIODevice::ReadWrite)) {
-        emit errorOccurred("Failed to open serial port: " + serial->errorString());
-        return;
+    QSerialPort *port = qobject_cast<QSerialPort *>(serial);
+    if (port) {
+        port->setPortName("/dev/ttyUSB0");
+        configureSerialPort();
+        if (!port->open(QIODevice::ReadWrite)) {
+            emit errorOccurred("Failed to open serial port: " + port->errorString());
+            return;
+        }
     }
 
-    connect(serial, &QSerialPort::readyRead, this, &VehicleConnection::handleReadyRead);
+    connect(serial, &QIODevice::readyRead, this, &VehicleConnection::handleReadyRead);
     connect(&initTimer, &QTimer::timeout, this, &VehicleConnection::sendNextInitCommand);
 
     initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP2"};
+}
+
+/// @brief Constructs a new VehicleConnection object with a mock QIODevice, initializes the QTimer object, cmdIndex value to 0, and fills initCommands.
+VehicleConnection::VehicleConnection(QIODevice *device, QObject *parent)
+    : QObject(parent), serial(device), cmdIndex(0) {
+
+    QSerialPort *port = qobject_cast<QSerialPort *>(serial);
+    if (port && !port->isOpen()) {
+        port->setPortName("/dev/ttyUSB0");
+        configureSerialPort();
+        if (!port->open(QIODevice::ReadWrite)) {
+            emit errorOccurred("Failed to open mock serial port: " + port->errorString());
+            return;
+        }
+    }
+
+    connect(serial, &QIODevice::readyRead, this, &VehicleConnection::handleReadyRead);
+    connect(&initTimer, &QTimer::timeout, this, &VehicleConnection::sendNextInitCommand);
+
+    initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP2"};
+}
+
+/// @brief Configure the serial port settings if needed
+void VehicleConnection::configureSerialPort() {
+    QSerialPort *port = qobject_cast<QSerialPort *>(serial);
+    if (!port) {
+        return;
+    }
+    port->setBaudRate(QSerialPort::Baud38400);
+    port->setDataBits(QSerialPort::Data8);
+    port->setParity(QSerialPort::NoParity);
+    port->setStopBits(QSerialPort::OneStop);
+    port->setFlowControl(QSerialPort::NoFlowControl);
+    port->setReadBufferSize(1024);  
 }
 
 /// @brief Write a command to the QSerialPort object

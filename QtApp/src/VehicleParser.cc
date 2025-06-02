@@ -110,7 +110,7 @@ void VehicleParser::replayStart(){
 void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
-
+  
   connection->sendCommand(obdCode);
 }
 
@@ -144,7 +144,6 @@ std::pair<bool, int> VehicleParser::ExtractData(const std::string& hexString) {
 std::pair<bool, int> VehicleParser::ExtractData(const QString& hexString) {
   return ExtractData(hexString.toStdString());
 }
-
 
 /// @brief Initializes the OBD-II connection by creating a new VehicleConnection object 
 /// @returns Returns a pointer to the newly created VehicleConnection object

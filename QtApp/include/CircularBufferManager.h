@@ -44,5 +44,4 @@ public:
     CircularBuffer<double>& accessBuffer(int buffNum);
 };
 
-// #include "CircularBufferManager.cc"
 #endif //CIRCULARBUFFERMANAGER_H
