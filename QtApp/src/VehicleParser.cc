@@ -40,7 +40,6 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
  * @note Switch case for readability, can also take in parameters
  */
 void VehicleParser::dataRegulator() {
-  qDebug() << "Tick!";  // for when we migrate to QTest
   QTimer* timer = qobject_cast<QTimer*>(sender());
   CircularBufferManager buffMan = CircularBufferManager(4);
   if (!_replayData["time"].empty()) {
@@ -53,6 +52,7 @@ void VehicleParser::dataRegulator() {
       qDebug("Signal from QTimer not found");
       return;
     } else if (&timer == &timer26) { // push speed, rpm, and throttle to middleware
+      qDebug() << "Tick 26!";
       data = _replayData["speed"][location];
       data = _replayData["speed"][location];
       pidTableKey = "SPEED";
@@ -75,6 +75,7 @@ void VehicleParser::dataRegulator() {
       //removeReplayDataFromFront("rpms");
       //removeReplayDataFromFront("throttle");
     } else if (&timer == &timer78) { // push gear to middlewear
+      qDebug() << "Tick 78!";
       data = _replayData["gear"][location];
       data = _replayData["gear"][location];
       pidTableKey = "GEAR";
@@ -84,6 +85,7 @@ void VehicleParser::dataRegulator() {
       //removeReplayDataFromFront("gear");
     } else if (&timer == &timer20) { // reduce time to know when to stop timers
       //removeReplayDataFromFront("time");
+      qDebug() << "Tick 20!";
       location++;
       //removeReplayDataFromFront("time");
       location++;
