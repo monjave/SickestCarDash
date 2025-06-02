@@ -50,7 +50,7 @@ void VehicleParser::dataRegulator() {
     if (timer == nullptr) {
       qDebug("Signal from QTimer not found");
       return;
-    } else if (&timer == &timer26) { // push speed, rpm, and throttle to middleware
+    } else if (timer == timer26) { // push speed, rpm, and throttle to middleware
       qDebug() << "Tick 26!";
       data = _replayData["speed"][location];
       pidTableKey = "SPEED";
@@ -67,14 +67,14 @@ void VehicleParser::dataRegulator() {
       //removeReplayDataFromFront("speed");
       //removeReplayDataFromFront("rpms");
       //removeReplayDataFromFront("throttle");
-    } else if (&timer == &timer78) { // push gear to middlewear
+    } else if (timer == timer78) { // push gear to middlewear
       qDebug() << "Tick 78!";
       data = _replayData["gear"][location];
       pidTableKey = "GEAR";
       success = PublishToMiddleware(buffMan, data, pidTableKey);
       
       //removeReplayDataFromFront("gear");
-    } else if (&timer == &timer20) { // reduce time to know when to stop timers
+    } else if (timer == timer20) { // reduce time to know when to stop timers
       //removeReplayDataFromFront("time");
       qDebug() << "Tick 20!";
       location++;
