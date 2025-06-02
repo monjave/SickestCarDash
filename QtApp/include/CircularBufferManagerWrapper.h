@@ -150,7 +150,23 @@ public:
     void setOilTemp(double newOilTemp) {
         if (newOilTemp != m_speed) {
             m_speed = newOilTemp;
-            emit oilTempChanged();
+            emit oilTempChanged();   }
+    };
+
+    void setGearShift(double newGearShift) {
+        if (newGearShift != m_gearshift) {
+            m_gearshift = newGearShift;
+            emit gearshiftChanged();
+        }
+    };
+
+    void setSeatBelt(bool newSeatBelt) {
+        if (m_seatbelt != newSeatBelt) {
+            m_seatbelt = newSeatBelt;
+            emit seatbeltChanged();
+        }
+    };
+
     void setHighlights(bool newHighlights) {
         if (m_highlights != newHighlights) {
             m_highlights = newHighlights;
