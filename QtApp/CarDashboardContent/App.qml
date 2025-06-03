@@ -128,39 +128,39 @@ Window {
 
         switch (gearShiftNumber) {
 
-        case 1:
+        /*case 1:
             mainScreen.gear.source = "images/P-center.png"
             break;
 
         case 2:
             mainScreen.gear.source = "images/R-center.png"
-            break;
+            break; */
 
-        case 3:
+        case 0:
             mainScreen.gear.source = "images/N-center.png"
             break;
 
-        case 4:
+        case 1:
             mainScreen.gear.source = "images/1.png"
             break;
 
-        case 5:
+        case 2:
             mainScreen.gear.source = "images/2.png"
             break;
 
-        case 6:
+        case 3:
             mainScreen.gear.source = "images/3.png"
             break;
 
-        case 7:
+        case 4:
             mainScreen.gear.source = "images/4.png"
             break;
 
-        case 8:
+        case 5:
             mainScreen.gear.source = "images/5.png"
             break;
 
-        case 9:
+        case 6:
             mainScreen.gear.source = "images/6.png"
             break;
 

@@ -82,6 +82,7 @@ void VehicleParser::dataRegulator() {
       qDebug() << "Tick 78!";
       qDebug() << "gear: " << getValue("gear", _location78);
       data = _replayData["gear"][_location78];
+      emit dataReady(6, data);
       pidTableKey = "GEAR";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
       

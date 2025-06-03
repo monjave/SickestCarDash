@@ -148,7 +148,7 @@ Item {
             width: 150
             height: 150
             visible: true
-            source: "images/P-center.png"
+            source: "images/N-center.png"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -289,7 +289,7 @@ Item {
             y: 439
             width: 250
             height: 250
-            visible: true
+            visible: false
             source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
         }
