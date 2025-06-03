@@ -1,8 +1,10 @@
 // VehicleParser.cpp
 #include "VehicleParser.h"
 
-// pidTable values come from
-// https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_03
+/**
+ * @brief Construct a new Vehicle Parser:: Vehicle Parser object
+ * @note pidTable values come from [Wikipedia](https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_03)
+ */
 VehicleParser::VehicleParser() { loadPidTable(); };
 
 /**
@@ -11,23 +13,15 @@ VehicleParser::VehicleParser() { loadPidTable(); };
  * the telemetry files. This may take time to compile depending on the size of
  * the files being loaded.
  *
- * @tparam T
  * @param filePath
  */
 VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
     loadPidTable();
-    std::filesystem::path directoryPath = filePath;
-
-    // std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
-    
+    std::filesystem::path directoryPath = filePath;    
 
     if (!std::filesystem::exists(directoryPath)) {
-      throw std::invalid_argument("File does not exist: " + filePath);
+      throw std::invalid_argument("Directory does not exist: " + filePath);
     }
-
-  // if (!std::filesystem::is_regular_file(directoryPath)) {
-  //     throw std::invalid_argument("Expected a regular file: " + filePath);
-  // }
   
     loadSave(directoryPath);
     _location26 = 0;
@@ -37,10 +31,8 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
 
 /**
  * @brief slot that sends data to the `PublishToMiddleware()` method
- * ! This is quick and dirty, fix this later
- * ! Add a early stop function
  *
- * @note Switch case for readability, can also take in parameters
+ * @note This is only useful for MVP, will need to be rewritten after implementation of a `saveTelemetry()` method
  */
 void VehicleParser::dataRegulator() {
   QTimer* timer = qobject_cast<QTimer*>(sender());
@@ -97,7 +89,6 @@ void VehicleParser::dataRegulator() {
     timer78->stop();
     timer20->stop();
   }
-  // pop the most recent data and send it to BufferManager (no particular order)
 }
 
 /**
@@ -105,7 +96,7 @@ void VehicleParser::dataRegulator() {
  * 
  */
 void VehicleParser::replayStart(){
-  this->timer26 = new QTimer(this); //! May need to remove the `this` object in QTimer() if there are issues
+  this->timer26 = new QTimer(this);
   connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
   timer26->start(26);
 
@@ -118,8 +109,10 @@ void VehicleParser::replayStart(){
   timer20->start(20);
 }
 
-/// @brief Makes a request to the OBD-II Interface
-/// @param request The request to be made to the OBD-II Interface
+/**
+ * @brief 
+ * @param request The request to be made to the OBD-II Interface
+ */
 void VehicleParser::Request(VehicleConnection* connection, const std::string& request) {
   std::string code = _pidTable[request].first;
   QString obdCode = QString::fromStdString(code);
@@ -212,8 +205,8 @@ std::pair<std::string, int> VehicleParser::getPIDTable(const std::string& key) {
  * @brief stages all the data files from their parent directory and calls them
  * to be loaded one-by-one.
  *
- * @tparam T
- * @param file
+ * @note this function takes in the path to a directory, not a file
+ * @param directory path
  */
 void VehicleParser::loadSave(std::filesystem::path directoryPath) {
   for (const auto& path_fileName :
@@ -221,7 +214,6 @@ void VehicleParser::loadSave(std::filesystem::path directoryPath) {
     std::filesystem::path filePath = path_fileName.path();
     std::fstream file(filePath.string());
     readCSV(file);
-    // std::cout << "FILE SIZE: " << file.tellg() << "\n";
     file.close();
   }
 }
@@ -236,7 +228,6 @@ void VehicleParser::loadSave(std::filesystem::path directoryPath) {
  * data, data, data, ...
  * ...
  * ```
- * @tparam T
  * @param file
  */
 void VehicleParser::readCSV(std::fstream& file) {
@@ -283,12 +274,6 @@ void VehicleParser::readCSV(std::fstream& file) {
   file.close();
 }
 
-/// @brief Starts the replay process of 
-/// @param parent TODO -- Why do we need to pass in a parent object here?
-void VehicleParser::startReplay(QObject* parent = nullptr) {
-  
-}
-
 /// @brief Get the stored replay data from the Vehicleparser object
 /// @return Returns a map holding the data.
 std::map<std::string, std::vector<double>>& VehicleParser::getData() {
@@ -296,6 +281,7 @@ std::map<std::string, std::vector<double>>& VehicleParser::getData() {
 }
 
 /**
+ * @note Depricated method
  * @brief removes the first value of the vector associated with a provided key. Not currently used anymore to preserve data structure integrity.
  *
  * @param key

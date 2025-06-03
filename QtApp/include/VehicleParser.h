@@ -23,32 +23,6 @@ class VehicleParser : public QObject {
   void replayStart();
   void dataRegulator();
 
-/*
-For final implementation when actually communicating with the car
-VehicleConnection's RawHexReceived -> intakeData()
-receiveHex() -> ExtractData() -> sendToMiddle()
-VehicleParser's sendToMiddle() -> publish to buffers
-Middleware's dataReady() -> Frontend's something()
-
-For replay implementation when only
-Instantiate a VehicleParser object w/ directory location
-VehicleParser fills out _replayData.
-VehicleParser's replayStart() -> dataRegulator() -> publishToMiddleware()
-Middleware's dataReady() -> Frontend's ReceiveData() and rest of Xavier's Frontend Implementation
-
-2 Ways to do this:
-Original implementation where we send a vector of all the data - This one is O(n)
-
-OR
-
-We have a dataReady() function that takes two parameters, buffNum and Value
-Then we know exactly where to update  - This one is O(1)
-
-CircularBufferWrapper: Create VehicleParser("file/location/")
-connect to VehicleParser.replayStart()
-call VehicleParser.replayStart()
-*/
-
 private slots:
     // void intakeData();
 
@@ -90,7 +64,6 @@ public:
   std::pair<std::string, int> getPIDTable(const std::string& key);
   void printValueToFile(std::string desiredFileLocation);
   std::map<std::string, std::vector<double>>& getData();
-  void startReplay(QObject* parent);
   double getValue(std::string key, int index);
   // std::pair<std::string, int> accessPIDTable(const std::string key);
 signals:
