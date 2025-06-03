@@ -327,8 +327,8 @@ double VehicleParser::getValue(std::string key, int index){
   return returnValue;
 }
 
-CircularBufferManager& VehicleParser::getBufferManager(){
-  return this->_buffMan;
+CircularBufferManager* VehicleParser::getBufferManager(){
+  return &_buffMan;
 }
 
 /**

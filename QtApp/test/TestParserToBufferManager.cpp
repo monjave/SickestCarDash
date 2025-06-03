@@ -23,7 +23,15 @@ public:
 };
 
 void TestParserToBufferManager::BuffersReceiveCorrectData(){
+    VehicleParser parser("../../QtApp/test/files/mock_data/brief_mock_data_5_sec");
+    parser.replayStart();
 
+    QTest::qWait(40);
+
+    CircularBufferManager* buffMan = parser.getBufferManager();
+    auto value = buffMan->peekBuffer(0);
+    QVERIFY(value.has_value());
+    QCOMPARE(value.value(), 0.15);
 }
 
 void TestParserToBufferManager::ReplayStopsWhenEmpty(){

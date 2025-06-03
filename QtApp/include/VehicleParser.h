@@ -65,7 +65,7 @@ public:
   void printValueToFile(std::string desiredFileLocation);
   std::map<std::string, std::vector<double>>& getData();
   double getValue(std::string key, int index);
-  CircularBufferManager& getBufferManager();
+  CircularBufferManager* getBufferManager();
   // std::pair<std::string, int> accessPIDTable(const std::string key);
 signals:
 
