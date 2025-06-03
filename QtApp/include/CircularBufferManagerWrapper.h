@@ -30,14 +30,19 @@ class CircularBufferManagerWrapper : public QObject {
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
         m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(10000), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
-        m_highlights(true), m_abs(true), m_enginecheck(true), m_parking(true) {
-        timer = new QTimer(this);
-        timerIcons = new QTimer(this);
+        m_highlights(true), m_abs(false), m_enginecheck(true), m_parking(true), carData(new VehicleParser(_replayPath)) {
+        //timer = new QTimer(this);
+        //timerIcons = new QTimer(this);
         //qDebug() << "Working dir:" << QDir::currentPath();
         // Connect start button to replayStart method
         // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
-        connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
-        connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
+        connect(carData, &VehicleParser::dataReady, this, &CircularBufferManagerWrapper::dataReady);
+        //connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
+        //connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
+    }
+
+    ~CircularBufferManagerWrapper() {
+        delete carData;
     }
 
     std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
@@ -198,7 +203,7 @@ public:
     Q_INVOKABLE void togglePaused() {
         emit startReplay();
 
-        if (timer->isActive()) {
+        /*if (timer->isActive()) {
             timer->stop();
         } else {
         timer->start(1500);
@@ -208,7 +213,7 @@ public:
             timerIcons->stop();
         } else {
             timerIcons->start(500);
-        }
+        }*/
     };
 
 signals:
@@ -289,8 +294,6 @@ private slots:
 
     void startReplay() {
         qDebug() << "Working dir:" << QDir::currentPath();
-        VehicleParser* carData = new VehicleParser(_replayPath);
-        connect(carData, &VehicleParser::dataReady, this, &CircularBufferManagerWrapper::dataReady);
         carData->replayStart();
     }
 
@@ -342,8 +345,8 @@ private:
     bool m_enginecheck;
     bool m_parking;
 
-    QTimer *timer;
-    QTimer *timerIcons;
+    //QTimer *timer;
+    //QTimer *timerIcons;
 
     VehicleParser* carData;
 };
