@@ -53,7 +53,7 @@ private slots:
     // void intakeData();
 
 signals:
-  // void dataReady();
+  void dataReady(int buffNum, double value);
   
 private:
   // Map command names to PID strings and their assigned buffer in the
