@@ -28,80 +28,39 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(bool parking READ parking WRITE setParking NOTIFY parkingChanged)
 
 public:
-    explicit CircularBufferManagerWrapper(QObject *parent = nullptr) : QObject(parent), m_speed(0),
-        m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(10000), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
-        m_highlights(true), m_abs(false), m_enginecheck(true), m_parking(true), carData(new VehicleParser(_replayPath)) {
-        //timer = new QTimer(this);
-        //timerIcons = new QTimer(this);
-        //qDebug() << "Working dir:" << QDir::currentPath();
-        // Connect start button to replayStart method
-        // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
-        connect(carData, &VehicleParser::dataReady, this, &CircularBufferManagerWrapper::dataReady);
-        //connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
-        //connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
-    }
+    explicit CircularBufferManagerWrapper(QObject *parent = nullptr);
 
-    ~CircularBufferManagerWrapper() {
-        delete carData;
-    }
+    ~CircularBufferManagerWrapper();
 
     std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
 
-    double speed() const{
-        return m_speed;
-    }
+    double speed() const;
 
-    double rpm() const{
-        return m_rpm;
-    }
+    double rpm() const;
     
-    double fuel() const{
-        return m_fuel;
-    }
+    double fuel() const;
 
-    double temp() const{
-        return m_temp;
-    }
+    double temp() const;
 
-    double coolanttemp() const{
-        return m_coolanttemp;
-    }
+    double coolanttemp() const;
 
-    double clock() const{
-        return m_clock;
-    }
+    double clock() const;
 
-    double enginetemp() const{
-        return m_enginetemp;
-    }
+    double enginetemp() const;
 
-    double oiltemp() const{
-        return m_oiltemp;
-    }
+    double oiltemp() const;
 
-    double gearshift() const{
-        return m_gearshift;
-    }
+    double gearshift() const;
 
-    double seatbelt() const{
-        return m_seatbelt;
-    }
+    double seatbelt() const;
 
-    double highlights() const{
-        return m_highlights;
-    }
+    double highlights() const;
 
-    double abs() const{
-        return m_abs;
-    }
+    double abs() const;
 
-    double enginecheck() const{
-        return m_enginecheck;
-    }
+    double enginecheck() const;
 
-    double parking() const{
-        return m_parking;
-    }
+    double parking() const;
 
     void setSpeed(double newSpeed) {
         if (newSpeed != m_speed) {
