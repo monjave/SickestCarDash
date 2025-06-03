@@ -11,7 +11,7 @@ Window {
 
     //visibility: Window.FullScreen
 
-    property int speedVar: speedToAngle(carData.speed)
+    property int speedVar: speedToAngle(carData.speed * 2.23694)
     property int rpmVar: rpmToAngle(carData.rpm)
     property int fuelVar: fuelToAngle(carData.fuel)
     property int tempVar: tempToAngle(carData.temp)
