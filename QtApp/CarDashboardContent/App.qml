@@ -31,8 +31,7 @@ Window {
     property int gearShiftNumber: carData.gearshift
 
     property int time: carData.clock
-    property int minutes: 0
-    property int hours: 0
+    property int seconds: 0
 
     CarData {
         id: carData
@@ -170,10 +169,10 @@ Window {
     }
 
     function clock() {
-        mainScreen.clockThousand.source = "images/" + (time.toString()[1]) + ".png"
-        mainScreen.clockHundred.source = "images/" + (time.toString()[2]) + ".png"
-        mainScreen.clockTen.source = "images/" + (time.toString()[3]) + ".png"
-        mainScreen.clockOne.source = "images/" + (time.toString()[4]) + ".png"
+        mainScreen.clockThousand.source = "images/" + Math.floor(time / 60 / 10) + ".png"
+        mainScreen.clockHundred.source = "images/" + Math.floor(time / 60 % 10) + ".png"
+        mainScreen.clockTen.source = "images/" + Math.floor((time % 60) / 10) + ".png"
+        mainScreen.clockOne.source = "images/" + Math.floor((time % 60) % 10) + ".png"
     }
 
     Screen01 {

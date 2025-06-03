@@ -309,6 +309,7 @@ private slots:
             setCoolanttemp(value);
             break;
         case 4:
+            setClock(value);
             break;
         case 5:
             setOilTemp(value);
