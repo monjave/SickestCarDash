@@ -23,7 +23,7 @@ private:
 };
 
 void TestParserToBufferManager::ReplayTimersFire(){
-
+    
 }
 
 void TestParserToBufferManager::BuffersReceiveData(){

@@ -65,6 +65,9 @@ private:
   QTimer* timer78;
   QTimer* timer20;
   CircularBufferManager _buffMan = CircularBufferManager(BUFFERS_TO_INIT);
+  int _location26;
+  int _location78;
+  int _location20;
 
   void loadSave(std::filesystem::path file);
   void readCSV(std::fstream& file);
@@ -88,6 +91,7 @@ public:
   void printValueToFile(std::string desiredFileLocation);
   std::map<std::string, std::vector<double>>& getData();
   void startReplay(QObject* parent);
+  double getValue(std::string key, int index);
   // std::pair<std::string, int> accessPIDTable(const std::string key);
 signals:
 
