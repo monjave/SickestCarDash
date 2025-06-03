@@ -18,7 +18,7 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
     loadPidTable();
     std::filesystem::path directoryPath = filePath;
 
-    std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
+    // std::cout << "DEBUG DIRECTORYPATH: " << filePath << "\n";
     
 
     if (!std::filesystem::exists(directoryPath)) {
@@ -30,6 +30,9 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
   // }
   
     loadSave(directoryPath);
+    _location26 = 0;
+    _location78 = 0;
+    _location20 = 0;
 }
 
 /**
@@ -45,38 +48,47 @@ void VehicleParser::dataRegulator() {
     double data;
     std::string pidTableKey;
     int8_t success;
-    int location = 0;
     if (timer == nullptr) {
       qDebug("Signal from QTimer not found");
       return;
     } else if (timer == timer26) { // push speed, rpm, and throttle to middleware
       qDebug() << "Tick 26!";
-      data = _replayData["speed"][location];
+      qDebug() << "speed: " << getValue("speed", _location26);
+      qDebug() << "rpms: " << getValue("rpms", _location26);
+      qDebug() << "throttle: " << getValue("throttle", _location26);
+
+      data = _replayData["speed"][_location26];
       pidTableKey = "SPEED";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
-      data = _replayData["rpms"][location];
+      data = _replayData["rpms"][_location26];
       pidTableKey = "RPM";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
-      data = _replayData["throttle"][location];
+      data = _replayData["throttle"][_location26];
       pidTableKey = "THROTTLE";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
+
+      _location26++;
 
       //removeReplayDataFromFront("speed");
       //removeReplayDataFromFront("rpms");
       //removeReplayDataFromFront("throttle");
     } else if (timer == timer78) { // push gear to middlewear
       qDebug() << "Tick 78!";
-      data = _replayData["gear"][location];
+      qDebug() << "gear: " << getValue("gear", _location78);
+      data = _replayData["gear"][_location78];
       pidTableKey = "GEAR";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
+      _location78++;
       
       //removeReplayDataFromFront("gear");
     } else if (timer == timer20) { // reduce time to know when to stop timers
       //removeReplayDataFromFront("time");
       qDebug() << "Tick 20!";
-      location++;
+      qDebug() << "time: " << getValue("time", _location20);
+      //qDebug() << "location: " << _location20;
+      _location20++;
     }
   } else {
     timer26->stop();
@@ -272,7 +284,7 @@ void VehicleParser::readCSV(std::fstream& file) {
 /// @brief Starts the replay process of 
 /// @param parent TODO -- Why do we need to pass in a parent object here?
 void VehicleParser::startReplay(QObject* parent = nullptr) {
-
+  
 }
 
 /// @brief Get the stored replay data from the Vehicleparser object
@@ -313,6 +325,18 @@ void VehicleParser::printValueToFile(std::string desiredFileLocation) {
          << "Values: " << std::endl;
   }
   file.close();
+}
+
+/**
+ * @brief returns the value in the key at a given index in the indicated vector in the _replayData map
+ * 
+ * @param key 
+ * @param index 
+ * @return double 
+ */
+double VehicleParser::getValue(std::string key, int index){
+  double returnValue = _replayData[key][index];
+  return returnValue;
 }
 
 /**
