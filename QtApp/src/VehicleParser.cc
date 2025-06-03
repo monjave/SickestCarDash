@@ -44,7 +44,13 @@ VehicleParser::VehicleParser(std::string filePath, QObject* parent) {
  */
 void VehicleParser::dataRegulator() {
   QTimer* timer = qobject_cast<QTimer*>(sender());
-  if (!_replayData["time"].empty()) {
+  bool shouldContinue = (
+    _location20 < _replayData["time"].size() && 
+    _location26 < _replayData["speed"].size() && 
+    _location78 < _replayData["gear"].size()
+  );
+  
+  if (shouldContinue) {
     double data;
     std::string pidTableKey;
     int8_t success;
@@ -70,24 +76,18 @@ void VehicleParser::dataRegulator() {
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
       _location26++;
-
-      //removeReplayDataFromFront("speed");
-      //removeReplayDataFromFront("rpms");
-      //removeReplayDataFromFront("throttle");
     } else if (timer == timer78) { // push gear to middlewear
       qDebug() << "Tick 78!";
       qDebug() << "gear: " << getValue("gear", _location78);
       data = _replayData["gear"][_location78];
       pidTableKey = "GEAR";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
-      _location78++;
       
-      //removeReplayDataFromFront("gear");
+      _location78++;
     } else if (timer == timer20) { // reduce time to know when to stop timers
-      //removeReplayDataFromFront("time");
       qDebug() << "Tick 20!";
       qDebug() << "time: " << getValue("time", _location20);
-      //qDebug() << "location: " << _location20;
+
       _location20++;
     }
   } else {
