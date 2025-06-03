@@ -8,25 +8,21 @@
 
 class TestParserToBufferManager : public QObject {
     Q_OBJECT
-    //createTestCSV(filePath, "Time,Speed,Distance\n9.9,0.0,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6.9,6.9,6.9\n4.20,4.20,4.20");
-    //VehicleParser _parser("testFiles/here"); //! decide what to do with the test file location
 
 private slots:
-    void ReplayTimersFire();
-    void BuffersReceiveData();
+    void BuffersReceiveCorrectData();
     void ReplayStopsWhenEmpty();
     void ValuesPushedToBufferInCorrectOrder();
 
-
 private:
     void createTestCSV(const std::string& path, const std::string& contents);
+
+public:
+    // VehicleParser _parser("../../QtApp/test/files/mock_data/brief_mock_data_5_sec"); 
+    // CircularBufferManager _buffMan(9);
 };
 
-void TestParserToBufferManager::ReplayTimersFire(){
-    
-}
-
-void TestParserToBufferManager::BuffersReceiveData(){
+void TestParserToBufferManager::BuffersReceiveCorrectData(){
 
 }
 

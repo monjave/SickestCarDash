@@ -327,6 +327,10 @@ double VehicleParser::getValue(std::string key, int index){
   return returnValue;
 }
 
+CircularBufferManager& VehicleParser::getBufferManager(){
+  return this->_buffMan;
+}
+
 /**
  * @brief loads all the relevant values into the `_pidTable` class variable
  */
