@@ -64,10 +64,12 @@ void VehicleParser::dataRegulator() {
       qDebug() << "throttle: " << getValue("throttle", _location26);
 
       data = _replayData["speed"][_location26];
+      emit dataReady(0, data);
       pidTableKey = "SPEED";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
       data = _replayData["rpms"][_location26];
+      emit dataReady(1, data);
       pidTableKey = "RPM";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
 
