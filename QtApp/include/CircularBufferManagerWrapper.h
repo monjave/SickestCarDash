@@ -32,7 +32,7 @@ public:
 
     ~CircularBufferManagerWrapper();
 
-    std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
+    std::string _replayPath = "QtApp/replay/data/example_nurburgring_24h/data";
 
     double speed() const;
     double rpm() const;
