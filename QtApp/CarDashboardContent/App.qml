@@ -68,7 +68,7 @@ Window {
     function speedToAngle(speed) {
         const speedMin = 0;
         //const speedMax = 180;
-        const speedMax = 140;
+        const speedMax = 190;
         const angleMin = 0;
         const angleMax = 280;
 
