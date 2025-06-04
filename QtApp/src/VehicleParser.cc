@@ -74,6 +74,7 @@ void VehicleParser::dataRegulator() {
       qDebug() << "Tick 78!";
       qDebug() << "gear: " << getValue("gear", _location78);
       data = _replayData["gear"][_location78];
+      emit dataReady(6, data);
       pidTableKey = "GEAR";
       success = PublishToMiddleware(_buffMan, data, pidTableKey);
       
@@ -81,6 +82,7 @@ void VehicleParser::dataRegulator() {
     } else if (timer == timer20) { // reduce time to know when to stop timers
       qDebug() << "Tick 20!";
       qDebug() << "time: " << getValue("time", _location20);
+      emit dataReady(4, getValue("time", _location20));
 
       _location20++;
     }

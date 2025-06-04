@@ -11,7 +11,7 @@ Window {
 
     //visibility: Window.FullScreen
 
-    property int speedVar: speedToAngle(carData.speed)
+    property int speedVar: speedToAngle(carData.speed * 2.23694)
     property int rpmVar: rpmToAngle(carData.rpm)
     property int fuelVar: fuelToAngle(carData.fuel)
     property int tempVar: tempToAngle(carData.temp)
@@ -31,8 +31,7 @@ Window {
     property int gearShiftNumber: carData.gearshift
 
     property int time: carData.clock
-    property int minutes: 0
-    property int hours: 0
+    property int seconds: 0
 
     CarData {
         id: carData
@@ -128,39 +127,39 @@ Window {
 
         switch (gearShiftNumber) {
 
-        case 1:
+        /*case 1:
             mainScreen.gear.source = "images/P-center.png"
             break;
 
         case 2:
             mainScreen.gear.source = "images/R-center.png"
-            break;
+            break; */
 
-        case 3:
+        case 0:
             mainScreen.gear.source = "images/N-center.png"
             break;
 
-        case 4:
+        case 1:
             mainScreen.gear.source = "images/1.png"
             break;
 
-        case 5:
+        case 2:
             mainScreen.gear.source = "images/2.png"
             break;
 
-        case 6:
+        case 3:
             mainScreen.gear.source = "images/3.png"
             break;
 
-        case 7:
+        case 4:
             mainScreen.gear.source = "images/4.png"
             break;
 
-        case 8:
+        case 5:
             mainScreen.gear.source = "images/5.png"
             break;
 
-        case 9:
+        case 6:
             mainScreen.gear.source = "images/6.png"
             break;
 
@@ -170,10 +169,10 @@ Window {
     }
 
     function clock() {
-        mainScreen.clockThousand.source = "images/" + (time.toString()[1]) + ".png"
-        mainScreen.clockHundred.source = "images/" + (time.toString()[2]) + ".png"
-        mainScreen.clockTen.source = "images/" + (time.toString()[3]) + ".png"
-        mainScreen.clockOne.source = "images/" + (time.toString()[4]) + ".png"
+        mainScreen.clockThousand.source = "images/" + Math.floor(time / 60 / 10) + ".png"
+        mainScreen.clockHundred.source = "images/" + Math.floor(time / 60 % 10) + ".png"
+        mainScreen.clockTen.source = "images/" + Math.floor((time % 60) / 10) + ".png"
+        mainScreen.clockOne.source = "images/" + Math.floor((time % 60) % 10) + ".png"
     }
 
     Screen01 {

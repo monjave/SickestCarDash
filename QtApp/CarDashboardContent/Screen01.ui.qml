@@ -148,7 +148,7 @@ Item {
             width: 150
             height: 150
             visible: true
-            source: "images/P-center.png"
+            source: "images/N-center.png"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -267,7 +267,7 @@ Item {
 
         Button {
             id: playButton
-            x: 1820
+            x: 2
             y: 680
             text: qsTr("Play/Pause")
         }
@@ -289,7 +289,7 @@ Item {
             y: 439
             width: 250
             height: 250
-            visible: true
+            visible: false
             source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -330,26 +330,6 @@ Item {
                     }
                 }
             }
-        }
-
-        Image {
-            id: coolShapeL
-            x: 0
-            y: 0
-            width: 235
-            height: 265
-            source: "qrc:/qtquickplugin/images/template_image.png"
-            fillMode: Image.PreserveAspectFit
-        }
-
-        Image {
-            id: coolShapeR
-            x: 1685
-            y: 0
-            width: 235
-            height: 260
-            source: "qrc:/qtquickplugin/images/template_image.png"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
@@ -669,44 +649,6 @@ Item {
         }
 
         KeyframeGroup {
-            target: coolShapeL
-            property: "opacity"
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-        }
-
-        KeyframeGroup {
-            target: coolShapeR
-            property: "opacity"
-            Keyframe {
-                value: 1
-                frame: 3500
-            }
-
-            Keyframe {
-                value: 0
-                frame: 0
-            }
-
-            Keyframe {
-                value: 0
-                frame: 2000
-            }
-        }
-
-        KeyframeGroup {
             target: temp
             property: "opacity"
             Keyframe {
@@ -800,6 +742,25 @@ Item {
                 frame: 3500
             }
         }
+
+        KeyframeGroup {
+            target: playButton
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
     }
 
     states: [
@@ -811,7 +772,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0}D{i:42;invisible:true}D{i:43;invisible:true}
+    D{i:0}D{i:27}D{i:40;invisible:true}D{i:41;invisible:true}
 }
 ##^##*/
 
