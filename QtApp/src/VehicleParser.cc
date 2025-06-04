@@ -100,15 +100,19 @@ void VehicleParser::dataRegulator() {
 void VehicleParser::replayStart(){
   this->timer26 = new QTimer(this);
   connect(timer26, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer26->start(26);
+  // timer26->start(26); 17 behind, 16 ahead
+  timer26->start(16);
 
   this->timer78 = new QTimer(this);
   connect(timer78, &QTimer::timeout, this, &VehicleParser::dataRegulator);
-  timer78->start(78);
+  // timer78->start(78); 78, 39, 57, 51 too fast, 52 too slow..?, 45 slightly too fast, 47 too fast
+  timer78->start(50);
 
   this->timer20 = new QTimer(this);
   connect(timer20, &QTimer::timeout, this, &VehicleParser::dataRegulator);
+  // timer20->start(20); 20, 10, 14.6, 13, 14
   timer20->start(20);
+
 }
 
 /**
