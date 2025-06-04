@@ -54,7 +54,7 @@ void VehicleParser::dataRegulator() {
       qDebug() << "speed: " << getValue("speed", _location26);
       qDebug() << "rpms: " << getValue("rpms", _location26);
       qDebug() << "throttle: " << getValue("throttle", _location26);
-      qDebug() << "abs: " << getValue("abs", _location26);
+      //qDebug() << "abs: " << getValue("abs", _location26);
 
       data = _replayData["speed"][_location26];
       emit dataReady(0, data);
