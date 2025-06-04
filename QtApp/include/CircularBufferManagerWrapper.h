@@ -21,11 +21,11 @@ class CircularBufferManagerWrapper : public QObject {
 
     Q_PROPERTY(double gearshift READ gearshift WRITE setGearShift NOTIFY gearshiftChanged)
 
-    Q_PROPERTY(bool seatbelt READ seatbelt WRITE setSeatBelt NOTIFY seatbeltChanged)
-    Q_PROPERTY(bool highlights READ highlights WRITE setHighlights NOTIFY highlightsChanged)
-    Q_PROPERTY(bool abs READ abs WRITE setABS NOTIFY absChanged)
-    Q_PROPERTY(bool enginecheck READ enginecheck WRITE setEngineCheck NOTIFY enginecheckChanged)
-    Q_PROPERTY(bool parking READ parking WRITE setParking NOTIFY parkingChanged)
+    Q_PROPERTY(double seatbelt READ seatbelt WRITE setSeatBelt NOTIFY seatbeltChanged)
+    Q_PROPERTY(double highlights READ highlights WRITE setHighlights NOTIFY highlightsChanged)
+    Q_PROPERTY(double abs READ abs WRITE setABS NOTIFY absChanged)
+    Q_PROPERTY(double enginecheck READ enginecheck WRITE setEngineCheck NOTIFY enginecheckChanged)
+    Q_PROPERTY(double parking READ parking WRITE setParking NOTIFY parkingChanged)
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr);

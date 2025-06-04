@@ -1,8 +1,8 @@
 #include "CircularBufferManagerWrapper.h"
 
 CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QObject(parent), m_speed(0),
-    m_rpm(0), m_fuel(0), m_temp(100), m_coolanttemp(0), m_clock(10000), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(true),
-    m_highlights(true), m_abs(false), m_enginecheck(true), m_parking(true), carData(new VehicleParser(_replayPath))  {
+    m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(0),
+    m_highlights(0), m_abs(0), m_enginecheck(0), m_parking(0), carData(new VehicleParser(_replayPath))  {
 
     //timer = new QTimer(this);
     //timerIcons = new QTimer(this);
@@ -271,6 +271,7 @@ void CircularBufferManagerWrapper::dataReady(int buffNum, double value) {
         setGearShift(value);
         break;
     case 7:
+        setABS(value);
         break;
     case 8:
         break;
