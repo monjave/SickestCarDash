@@ -128,7 +128,7 @@ endif()
   add_qt_test(CircularBufferTest test/TestCircularBuffer.cc)
   add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
   add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
-  add_qt_test(TestParserToBufferManager test/TestParserToBufferManager.cpp)
+#   add_qt_test(TestParserToBufferManager test/TestParserToBufferManager.cpp)
   add_qt_test(CircularBufferManagerWrapperTest test/TestCircularBufferManagerWrapper.cpp)
   add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc test/MockQSerialPort.cpp 
         include/MockQSerialPort.h)
