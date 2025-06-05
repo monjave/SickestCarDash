@@ -59,6 +59,7 @@ qt6_add_qml_module(CarDashboardContent
         "dials/DialBgBig.PNG"
         "dials/DialBgOld.png"
         "dials/DialBgSmall.PNG"
+        "dials/MPH210.png"
 )
 
 

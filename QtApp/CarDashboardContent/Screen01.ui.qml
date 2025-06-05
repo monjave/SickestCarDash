@@ -69,7 +69,7 @@ Item {
             y: -70
             width: 925
             height: 925
-            source: "dials/DialBgBig.PNG"
+            source: "dials/MPH210.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
 
@@ -97,6 +97,7 @@ Item {
                 y: 25
                 width: 875
                 height: 875
+                visible: false
                 source: "dialNumbers/mphNumbers.PNG"
                 z: -1
                 fillMode: Image.PreserveAspectFit

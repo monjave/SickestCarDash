@@ -9,7 +9,8 @@ CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QO
     //qDebug() << "Working dir:" << QDir::currentPath();
     // Connect start button to replayStart method
     // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
-    connect(carData, &VehicleParser::dataReady, this, &CircularBufferManagerWrapper::dataReady);
+    bool connection = connect(carData, &VehicleParser::dataReady, this, &CircularBufferManagerWrapper::dataReady);
+    qDebug() << "Success: " << connection;
     //connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
     //connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
 }
