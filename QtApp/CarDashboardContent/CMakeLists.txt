@@ -45,6 +45,7 @@ qt6_add_qml_module(CarDashboardContent
         "images/Colon.png"
         "images/Gear_3.png"
         "images/0.png"
+        "images/PausePlay.png"
         "pointers/NeedleOld.png"
         "pointers/NeedleSmall.PNG"
         "pointers/NeedleBig.PNG"
@@ -58,6 +59,7 @@ qt6_add_qml_module(CarDashboardContent
         "dials/DialBgBig.PNG"
         "dials/DialBgOld.png"
         "dials/DialBgSmall.PNG"
+        "dials/MPH210.png"
 )
 
 

@@ -17,11 +17,11 @@ Window {
     property int tempVar: tempToAngle(carData.temp)
     property int oilTempVar: oilTempToAngle(carData.oiltemp)
 
-    property bool seatbeltBool: carData.seatbelt
-    property bool highlightsBool: carData.highlights
-    property bool absBool: carData.abs
-    property bool enginecheckBool: carData.enginecheck
-    property bool parkingBool: carData.parking
+    property int seatbeltVar: carData.seatbelt
+    property int highlightsVar: carData.highlights
+    property int absVar: carData.abs
+    property int enginecheckVar: carData.enginecheck
+    property int parkingVar: carData.parking
 
     property int speedNumber: carData.speed
     property int rpmNumber: carData.rpm
@@ -31,7 +31,6 @@ Window {
     property int gearShiftNumber: carData.gearshift
 
     property int time: carData.clock
-    property int seconds: 0
 
     CarData {
         id: carData
@@ -67,8 +66,7 @@ Window {
 
     function speedToAngle(speed) {
         const speedMin = 0;
-        //const speedMax = 180;
-        const speedMax = 190;
+        const speedMax = 210;
         const angleMin = 0;
         const angleMax = 280;
 
@@ -79,7 +77,6 @@ Window {
 
     function rpmToAngle(rpm) {
         const rpmMin = 0;
-        //const rpmMax = 9000;
         const rpmMax = 7000;
         const angleMin = 0;
         const angleMax = 280;
@@ -175,6 +172,18 @@ Window {
         mainScreen.clockOne.source = "images/" + Math.floor((time % 60) % 10) + ".png"
     }
 
+    function abs() {
+
+        switch (absVar) {
+        case 1:
+            mainScreen.abs.visible = true;
+            break;
+
+        default:
+            mainScreen.abs.visible = false;
+        }
+    }
+
     Screen01 {
         id: mainScreen 
     }
@@ -199,6 +208,10 @@ Window {
 
     onTimeChanged: {
         clock()
+    }
+
+    onAbsVarChanged: {
+        abs()
     }
 
 }

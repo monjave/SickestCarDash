@@ -69,7 +69,7 @@ Item {
             y: -70
             width: 925
             height: 925
-            source: "dials/DialBgBig.PNG"
+            source: "dials/MPH210.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
 
@@ -97,6 +97,7 @@ Item {
                 y: 25
                 width: 875
                 height: 875
+                visible: false
                 source: "dialNumbers/mphNumbers.PNG"
                 z: -1
                 fillMode: Image.PreserveAspectFit
@@ -265,11 +266,29 @@ Item {
             fillMode: Image.PreserveAspectFit
         }
 
+        Image {
+            id: playButtonGraphic
+            x: 0
+            y: 620
+            width: 100
+            height: 100
+            source: "images/PausePlay.png"
+            fillMode: Image.PreserveAspectFit
+        }
+
         Button {
             id: playButton
-            x: 2
-            y: 680
-            text: qsTr("Play/Pause")
+            x: 0
+            y: 620
+            width: 100
+            height: 100
+            opacity: 0
+            visible: true
+            text: qsTr("")
+            hoverEnabled: false
+            icon.color: "#000000"
+            display: AbstractButton.TextOnly
+            icon.source: "images/PausePlay.png"
         }
 
         Image {
@@ -744,7 +763,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: playButton
+            target: playButtonGraphic
             property: "opacity"
             Keyframe {
                 value: 1
@@ -769,10 +788,3 @@ Item {
         }
     ]
 }
-
-/*##^##
-Designer {
-    D{i:0}D{i:27}D{i:40;invisible:true}D{i:41;invisible:true}
-}
-##^##*/
-
