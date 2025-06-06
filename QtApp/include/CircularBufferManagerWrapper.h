@@ -4,8 +4,6 @@
 #include <QObject>
 #include <QDir>
 #include <QTimer>
-#include "CircularBufferManager.h"
-#include "VehicleParser.h"
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
@@ -29,10 +27,6 @@ class CircularBufferManagerWrapper : public QObject {
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr);
-
-    //~CircularBufferManagerWrapper();
-
-    //std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
 
     double speed() const;
     double rpm() const;
@@ -69,8 +63,6 @@ public:
     void setEngineCheck(bool newEngineCheck);
     void setParking(bool newParking);
 
-    //Q_INVOKABLE void togglePaused();
-
 signals:
     void speedChanged();
     void rpmChanged();
@@ -89,14 +81,6 @@ signals:
     void enginecheckChanged();
     void parkingChanged();
 
-    //void togglePausedChanged(bool paused);
-
-//private slots:
-//    void increment();
-//    void geartime();
-//    void startReplay();
-//    void dataReady(int buffNum, double value);
-
 private:
     double m_speed = 0;
     double m_rpm = 0;
@@ -114,11 +98,6 @@ private:
     bool m_abs = 0;
     bool m_enginecheck = 0;
     bool m_parking = 0;
-
-    //QTimer *timer;
-    //QTimer *timerIcons;
-
-    //VehicleParser* carData;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H

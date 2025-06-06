@@ -9,32 +9,23 @@
 class FrontendConnection : public QObject {
     Q_OBJECT
 
-public:
-    explicit FrontendConnection(QObject *parent = nullptr);
+    Q_PROPERTY(CircularBufferManagerWrapper* data READ data CONSTANT)
 
+public:
+    explicit FrontendConnection(CircularBufferManagerWrapper* dataProperties, QObject *parent = nullptr);
     ~FrontendConnection();
 
-    CircularBufferManagerWrapper* getDataProperties() {
-        return dataProperties;
-    }
+    CircularBufferManagerWrapper* data() const;
 
     std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
 
     Q_INVOKABLE void togglePaused();
 
-signals:
-    void togglePausedChanged(bool paused);
-
 private slots:
-    void increment();
-    void geartime();
     void startReplay();
     void dataReady(int buffNum, double value);
 
 private:
-    //QTimer *timer;
-    //QTimer *timerIcons;
-
     VehicleParser* carData;
     CircularBufferManagerWrapper* dataProperties;
 };
