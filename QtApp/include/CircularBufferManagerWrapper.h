@@ -30,9 +30,9 @@ class CircularBufferManagerWrapper : public QObject {
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr);
 
-    ~CircularBufferManagerWrapper();
+    //~CircularBufferManagerWrapper();
 
-    std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
+    //std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
 
     double speed() const;
     double rpm() const;
@@ -69,7 +69,7 @@ public:
     void setEngineCheck(bool newEngineCheck);
     void setParking(bool newParking);
 
-    Q_INVOKABLE void togglePaused();
+    //Q_INVOKABLE void togglePaused();
 
 signals:
     void speedChanged();
@@ -89,36 +89,36 @@ signals:
     void enginecheckChanged();
     void parkingChanged();
 
-    void togglePausedChanged(bool paused);
+    //void togglePausedChanged(bool paused);
 
-private slots:
-    void increment();
-    void geartime();
-    void startReplay();
-    void dataReady(int buffNum, double value);
+//private slots:
+//    void increment();
+//    void geartime();
+//    void startReplay();
+//    void dataReady(int buffNum, double value);
 
 private:
-    double m_speed;
-    double m_rpm;
-    double m_fuel;
-    double m_temp;
-    double m_coolanttemp;
-    double m_clock;
-    double m_enginetemp;
-    double m_oiltemp;
+    double m_speed = 0;
+    double m_rpm = 0;
+    double m_fuel = 0;
+    double m_temp = 0;
+    double m_coolanttemp = 0;
+    double m_clock = 0;
+    double m_enginetemp = 0;
+    double m_oiltemp = 0;
 
-    double m_gearshift;
+    double m_gearshift = 0;
 
-    bool m_seatbelt;
-    bool m_highlights;
-    bool m_abs;
-    bool m_enginecheck;
-    bool m_parking;
+    bool m_seatbelt = 0;
+    bool m_highlights = 0;
+    bool m_abs = 0;
+    bool m_enginecheck = 0;
+    bool m_parking = 0;
 
     //QTimer *timer;
     //QTimer *timerIcons;
 
-    VehicleParser* carData;
+    //VehicleParser* carData;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H

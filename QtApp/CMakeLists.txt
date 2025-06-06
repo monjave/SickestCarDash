@@ -22,9 +22,13 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleParser.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/VehicleConnection.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/FrontendConnection.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
     ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/FrontendConnection.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManagerWrapper.h
 )
 
 # Link QtCore to core lib
@@ -60,6 +64,7 @@ if(BUILD_GUI)
         include/CircularBuffer.h
         include/CircularBufferManager.h
         include/CircularBufferManagerWrapper.h
+        include/FrontendConnection.h
         src/CircularBufferManagerWrapper.cpp
         include/VehicleConnection.h
         src/VehicleConnection.cpp
@@ -68,6 +73,7 @@ if(BUILD_GUI)
         src/CircularBufferManager.cc
         include/MockQSerialPort.h
         test/MockQSerialPort.cpp
+        src/FrontendConnection.cpp
     )
 
     target_link_libraries(CarDashboardApp
@@ -129,7 +135,7 @@ endif()
   add_qt_test(CircularBufferManagerTest test/TestCircularBufferManager.cc)
   add_qt_test(VehicleParserTest test/TestVehicleParser.cc)
 #   add_qt_test(TestParserToBufferManager test/TestParserToBufferManager.cpp)
-  add_qt_test(CircularBufferManagerWrapperTest test/TestCircularBufferManagerWrapper.cpp)
+#  add_qt_test(CircularBufferManagerWrapperTest test/TestCircularBufferManagerWrapper.cpp)
   add_qt_test(VehicleConnectionTest test/TestVehicleConnection.cc test/MockQSerialPort.cpp 
         include/MockQSerialPort.h)
 

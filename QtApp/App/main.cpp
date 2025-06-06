@@ -7,6 +7,7 @@
 
 #include "autogen/environment.h"
 #include "CircularBufferManagerWrapper.h"
+#include "FrontendConnection.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     qmlRegisterType<CircularBufferManagerWrapper>("CircularBuffer.Data", 1, 0, "CarData");
+    qmlRegisterType<FrontendConnection>("FrontendConnection.Invokables", 1, 0, "FrontendConnection");
 
     //qmlRegisterSingletonType<CircularBufferManagerWrapper>("Car.Data", 1, 0, "CarData") [] (;
 

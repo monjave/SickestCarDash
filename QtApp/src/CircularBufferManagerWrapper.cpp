@@ -1,22 +1,20 @@
 #include "CircularBufferManagerWrapper.h"
 
-CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QObject(parent), m_speed(0),
-    m_rpm(0), m_fuel(0), m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(0),
-    m_highlights(0), m_abs(0), m_enginecheck(0), m_parking(0), carData(new VehicleParser(_replayPath))  {
+CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QObject(parent) {
 
     //timer = new QTimer(this);
     //timerIcons = new QTimer(this);
     //qDebug() << "Working dir:" << QDir::currentPath();
     // Connect start button to replayStart method
     // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
-    connect(carData, &VehicleParser::dataReady, this, &CircularBufferManagerWrapper::dataReady);
+    //connect(carData, &VehicleParser::dataReady, this, &CircularBufferManagerWrapper::dataReady);
     //connect(timer, &QTimer::timeout, this, &CircularBufferManagerWrapper::increment);
     //connect(timerIcons, &QTimer::timeout, this, &CircularBufferManagerWrapper::geartime);
 }
 
-CircularBufferManagerWrapper::~CircularBufferManagerWrapper() {
+/*CircularBufferManagerWrapper::~CircularBufferManagerWrapper() {
     delete carData;
-}
+}*/
 
 double CircularBufferManagerWrapper::speed() const {
     return m_speed;
@@ -124,8 +122,8 @@ void CircularBufferManagerWrapper::setEnginetemp(double newEnginetemp) {
 };
 
 void CircularBufferManagerWrapper::setOilTemp(double newOilTemp) {
-    if (newOilTemp != m_speed) {
-        m_speed = newOilTemp;
+    if (newOilTemp != m_oiltemp) {
+        m_oiltemp = newOilTemp;
         emit oilTempChanged();   }
 };
 
@@ -171,10 +169,10 @@ void CircularBufferManagerWrapper::setParking(bool newParking) {
     }
 };
 
-Q_INVOKABLE void CircularBufferManagerWrapper::togglePaused() {
+/*Q_INVOKABLE void CircularBufferManagerWrapper::togglePaused() {
     emit startReplay();
 
-    /*if (timer->isActive()) {
+    if (timer->isActive()) {
             timer->stop();
         } else {
         timer->start(1500);
@@ -184,7 +182,7 @@ Q_INVOKABLE void CircularBufferManagerWrapper::togglePaused() {
             timerIcons->stop();
         } else {
             timerIcons->start(500);
-        }*/
+        }
 };
 
 void CircularBufferManagerWrapper::increment() {
@@ -192,7 +190,7 @@ void CircularBufferManagerWrapper::increment() {
     // VehicleParser* carData = new VehicleParser(_replayPath);
     // carData->replayStart();
 
-    /*if (m_speed >= 140) m_speed = 0;
+    if (m_speed >= 140) m_speed = 0;
         else m_speed += 10;
 
         if (m_rpm >= 7000) m_rpm = 0;
@@ -229,17 +227,17 @@ void CircularBufferManagerWrapper::increment() {
         emit highlightsChanged();
         emit absChanged();
         emit enginecheckChanged();
-        emit parkingChanged(); */
+        emit parkingChanged();
 
 }
 
 void CircularBufferManagerWrapper::geartime() {
-    /*if (m_gearshift >= 9) {
+    if (m_gearshift >= 9) {
             m_gearshift = 0;
         } else {
         m_gearshift++;
         }
-        emit gearshiftChanged();*/
+        emit gearshiftChanged();
 }
 
 void CircularBufferManagerWrapper::startReplay() {
@@ -276,4 +274,4 @@ void CircularBufferManagerWrapper::dataReady(int buffNum, double value) {
     case 8:
         break;
     }
-}
+} */

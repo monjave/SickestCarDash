@@ -1,6 +1,7 @@
 import QtQuick
 import CarDashboard
 import CircularBuffer.Data
+import FrontendConnection.Invokables
 
 Window {
     width: mainScreen.width
@@ -34,6 +35,10 @@ Window {
 
     CarData {
         id: carData
+    }
+
+    FrontendConnection {
+        id: invokables
     }
 
     //DataSpeed {
@@ -198,7 +203,7 @@ Window {
             oilTempValue.togglePaused()
             clockValue.togglePaused()
             gearShiftValue.togglePaused() */
-            carData.togglePaused()
+            invokables.togglePaused()
         })
     }
 
