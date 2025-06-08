@@ -1,7 +1,5 @@
 import QtQuick
 import CarDashboard
-//import CircularBuffer.Data
-//import FrontendConnection.Invokables
 
 Window {
     width: mainScreen.width
@@ -32,34 +30,6 @@ Window {
     property int gearShiftNumber: carData.data.gearshift
 
     property int time: carData.data.clock
-
-    //DataSpeed {
-    //    id: speedValue
-    //}
-
-    /*DataRPM {
-        id: rpmValue
-    }
-
-    DataFuel {
-        id: fuelValue
-    }
-
-    DataTemp {
-        id: tempValue
-    }
-
-    DataOilTemp {
-        id: oilTempValue
-    }
-
-    DataClock {
-        id: clockValue
-    }
-
-    DataGearShift {
-        id: gearShiftValue
-    } */
 
     function speedToAngle(speed) {
         const speedMin = 0;
@@ -188,13 +158,6 @@ Window {
 
     Component.onCompleted: {
         mainScreen.exposedButton.clicked.connect(function() {
-            /*speedValue.togglePaused()
-            rpmValue.togglePaused()
-            fuelValue.togglePaused()
-            tempValue.togglePaused()
-            oilTempValue.togglePaused()
-            clockValue.togglePaused()
-            gearShiftValue.togglePaused() */
             carData.togglePaused()
         })
     }
