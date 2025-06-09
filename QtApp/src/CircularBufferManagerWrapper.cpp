@@ -1,6 +1,8 @@
 #include "CircularBufferManagerWrapper.h"
 
-CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QObject(parent) {
+CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QObject(parent), m_speed(0), m_rpm(0), m_fuel(0),
+    m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(0), m_highlights(0),
+    m_abs(0), m_enginecheck(0), m_parking(0) {
 
 }
 
@@ -122,35 +124,35 @@ void CircularBufferManagerWrapper::setGearShift(double newGearShift) {
     }
 };
 
-void CircularBufferManagerWrapper::setSeatBelt(bool newSeatBelt) {
+void CircularBufferManagerWrapper::setSeatBelt(double newSeatBelt) {
     if (m_seatbelt != newSeatBelt) {
         m_seatbelt = newSeatBelt;
         emit seatbeltChanged();
     }
 };
 
-void CircularBufferManagerWrapper::setHighlights(bool newHighlights) {
+void CircularBufferManagerWrapper::setHighlights(double newHighlights) {
     if (m_highlights != newHighlights) {
         m_highlights = newHighlights;
         emit highlightsChanged();
     }
 };
 
-void CircularBufferManagerWrapper::setABS(bool newABS) {
+void CircularBufferManagerWrapper::setABS(double newABS) {
     if (m_abs != newABS) {
         m_abs = newABS;
         emit absChanged();
     }
 };
 
-void CircularBufferManagerWrapper::setEngineCheck(bool newEngineCheck) {
+void CircularBufferManagerWrapper::setEngineCheck(double newEngineCheck) {
     if (m_enginecheck != newEngineCheck) {
         m_enginecheck = newEngineCheck;
         emit enginecheckChanged();
     }
 };
 
-void CircularBufferManagerWrapper::setParking(bool newParking) {
+void CircularBufferManagerWrapper::setParking(double newParking) {
     if (m_parking != newParking) {
         m_parking = newParking;
         emit parkingChanged();

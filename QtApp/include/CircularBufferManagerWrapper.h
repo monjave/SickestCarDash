@@ -57,11 +57,11 @@ public:
 
     void setGearShift(double newGearShift);
 
-    void setSeatBelt(bool newSeatBelt);
-    void setHighlights(bool newHighlights);
-    void setABS(bool newABS);
-    void setEngineCheck(bool newEngineCheck);
-    void setParking(bool newParking);
+    void setSeatBelt(double newSeatBelt);
+    void setHighlights(double newHighlights);
+    void setABS(double newABS);
+    void setEngineCheck(double newEngineCheck);
+    void setParking(double newParking);
 
 signals:
     void speedChanged();
@@ -82,22 +82,22 @@ signals:
     void parkingChanged();
 
 private:
-    double m_speed = 0;
-    double m_rpm = 0;
-    double m_fuel = 0;
-    double m_temp = 0;
-    double m_coolanttemp = 0;
-    double m_clock = 0;
-    double m_enginetemp = 0;
-    double m_oiltemp = 0;
+    double m_speed;
+    double m_rpm;
+    double m_fuel;
+    double m_temp;
+    double m_coolanttemp;
+    double m_clock;
+    double m_enginetemp;
+    double m_oiltemp;
 
-    double m_gearshift = 0;
+    double m_gearshift;
 
-    bool m_seatbelt = 0;
-    bool m_highlights = 0;
-    bool m_abs = 0;
-    bool m_enginecheck = 0;
-    bool m_parking = 0;
+    double m_seatbelt;
+    double m_highlights;
+    double m_abs;
+    double m_enginecheck;
+    double m_parking;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H
