@@ -1,14 +1,15 @@
 #include <QtTest>
-#include "CircularBufferManagerWrapper.h"
+#include "FrontendConnection.h"
 
-class CircularBufferManagerWrapperTest : public QObject {
+class TestFrontendConnection : public QObject {
     Q_OBJECT
 
 private slots:
     void qPropertyTest();
+    void engineTest();
 };
 
-void CircularBufferManagerWrapperTest::qPropertyTest() {
+void TestFrontendConnection::qPropertyTest() {
     CircularBufferManagerWrapper* properties = new CircularBufferManagerWrapper();
     properties->setSpeed(15.5);
     QCOMPARE(properties->speed(), 15.5);
@@ -20,5 +21,9 @@ void CircularBufferManagerWrapperTest::qPropertyTest() {
     QCOMPARE(spy.count(), 2);
 }
 
-QTEST_MAIN(CircularBufferManagerWrapperTest)
-#include "TestCircularBufferManagerWrapper.moc"
+void TestFrontendConnection::engineTest() {
+
+}
+
+QTEST_MAIN(TestFrontendConnection)
+#include "TestFrontendConnection.moc"
