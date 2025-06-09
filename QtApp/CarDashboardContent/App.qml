@@ -16,6 +16,8 @@ Window {
     property int tempVar: tempToAngle(carData.data.temp)
     property int oilTempVar: oilTempToAngle(carData.data.oiltemp)
 
+    property int gearShiftNumber: carData.data.gearshift
+
     property int seatbeltVar: carData.data.seatbelt
     property int highlightsVar: carData.data.highlights
     property int absVar: carData.data.abs
@@ -27,7 +29,6 @@ Window {
     property int fuelNumber: carData.data.fuel
     property int tempNumber: carData.data.temp
     property int oilTempNumber: carData.data.oiltemp
-    property int gearShiftNumber: carData.data.gearshift
 
     property int time: carData.data.clock
 
