@@ -28,10 +28,6 @@ class CircularBufferManagerWrapper : public QObject {
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr);
 
-    ~CircularBufferManagerWrapper();
-
-    std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
-
     double speed() const;
     double rpm() const;
     double fuel() const;
