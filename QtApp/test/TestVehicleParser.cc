@@ -15,9 +15,9 @@ private slots:
     void getPIDTable();
     void PublishToMiddleware();
     void HandlesMissingFile();
-//    void AllowsEmptyCSV();
-//    void LoadsValidCSV();
-//    void HandlesMalformedCSV();
+   void AllowsEmptyCSV();
+   void LoadsValidCSV();
+   void HandlesMalformedCSV();
     // void ReplayTimersFire();
 
 private:
@@ -142,15 +142,15 @@ void VehicleParserTest::removeTestCSV(const std::string& path){
 
 
 // WORKS ON OUR MACHINE, DOES NOT WORK IN CI
-// void VehicleParserTest::AllowsEmptyCSV() {
-//     std::string filePath = "QtApp/test/files/generated/test_empty.csv";
-//     createTestCSV(filePath, "");
-//     qDebug() << "Working dir:" << QDir::currentPath();
-//     VehicleParser replay("../../QtApp/test/build/Debug");
-//     auto& data = replay.getData();
-//     QCOMPARE(data.size(), size_t(0));
-//     removeTestCSV(filePath);
-// }
+void VehicleParserTest::AllowsEmptyCSV() {
+    std::string filePath = "../../QtApp/test/files/generated/test_empty.csv";
+    createTestCSV(filePath, "");
+    qDebug() << "Working dir:" << QDir::currentPath();
+    VehicleParser replay("../../QtApp/test/files/generated");
+    auto& data = replay.getData();
+    QCOMPARE(data.size(), size_t(0));
+    removeTestCSV(filePath);
+}
 
 void VehicleParserTest::HandlesMissingFile() {
     QVERIFY_EXCEPTION_THROWN(VehicleParser("QtApp/test/files/generated/"), std::exception);
@@ -165,28 +165,28 @@ void VehicleParserTest::HandlesMissingFile() {
 //   removeTestCSV(filePath);
 //}
 
-//void VehicleParserTest::LoadsValidCSV() {
-//    qDebug() << "CURRENT ACTUAL DIReCtoRY: " << QDir::currentPath();
-//    std::string filePath = "../../QtApp/test/files/generated/test_valid.csv";
-//    createTestCSV(filePath, "Time,Speed,Distance\n9.9,0.0,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6.9,6.9,6.9\n4.20,4.20,4.20");
-//    VehicleParser replay("../../QtApp/test/files/generated/");
-//    auto& data = replay.getData();
-//
-//    QVERIFY(data.count("Time") == 1);
-//    QVERIFY(data.count("Speed") == 1);
-//    QVERIFY(data.count("Distance") == 1);
-//    QCOMPARE(data["Time"].size(), size_t(5));
-//    QCOMPARE(data["Speed"].size(), size_t(5));
-//   QCOMPARE(data["Distance"].size(), size_t(5));
-//    removeTestCSV(filePath);
-//}
+void VehicleParserTest::LoadsValidCSV() {
+   qDebug() << "CURRENT ACTUAL DIReCtoRY: " << QDir::currentPath();
+   std::string filePath = "../../QtApp/test/files/generated/test_valid.csv";
+   createTestCSV(filePath, "Time,Speed,Distance\n9.9,0.0,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6.9,6.9,6.9\n4.20,4.20,4.20");
+   VehicleParser replay("../../QtApp/test/files/generated/");
+   auto& data = replay.getData();
 
-//void VehicleParserTest::HandlesMalformedCSV() {
-//    std::string filePath = "../../QtApp/test/files/generated/test_malformed.csv";
-//    createTestCSV(filePath, "Time,Speed,Distance\n9.9,not_right,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6.9,6.9,6.9\nincorrect,4.20,4.20");
-//    QVERIFY_EXCEPTION_THROWN(VehicleParser("../../QtApp/test/files/generated/"), std::exception);
-//    removeTestCSV(filePath);
-//}
+   QVERIFY(data.count("Time") == 1);
+   QVERIFY(data.count("Speed") == 1);
+   QVERIFY(data.count("Distance") == 1);
+   QCOMPARE(data["Time"].size(), size_t(5));
+   QCOMPARE(data["Speed"].size(), size_t(5));
+  QCOMPARE(data["Distance"].size(), size_t(5));
+   removeTestCSV(filePath);
+}
+
+void VehicleParserTest::HandlesMalformedCSV() {
+   std::string filePath = "../../QtApp/test/files/generated/test_malformed.csv";
+   createTestCSV(filePath, "Time,Speed,Distance\n9.9,not_right,0.0\n1.1,1.1,1.1\n2.2,2.2,2.2\n6.9,6.9,6.9\nincorrect,4.20,4.20");
+   QVERIFY_EXCEPTION_THROWN(VehicleParser("../../QtApp/test/files/generated/"), std::exception);
+   removeTestCSV(filePath);
+}
 
 QTEST_MAIN(VehicleParserTest)
 #include "TestVehicleParser.moc"
