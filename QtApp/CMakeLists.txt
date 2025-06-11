@@ -74,7 +74,13 @@ if(BUILD_GUI)
         include/MockQSerialPort.h
         test/MockQSerialPort.cpp
         src/FrontendConnection.cpp
+        test/qml/testrunner.cpp
     )
+
+    qt6_add_qml_module(CarDashboardApp
+        URI "CarDashboardApp"
+        QML_FILES
+        test/qml/TestFrontend.qml)
 
     target_link_libraries(CarDashboardApp
         PRIVATE

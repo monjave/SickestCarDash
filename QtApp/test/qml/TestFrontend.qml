@@ -1,6 +1,6 @@
 import QtQuick
 import QtTest
-import ".."
+import "CarDashboardContent"
 
 TestCase {
     name: "Test Speed Integration"

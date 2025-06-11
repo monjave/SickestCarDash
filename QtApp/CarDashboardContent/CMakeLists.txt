@@ -11,7 +11,6 @@ qt6_add_qml_module(CarDashboardContent
     QML_FILES
         "Screen01.ui.qml"
         "App.qml"
-        "tests/TestFrontend.qml"
     RESOURCES
         "images/5.png"
         "images/8.png"
@@ -62,5 +61,3 @@ qt6_add_qml_module(CarDashboardContent
         "pointers/NeedleSmall.PNG"
         "pointers/NeedleOld.png"
 )
-
-
