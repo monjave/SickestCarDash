@@ -77,6 +77,7 @@ if(BUILD_GUI)
 
     qt6_add_qml_module(CarDashboardApp
         URI "CarDashboardApp"
+        VERSION 1.0
         QML_FILES
         test/qml/TestFrontend.qml)
 
