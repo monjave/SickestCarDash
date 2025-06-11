@@ -61,17 +61,6 @@ if(BUILD_GUI)
 
     qt_add_executable(CarDashboardApp
         App/main.cpp
-        include/CircularBuffer.h
-        include/CircularBufferManagerWrapper.h
-        include/FrontendConnection.h
-        src/CircularBufferManagerWrapper.cpp
-        include/VehicleConnection.h
-        src/VehicleConnection.cpp
-        include/VehicleParser.h
-        src/VehicleParser.cc
-        include/MockQSerialPort.h
-        test/MockQSerialPort.cpp
-        src/FrontendConnection.cpp
     )
 
     target_link_libraries(CarDashboardApp
