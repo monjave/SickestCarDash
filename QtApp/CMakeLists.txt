@@ -83,6 +83,7 @@ if(BUILD_GUI)
             Qt6::Qml
             Qt6::Widgets
             Qt6::SerialPort
+            Qt6::Test
             core
     )
 
