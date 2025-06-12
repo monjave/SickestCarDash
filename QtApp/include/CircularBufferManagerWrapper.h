@@ -4,8 +4,6 @@
 #include <QObject>
 #include <QDir>
 #include <QTimer>
-#include "CircularBufferManager.h"
-#include "VehicleParser.h"
 
 class CircularBufferManagerWrapper : public QObject {
     Q_OBJECT
@@ -29,10 +27,6 @@ class CircularBufferManagerWrapper : public QObject {
 
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr);
-
-    ~CircularBufferManagerWrapper();
-
-    std::string _replayPath = "QtApp/replay/data/example_nurburgring_24h/data";
 
     double speed() const;
     double rpm() const;
@@ -63,13 +57,11 @@ public:
 
     void setGearShift(double newGearShift);
 
-    void setSeatBelt(bool newSeatBelt);
-    void setHighlights(bool newHighlights);
-    void setABS(bool newABS);
-    void setEngineCheck(bool newEngineCheck);
-    void setParking(bool newParking);
-
-    Q_INVOKABLE void togglePaused();
+    void setSeatBelt(double newSeatBelt);
+    void setHighlights(double newHighlights);
+    void setABS(double newABS);
+    void setEngineCheck(double newEngineCheck);
+    void setParking(double newParking);
 
 signals:
     void speedChanged();
@@ -89,14 +81,6 @@ signals:
     void enginecheckChanged();
     void parkingChanged();
 
-    void togglePausedChanged(bool paused);
-
-private slots:
-    void increment();
-    void geartime();
-    void startReplay();
-    void dataReady(int buffNum, double value);
-
 private:
     double m_speed;
     double m_rpm;
@@ -109,16 +93,11 @@ private:
 
     double m_gearshift;
 
-    bool m_seatbelt;
-    bool m_highlights;
-    bool m_abs;
-    bool m_enginecheck;
-    bool m_parking;
-
-    //QTimer *timer;
-    //QTimer *timerIcons;
-
-    VehicleParser* carData;
+    double m_seatbelt;
+    double m_highlights;
+    double m_abs;
+    double m_enginecheck;
+    double m_parking;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H

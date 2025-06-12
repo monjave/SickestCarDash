@@ -16,6 +16,8 @@ Item {
     width: Constants.width
     height: Constants.height
 
+    property alias exposedSpeed: speedometer
+
     property alias exposedButton: playButton
 
     property alias gear: gearSelect

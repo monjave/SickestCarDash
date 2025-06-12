@@ -1,6 +1,5 @@
 import QtQuick
 import CarDashboard
-import CircularBuffer.Data
 
 Window {
     width: mainScreen.width
@@ -11,58 +10,27 @@ Window {
 
     //visibility: Window.FullScreen
 
-    property int speedVar: speedToAngle(carData.speed * 2.23694)
-    property int rpmVar: rpmToAngle(carData.rpm)
-    property int fuelVar: fuelToAngle(carData.fuel)
-    property int tempVar: tempToAngle(carData.temp)
-    property int oilTempVar: oilTempToAngle(carData.oiltemp)
+    property int speedVar: speedToAngle(carData.data.speed * 2.23694)
+    property int rpmVar: rpmToAngle(carData.data.rpm)
+    property int fuelVar: fuelToAngle(carData.data.fuel)
+    property int tempVar: tempToAngle(carData.data.temp)
+    property int oilTempVar: oilTempToAngle(carData.data.oiltemp)
 
-    property int seatbeltVar: carData.seatbelt
-    property int highlightsVar: carData.highlights
-    property int absVar: carData.abs
-    property int enginecheckVar: carData.enginecheck
-    property int parkingVar: carData.parking
+    property int gearShiftNumber: carData.data.gearshift
 
-    property int speedNumber: carData.speed
-    property int rpmNumber: carData.rpm
-    property int fuelNumber: carData.fuel
-    property int tempNumber: carData.temp
-    property int oilTempNumber: carData.oiltemp
-    property int gearShiftNumber: carData.gearshift
+    property int seatbeltVar: carData.data.seatbelt
+    property int highlightsVar: carData.data.highlights
+    property int absVar: carData.data.abs
+    property int enginecheckVar: carData.data.enginecheck
+    property int parkingVar: carData.data.parking
 
-    property int time: carData.clock
+    property int speedNumber: carData.data.speed
+    property int rpmNumber: carData.data.rpm
+    property int fuelNumber: carData.data.fuel
+    property int tempNumber: carData.data.temp
+    property int oilTempNumber: carData.data.oiltemp
 
-    CarData {
-        id: carData
-    }
-
-    //DataSpeed {
-    //    id: speedValue
-    //}
-
-    /*DataRPM {
-        id: rpmValue
-    }
-
-    DataFuel {
-        id: fuelValue
-    }
-
-    DataTemp {
-        id: tempValue
-    }
-
-    DataOilTemp {
-        id: oilTempValue
-    }
-
-    DataClock {
-        id: clockValue
-    }
-
-    DataGearShift {
-        id: gearShiftValue
-    } */
+    property int time: carData.data.clock
 
     function speedToAngle(speed) {
         const speedMin = 0;
@@ -191,13 +159,6 @@ Window {
 
     Component.onCompleted: {
         mainScreen.exposedButton.clicked.connect(function() {
-            /*speedValue.togglePaused()
-            rpmValue.togglePaused()
-            fuelValue.togglePaused()
-            tempValue.togglePaused()
-            oilTempValue.togglePaused()
-            clockValue.togglePaused()
-            gearShiftValue.togglePaused() */
             carData.togglePaused()
         })
     }
