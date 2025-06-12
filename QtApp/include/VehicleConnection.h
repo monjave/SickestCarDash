@@ -23,6 +23,9 @@ signals:
     void errorOccurred(QString error);
     void rawHexReceived(const QString &hex);  // New signal for clean hex
 
+public slots:
+    void sendcommand(const QString &command);
+
 private slots:
     void handleReadyRead();
     void sendNextInitCommand();
