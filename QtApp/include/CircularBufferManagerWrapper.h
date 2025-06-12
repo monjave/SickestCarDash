@@ -11,7 +11,7 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(double speed READ speed WRITE setSpeed NOTIFY speedChanged)
     Q_PROPERTY(double rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
     Q_PROPERTY(double fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
-    Q_PROPERTY(double temp READ temp WRITE setTemp NOTIFY tempChanged)
+    Q_PROPERTY(double voltage READ voltage WRITE setVoltage NOTIFY voltageChanged)
     Q_PROPERTY(double coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
     Q_PROPERTY(double clock READ clock WRITE setClock NOTIFY clockChanged)
     Q_PROPERTY(double enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
@@ -25,13 +25,16 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(double enginecheck READ enginecheck WRITE setEngineCheck NOTIFY enginecheckChanged)
     Q_PROPERTY(double parking READ parking WRITE setParking NOTIFY parkingChanged)
 
+    Q_PROPERTY(double turnleft READ turnleft WRITE setTurnLeft NOTIFY turnLeftChanged)
+    Q_PROPERTY(double turnright READ turnright WRITE setTurnRight NOTIFY turnRightChanged)
+
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr);
 
     double speed() const;
     double rpm() const;
     double fuel() const;
-    double temp() const;
+    double voltage() const;
     double coolanttemp() const;
     double clock() const;
     double enginetemp() const;
@@ -45,11 +48,14 @@ public:
     double enginecheck() const;
     double parking() const;
 
+    double turnleft() const;
+    double turnright() const;
+
 
     void setSpeed(double newSpeed);
     void setRPM(double newRPM);
     void setFuel(double newFuel);
-    void setTemp(double newTemp);
+    void setVoltage(double newVoltage);
     void setCoolanttemp(double newCoolanttemp);
     void setClock(double newClock);
     void setEnginetemp(double newEnginetemp);
@@ -63,11 +69,14 @@ public:
     void setEngineCheck(double newEngineCheck);
     void setParking(double newParking);
 
+    void setTurnLeft(double newTurnLeft);
+    void setTurnRight(double newTurnRight);
+
 signals:
     void speedChanged();
     void rpmChanged();
     void fuelChanged();
-    void tempChanged();
+    void voltageChanged();
     void coolanttempChanged();
     void clockChanged();
     void enginetempChanged();
@@ -81,11 +90,14 @@ signals:
     void enginecheckChanged();
     void parkingChanged();
 
+    void turnLeftChanged();
+    void turnRightChanged();
+
 private:
     double m_speed;
     double m_rpm;
     double m_fuel;
-    double m_temp;
+    double m_voltage;
     double m_coolanttemp;
     double m_clock;
     double m_enginetemp;
@@ -98,6 +110,9 @@ private:
     double m_abs;
     double m_enginecheck;
     double m_parking;
+
+    double m_turnleft;
+    double m_turnright;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H

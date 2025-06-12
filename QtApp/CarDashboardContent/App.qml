@@ -13,8 +13,9 @@ Window {
     property int speedVar: speedToAngle(carData.data.speed * 2.23694)
     property int rpmVar: rpmToAngle(carData.data.rpm)
     property int fuelVar: fuelToAngle(carData.data.fuel)
-    property int tempVar: tempToAngle(carData.data.temp)
+    property int voltageVar: voltageToAngle(carData.data.voltage)
     property int oilTempVar: oilTempToAngle(carData.data.oiltemp)
+    property int coolantTempVar: coolantTempToAngle(carData.data.coolanttemp)
 
     property int gearShiftNumber: carData.data.gearshift
 
@@ -24,11 +25,15 @@ Window {
     property int enginecheckVar: carData.data.enginecheck
     property int parkingVar: carData.data.parking
 
+    property int turnleftVar: carData.data.turnleft
+    property int turnrightVar: carData.data.turnright
+
     property int speedNumber: carData.data.speed
     property int rpmNumber: carData.data.rpm
     property int fuelNumber: carData.data.fuel
-    property int tempNumber: carData.data.temp
+    property int voltageNumber: carData.data.voltage
     property int oilTempNumber: carData.data.oiltemp
+    property int coolantTempNumber: carData.data.coolanttemp
 
     property int time: carData.data.clock
 
@@ -65,13 +70,13 @@ Window {
         return angle;
     }
 
-    function tempToAngle(temp) {
-        const tempMin = 100;
-        const tempMax = 260;
+    function voltageToAngle(voltage) {
+        const voltageMin = 9;
+        const voltageMax = 19;
         const angleMin = 0;
         const angleMax = 80;
 
-        const angle = angleMin + ((temp - tempMin) / (tempMax - tempMin)) * (angleMax - angleMin);
+        const angle = angleMin + ((voltage - voltageMin) / (voltageMax - voltageMin)) * (angleMax - angleMin);
 
         return angle;
     }
@@ -83,6 +88,17 @@ Window {
         const angleMax = 80;
 
         const angle = angleMin + ((oilTemp - oilTempMin) / (oilTempMax - oilTempMin)) * (angleMax - angleMin);
+
+        return angle;
+    }
+
+    function coolantTempToAngle(coolantTemp) {
+        const coolantTempMin = 100;
+        const coolantTempMax = 260;
+        const angleMin = 0;
+        const angleMax = 80;
+
+        const angle = angleMin + ((coolantTemp - coolantTempMin) / (coolantTempMax - coolantTempMin)) * (angleMax - angleMin);
 
         return angle;
     }
@@ -140,16 +156,32 @@ Window {
         mainScreen.clockOne.source = "images/" + Math.floor((time % 60) % 10) + ".png"
     }
 
+    function seatbelt() {
+        seatbeltVar ? mainScreen.seatbelt.visible = true : mainScreen.seatbelt.visible = false;
+    }
+
+    function highlights() {
+        highlightsVar ? mainScreen.highlights.visible = true : mainScreen.highlights.visible = false;
+    }
+
     function abs() {
+        absVar ? mainScreen.abs.visible = true : mainScreen.abs.visible = false;
+    }
 
-        switch (absVar) {
-        case 1:
-            mainScreen.abs.visible = true;
-            break;
+    function enginecheck() {
+        enginecheckVar ? mainScreen.enginecheck.visible = true : mainScreen.enginecheck.visible = false;
+    }
 
-        default:
-            mainScreen.abs.visible = false;
-        }
+    function parking() {
+        parkingVar ? mainScreen.parking.visible = true : mainScreen.parking.visible = false;
+    }
+
+    function turnleft() {
+        turnleftVar ? mainScreen.turnLeft.visible = true : mainScreen.turnLeft.visible = false;
+    }
+
+    function turnright() {
+        turnrightVar ? mainScreen.turnRight.visible = true : mainScreen.turnRight.visible = false;
     }
 
     Screen01 {
@@ -171,8 +203,32 @@ Window {
         clock()
     }
 
+    onSeatbeltVarChanged: {
+        seatbelt()
+    }
+
+    onHighlightsVarChanged: {
+        highlights()
+    }
+
     onAbsVarChanged: {
         abs()
+    }
+
+    onEnginecheckVarChanged: {
+        enginecheck()
+    }
+
+    onParkingVarChanged: {
+        parking()
+    }
+
+    onTurnleftVarChanged: {
+        turnleft()
+    }
+
+    onTurnrightVarChanged: {
+        turnright()
     }
 
 }
