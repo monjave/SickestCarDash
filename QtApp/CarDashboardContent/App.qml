@@ -152,8 +152,24 @@ Window {
         mainScreen.clockOne.source = "images/" + Math.floor((time % 60) % 10) + ".png"
     }
 
+    function seatbelt() {
+        seatbeltVar ? mainScreen.seatbelt.visible = true : mainScreen.seatbelt.visible = false;
+    }
+
+    function highlights() {
+        highlightsVar ? mainScreen.highlights.visible = true : mainScreen.highlights.visible = false;
+    }
+
     function abs() {
         absVar ? mainScreen.abs.visible = true : mainScreen.abs.visible = false;
+    }
+
+    function enginecheck() {
+        enginecheckVar ? mainScreen.enginecheck.visible = true : mainScreen.enginecheck.visible = false;
+    }
+
+    function parking() {
+        parkingVar ? mainScreen.parking.visible = true : mainScreen.parking.visible = false;
     }
 
     Screen01 {

@@ -23,8 +23,8 @@ Item {
     property alias gear: gearSelect
 
     property alias seatbelt: seatbeltIndicator
-    property alias abs: absIndicator
     property alias highlights: highLightsIndicator
+    property alias abs: absIndicator
     property alias engineCheck: engineCheckIndicator
     property alias parking: parkingIndicator
 
@@ -253,7 +253,6 @@ Item {
             height: 225
             visible: true
             source: "images/LeftTurnSignal.png"
-            mirror: false
             fillMode: Image.PreserveAspectFit
         }
 
@@ -299,7 +298,7 @@ Item {
             y: 8
             width: 150
             height: 150
-            visible: true
+            visible: false
             source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -397,7 +396,7 @@ Item {
             y: 8
             width: 150
             height: 150
-            visible: true
+            visible: false
             source: "images/High_beams.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -408,7 +407,7 @@ Item {
             y: 8
             width: 150
             height: 150
-            visible: true
+            visible: false
             source: "images/Parking_break.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -419,7 +418,7 @@ Item {
             y: 8
             width: 150
             height: 150
-            visible: true
+            visible: false
             source: "images/Check_engine.png"
             fillMode: Image.PreserveAspectFit
         }
