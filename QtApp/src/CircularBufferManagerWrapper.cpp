@@ -1,7 +1,7 @@
 #include "CircularBufferManagerWrapper.h"
 
 CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QObject(parent), m_speed(0), m_rpm(0), m_fuel(0),
-    m_temp(0), m_coolanttemp(0), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(0), m_highlights(0),
+    m_voltage(9), m_coolanttemp(100), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(0), m_highlights(0),
     m_abs(0), m_enginecheck(0), m_parking(0) {
 
 }
@@ -18,8 +18,8 @@ double CircularBufferManagerWrapper::fuel() const {
     return m_fuel;
 }
 
-double CircularBufferManagerWrapper::temp() const {
-    return m_temp;
+double CircularBufferManagerWrapper::voltage() const {
+    return m_voltage;
 }
 
 double CircularBufferManagerWrapper::coolanttemp() const {
@@ -83,10 +83,10 @@ void CircularBufferManagerWrapper::setFuel(double newFuel) {
     }
 };
 
-void CircularBufferManagerWrapper::setTemp(double newTemp) {
-    if (newTemp != m_temp) {
-        m_temp = newTemp;
-        emit tempChanged();
+void CircularBufferManagerWrapper::setVoltage(double newVoltage) {
+    if (newVoltage != m_voltage) {
+        m_voltage = newVoltage;
+        emit voltageChanged();
     }
 };
 

@@ -11,7 +11,7 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(double speed READ speed WRITE setSpeed NOTIFY speedChanged)
     Q_PROPERTY(double rpm READ rpm WRITE setRPM NOTIFY rpmChanged)
     Q_PROPERTY(double fuel READ fuel WRITE setFuel NOTIFY fuelChanged)
-    Q_PROPERTY(double temp READ temp WRITE setTemp NOTIFY tempChanged)
+    Q_PROPERTY(double voltage READ voltage WRITE setVoltage NOTIFY voltageChanged)
     Q_PROPERTY(double coolanttemp READ coolanttemp WRITE setCoolanttemp NOTIFY coolanttempChanged)
     Q_PROPERTY(double clock READ clock WRITE setClock NOTIFY clockChanged)
     Q_PROPERTY(double enginetemp READ enginetemp WRITE setEnginetemp NOTIFY enginetempChanged)
@@ -31,7 +31,7 @@ public:
     double speed() const;
     double rpm() const;
     double fuel() const;
-    double temp() const;
+    double voltage() const;
     double coolanttemp() const;
     double clock() const;
     double enginetemp() const;
@@ -49,7 +49,7 @@ public:
     void setSpeed(double newSpeed);
     void setRPM(double newRPM);
     void setFuel(double newFuel);
-    void setTemp(double newTemp);
+    void setVoltage(double newVoltage);
     void setCoolanttemp(double newCoolanttemp);
     void setClock(double newClock);
     void setEnginetemp(double newEnginetemp);
@@ -67,7 +67,7 @@ signals:
     void speedChanged();
     void rpmChanged();
     void fuelChanged();
-    void tempChanged();
+    void voltageChanged();
     void coolanttempChanged();
     void clockChanged();
     void enginetempChanged();
@@ -85,7 +85,7 @@ private:
     double m_speed;
     double m_rpm;
     double m_fuel;
-    double m_temp;
+    double m_voltage;
     double m_coolanttemp;
     double m_clock;
     double m_enginetemp;

@@ -13,8 +13,9 @@ Window {
     property int speedVar: speedToAngle(carData.data.speed * 2.23694)
     property int rpmVar: rpmToAngle(carData.data.rpm)
     property int fuelVar: fuelToAngle(carData.data.fuel)
-    property int tempVar: tempToAngle(carData.data.temp)
+    property int voltageVar: voltageToAngle(carData.data.voltage)
     property int oilTempVar: oilTempToAngle(carData.data.oiltemp)
+    property int coolantTempVar: coolantTempToAngle(carData.data.coolanttemp)
 
     property int gearShiftNumber: carData.data.gearshift
 
@@ -27,7 +28,7 @@ Window {
     property int speedNumber: carData.data.speed
     property int rpmNumber: carData.data.rpm
     property int fuelNumber: carData.data.fuel
-    property int tempNumber: carData.data.temp
+    property int voltageNumber: carData.data.voltage
     property int oilTempNumber: carData.data.oiltemp
 
     property int time: carData.data.clock
@@ -65,13 +66,13 @@ Window {
         return angle;
     }
 
-    function tempToAngle(temp) {
-        const tempMin = 100;
-        const tempMax = 260;
+    function voltageToAngle(voltage) {
+        const voltageMin = 9;
+        const voltageMax = 19;
         const angleMin = 0;
         const angleMax = 80;
 
-        const angle = angleMin + ((temp - tempMin) / (tempMax - tempMin)) * (angleMax - angleMin);
+        const angle = angleMin + ((voltage - voltageMin) / (voltageMax - voltageMin)) * (angleMax - angleMin);
 
         return angle;
     }
@@ -83,6 +84,17 @@ Window {
         const angleMax = 80;
 
         const angle = angleMin + ((oilTemp - oilTempMin) / (oilTempMax - oilTempMin)) * (angleMax - angleMin);
+
+        return angle;
+    }
+
+    function coolantTempToAngle(coolantTemp) {
+        const coolantTempMin = 0;
+        const coolantTempMax = 80;
+        const angleMin = 0;
+        const angleMax = 80;
+
+        const angle = angleMin + ((coolantTemp - coolantTempMin) / (coolantTempMax - coolantTempMin)) * (angleMax - angleMin);
 
         return angle;
     }
@@ -141,15 +153,7 @@ Window {
     }
 
     function abs() {
-
-        switch (absVar) {
-        case 1:
-            mainScreen.abs.visible = true;
-            break;
-
-        default:
-            mainScreen.abs.visible = false;
-        }
+        absVar ? mainScreen.abs.visible = true : mainScreen.abs.visible = false;
     }
 
     Screen01 {
