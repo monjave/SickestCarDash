@@ -19,7 +19,7 @@ CircularBufferManagerWrapper* FrontendConnection::data() const {
 
 Q_INVOKABLE void FrontendConnection::togglePaused() {
     emit startReplay();
-};
+}
 
 void FrontendConnection::startReplay() {
     qDebug() << "Working dir:" << QDir::currentPath();
@@ -66,6 +66,12 @@ void FrontendConnection::dataReady(int buffNum, double value) {
         break;
     case 12:
         dataProperties->setParking(value);
+        break;
+    case 13:
+        dataProperties->setTurnLeft(value);
+        break;
+    case 14:
+        dataProperties->setTurnRight(value);
         break;
     }
 }

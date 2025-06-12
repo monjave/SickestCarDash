@@ -28,6 +28,9 @@ Item {
     property alias engineCheck: engineCheckIndicator
     property alias parking: parkingIndicator
 
+    property alias turnLeft: turnIndicatorL
+    property alias turnRight: turnIndicatorR
+
     property alias clockOne: clockOnes
     property alias clockTen: clockTens
     property alias clockHundred: clockHundreds
@@ -251,7 +254,7 @@ Item {
             y: 40
             width: 225
             height: 225
-            visible: true
+            visible: false
             source: "images/LeftTurnSignal.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -262,7 +265,7 @@ Item {
             y: 40
             width: 225
             height: 225
-            visible: true
+            visible: false
             source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -353,7 +356,7 @@ Item {
         }
 
         Image {
-            id: temp
+            id: coolantTemp
             x: -146
             y: 101
             width: 572
@@ -364,7 +367,7 @@ Item {
             fillMode: Image.PreserveAspectFit
 
             Image {
-                id: tempNumbers
+                id: coolantTempNumbers
                 x: 0
                 y: 0
                 width: parent.width
@@ -374,7 +377,7 @@ Item {
             }
 
             Image {
-                id: needleTemp
+                id: needleCoolantTemp
                 x: 0
                 y: 0
                 width: parent.width
@@ -706,7 +709,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: temp
+            target: coolantTemp
             property: "opacity"
             Keyframe {
                 value: 0

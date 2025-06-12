@@ -25,11 +25,15 @@ Window {
     property int enginecheckVar: carData.data.enginecheck
     property int parkingVar: carData.data.parking
 
+    property int turnleftVar: carData.data.turnleft
+    property int turnrightVar: carData.data.turnright
+
     property int speedNumber: carData.data.speed
     property int rpmNumber: carData.data.rpm
     property int fuelNumber: carData.data.fuel
     property int voltageNumber: carData.data.voltage
     property int oilTempNumber: carData.data.oiltemp
+    property int coolantTempNumber: carData.data.coolanttemp
 
     property int time: carData.data.clock
 
@@ -89,8 +93,8 @@ Window {
     }
 
     function coolantTempToAngle(coolantTemp) {
-        const coolantTempMin = 0;
-        const coolantTempMax = 80;
+        const coolantTempMin = 100;
+        const coolantTempMax = 260;
         const angleMin = 0;
         const angleMax = 80;
 
@@ -172,6 +176,14 @@ Window {
         parkingVar ? mainScreen.parking.visible = true : mainScreen.parking.visible = false;
     }
 
+    function turnleft() {
+        turnleftVar ? mainScreen.turnLeft.visible = true : mainScreen.turnLeft.visible = false;
+    }
+
+    function turnright() {
+        turnrightVar ? mainScreen.turnRight.visible = true : mainScreen.turnRight.visible = false;
+    }
+
     Screen01 {
         id: mainScreen 
     }
@@ -191,8 +203,32 @@ Window {
         clock()
     }
 
+    onSeatbeltVarChanged: {
+        seatbelt()
+    }
+
+    onHighlightsVarChanged: {
+        highlights()
+    }
+
     onAbsVarChanged: {
         abs()
+    }
+
+    onEnginecheckVarChanged: {
+        enginecheck()
+    }
+
+    onParkingVarChanged: {
+        parking()
+    }
+
+    onTurnleftVarChanged: {
+        turnleft()
+    }
+
+    onTurnrightVarChanged: {
+        turnright()
     }
 
 }

@@ -25,6 +25,9 @@ class CircularBufferManagerWrapper : public QObject {
     Q_PROPERTY(double enginecheck READ enginecheck WRITE setEngineCheck NOTIFY enginecheckChanged)
     Q_PROPERTY(double parking READ parking WRITE setParking NOTIFY parkingChanged)
 
+    Q_PROPERTY(double turnleft READ turnleft WRITE setTurnLeft NOTIFY turnLeftChanged)
+    Q_PROPERTY(double turnright READ turnright WRITE setTurnRight NOTIFY turnRightChanged)
+
 public:
     explicit CircularBufferManagerWrapper(QObject *parent = nullptr);
 
@@ -45,6 +48,9 @@ public:
     double enginecheck() const;
     double parking() const;
 
+    double turnleft() const;
+    double turnright() const;
+
 
     void setSpeed(double newSpeed);
     void setRPM(double newRPM);
@@ -62,6 +68,9 @@ public:
     void setABS(double newABS);
     void setEngineCheck(double newEngineCheck);
     void setParking(double newParking);
+
+    void setTurnLeft(double newTurnLeft);
+    void setTurnRight(double newTurnRight);
 
 signals:
     void speedChanged();
@@ -81,6 +90,9 @@ signals:
     void enginecheckChanged();
     void parkingChanged();
 
+    void turnLeftChanged();
+    void turnRightChanged();
+
 private:
     double m_speed;
     double m_rpm;
@@ -98,6 +110,9 @@ private:
     double m_abs;
     double m_enginecheck;
     double m_parking;
+
+    double m_turnleft;
+    double m_turnright;
 };
 
 #endif // CIRCULARBUFFERMANAGERWRAPPER_H
