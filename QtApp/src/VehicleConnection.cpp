@@ -70,6 +70,7 @@ void VehicleConnection::configureSerialPort() {
 /// @note toLatin1() converts QString to QByteArray better suited for raw hex 
 void VehicleConnection::sendCommand(const QString &command) {
     if (serial->isOpen()) {
+        QDebug << "sendCommand serial->isOpen == true"
         QString fullCommand = command + "\r";
         serial->write(fullCommand.toLatin1());   
     }
@@ -97,6 +98,7 @@ void VehicleConnection::sendNextInitCommand() {
 /// @brief A slot that processes responses from QSerialPort and emits a rawHexReceived signal
 void VehicleConnection::handleReadyRead() {
     buffer.append(serial->readAll());
+    qDebug() << "Serial is Being Read in handleReadyRead";
     // buffer = serial->readAll();
 
     int endIndex = buffer.indexOf('\r');
