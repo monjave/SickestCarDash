@@ -19,11 +19,11 @@ void OBDHexDecoder::rawHexReceived(const QString &rawHex) {
     if (bufferIndex == -1) return;
 
     QStringList dataBytes = bytes.mid(2);  // A, B, etc.
-    double value = decodePidValue(pid, dataBytes);
+    double value = decodePIDValue(pid, dataBytes);
     emit dataConverted(bufferIndex, value);
 }
 
-double OBDHexDecoder::decodePidValue(OBDPID pid, const QStringList &dataBytes) {
+double OBDHexDecoder::decodePIDValue(OBDPID pid, const QStringList &dataBytes) {
     bool ok;
 
     switch (pid) {

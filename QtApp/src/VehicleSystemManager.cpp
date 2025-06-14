@@ -6,7 +6,7 @@ VehicleSystemManager::VehicleSystemManager(QObject *parent)
         m_poller(new PIDPoller(this)),
         m_decoder(new OBDHexDecoder(this)) {
 
-    connect(m_poller, &PIDPoller::requestPid, m_vc, 
+    connect(m_poller, &PIDPoller::requestPid, 
             m_vc, &VehicleConnection::sendCommand);
 
     connect(m_vc, &VehicleConnection::rawHexReceived, 
