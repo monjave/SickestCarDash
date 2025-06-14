@@ -5,6 +5,7 @@
 #include <QDir>
 #include "VehicleParser.h"
 #include "CircularBufferManagerWrapper.h"
+#include "VehicleSystemManager.h"
 
 class FrontendConnection : public QObject {
     Q_OBJECT
@@ -23,10 +24,13 @@ public:
 
 private slots:
     void startReplay();
+
+public slots:
     void dataReady(int buffNum, double value);
 
 private:
-    VehicleParser* carData;
+    //VehicleParser* carData;
+    VehicleSystemManager* systemManager;
     CircularBufferManagerWrapper* dataProperties;
 };
 

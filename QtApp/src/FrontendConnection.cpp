@@ -1,15 +1,19 @@
 #include "FrontendConnection.h"
 
 FrontendConnection::FrontendConnection(CircularBufferManagerWrapper *newDataProperties, QObject* parent) : QObject(parent),
-    carData(new VehicleParser(_replayPath)), dataProperties(newDataProperties) {
+    systemManager(new VehicleSystemManager), dataProperties(newDataProperties) {
 
     // Connect start button to replayStart method
     // connect(this, &CircularBufferManagerWrapper::insertSignal, carData, &VehicleParser::replayStart);
-    connect(carData, &VehicleParser::dataReady, this, &FrontendConnection::dataReady);
+    //connect(carData, &VehicleParser::dataReady, this, &FrontendConnection::dataReady);
+    connect(systemManager, &VehicleSystemManager::dataConverted, 
+            this, &FrontendConnection::dataReady);
+
+    systemManager->start();
 }
 
 FrontendConnection::~FrontendConnection() {
-    delete carData;
+    delete systemManager;
     delete dataProperties;
 }
 
@@ -17,14 +21,14 @@ CircularBufferManagerWrapper* FrontendConnection::data() const {
     return dataProperties;
 }
 
-Q_INVOKABLE void FrontendConnection::togglePaused() {
+/*Q_INVOKABLE void FrontendConnection::togglePaused() {
     emit startReplay();
-}
+}*/
 
-void FrontendConnection::startReplay() {
+/*void FrontendConnection::startReplay() {
     qDebug() << "Working dir:" << QDir::currentPath();
     carData->replayStart();
-}
+}*/
 
 void FrontendConnection::dataReady(int buffNum, double value) {
     switch(buffNum) {
