@@ -31,8 +31,7 @@ jobs:
             qt6-tools-dev \
             qt6-tools-dev-tools \
             qt6-serialport-dev \
-            qt6-shadertools-dev \
-            qt6-concurrent-dev  
+            qt6-shadertools-dev  
 
       - name: Configure with CMake
         run: cmake -B build -S . -G Ninja
