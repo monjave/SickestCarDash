@@ -1,6 +1,6 @@
 project(CarDashboardApp VERSION 0.1 LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml SerialPort Widgets Test Concurrent)
 
 message(STATUS
   "---- Found Qt6: "
@@ -24,15 +24,25 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManager.cc
     ${CMAKE_CURRENT_LIST_DIR}/src/FrontendConnection.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/CircularBufferManagerWrapper.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/OBDHexDecoder.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/OBDPIDRegistry.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/PIDPoller.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/VehicleSystemManager.cpp
+
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleParser.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleConnection.h
     ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManager.h
     ${CMAKE_CURRENT_LIST_DIR}/include/FrontendConnection.h
     ${CMAKE_CURRENT_LIST_DIR}/include/CircularBufferManagerWrapper.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/OBDHexDecoder.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/OBDPIDRegistry.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/PIDPoller.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/VehicleSystemManager.h
+
 )
 
 # Link QtCore to core lib
-target_link_libraries(core PUBLIC Qt6::Core Qt6::SerialPort)
+target_link_libraries(core PUBLIC Qt6::Core Qt6::SerialPort Qt6::Concurrent)
 
 # Enable AUTOMOC for QObject macros
 set_target_properties(core PROPERTIES AUTOMOC ON)
