@@ -38,7 +38,7 @@ add_library(core STATIC
     ${CMAKE_CURRENT_LIST_DIR}/include/OBDPIDRegistry.h
     ${CMAKE_CURRENT_LIST_DIR}/include/PIDPoller.h
     ${CMAKE_CURRENT_LIST_DIR}/include/VehicleSystemManager.h
-
+)
 
 # Link QtCore to core lib
 target_link_libraries(core PUBLIC Qt6::Core Qt6::SerialPort Qt6::Concurrent)
