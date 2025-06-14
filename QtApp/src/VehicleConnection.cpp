@@ -88,6 +88,7 @@ void VehicleConnection::beginInitSequence() {
 void VehicleConnection::sendNextInitCommand() {
     if (cmdIndex < initCommands.size()) {
         sendCommand(initCommands[cmdIndex++]);
+        qDebug() << "Init Command sent: " << initCommands[cmdIndex];
     } else {
         initTimer.stop();
         qDebug() << "emitting initComplete";
@@ -98,16 +99,18 @@ void VehicleConnection::sendNextInitCommand() {
 /// @brief A slot that processes responses from QSerialPort and emits a rawHexReceived signal
 void VehicleConnection::handleReadyRead() {
     buffer.append(serial->readAll());
-    qDebug() << "Serial is Being Read in handleReadyRead";
-    // buffer = serial->readAll();
+    qDebug() << "Handle ready read data:" << buffer.toHex(' ');
 
     int endIndex = buffer.indexOf('\r');
-    while ((endIndex = buffer.indexOf('\r')) != -1) {
+    qDebug() << "endIndex Value: " << endIndex;
+    while (endIndex != -1) {
         QByteArray responseBytes = buffer.left(endIndex);
         buffer.remove(0, endIndex + 1);  // Remove the processed response
         QString hexString = responseBytes.toHex(' ').toUpper();
 
         qDebug() << "emitting rawHexReceived";
         emit rawHexReceived(hexString);
+
+        endIndex = buffer.indexOf('\r');
     }   
 }
