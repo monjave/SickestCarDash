@@ -24,9 +24,9 @@ signals:
 
 public slots:
     void sendCommand(const QString &command);
+    void handleReadyRead();
 
 private slots:
-    void handleReadyRead();
     void sendNextInitCommand();
 
 private:

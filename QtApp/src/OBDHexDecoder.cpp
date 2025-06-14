@@ -4,7 +4,7 @@
 OBDHexDecoder::OBDHexDecoder(QObject *parent)
     : QObject(parent) {}
 
-void OBDHexDecoder::rawHexReceived(const QString &rawHex) {
+void OBDHexDecoder::rawHexReceived(QString &rawHex) {
     QStringList bytes = rawHex.split(" ", Qt::SkipEmptyParts);
     if (bytes.size() < 3 || bytes[0] != "41") return;  // 41 = Mode 1 response
 
@@ -20,6 +20,8 @@ void OBDHexDecoder::rawHexReceived(const QString &rawHex) {
 
     QStringList dataBytes = bytes.mid(2);  // A, B, etc.
     double value = decodePIDValue(pid, dataBytes);
+    qDebug() << "emitting dataConverted";
+    qDebug() << "double value given: " << value;
     emit dataConverted(bufferIndex, value);
 }
 

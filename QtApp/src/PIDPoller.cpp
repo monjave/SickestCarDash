@@ -13,6 +13,7 @@ void PIDPoller::startPolling() {
     running.storeRelaxed(1);
     QtConcurrent::run([this]() {
         while (running.loadAcquire()) {
+            qDebug() << "PIDPoller calling run";
             emit requestPid("010D");  // Request Speed
             QThread::msleep(100);  // Small delay to avoid flooding the bus
             emit requestPid("010C");  // Request RPM

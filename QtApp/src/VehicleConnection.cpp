@@ -44,7 +44,9 @@ VehicleConnection::VehicleConnection(QIODevice *device, QObject *parent)
     }
 
     connect(serial, &QIODevice::readyRead, this, &VehicleConnection::handleReadyRead);
+    qDebug() << "connecting serial to handleReadyRead";
     connect(&initTimer, &QTimer::timeout, this, &VehicleConnection::sendNextInitCommand);
+    qDebug() << "connecting initTimer to sendNextInitCommand";
 
     initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP2"};
 }
@@ -76,6 +78,7 @@ void VehicleConnection::sendCommand(const QString &command) {
 /// @brief Begins the initialization sequence by initializing cmdIndex and starting a QTimer for 1 second
 void VehicleConnection::beginInitSequence() {
     cmdIndex = 0;
+    qDebug() << "beginningInitSequence";
     initTimer.start(1000);  // Send each command 1 second apart
 }
 
@@ -86,6 +89,7 @@ void VehicleConnection::sendNextInitCommand() {
         sendCommand(initCommands[cmdIndex++]);
     } else {
         initTimer.stop();
+        qDebug() << "emitting initComplete";
         emit initComplete();
     }
 }
@@ -93,6 +97,7 @@ void VehicleConnection::sendNextInitCommand() {
 /// @brief A slot that processes responses from QSerialPort and emits a rawHexReceived signal
 void VehicleConnection::handleReadyRead() {
     buffer.append(serial->readAll());
+    // buffer = serial->readAll();
 
     int endIndex = buffer.indexOf('\r');
     while ((endIndex = buffer.indexOf('\r')) != -1) {
@@ -100,6 +105,7 @@ void VehicleConnection::handleReadyRead() {
         buffer.remove(0, endIndex + 1);  // Remove the processed response
         QString hexString = responseBytes.toHex(' ').toUpper();
 
+        qDebug() << "emitting rawHexReceived";
         emit rawHexReceived(hexString);
     }   
 }

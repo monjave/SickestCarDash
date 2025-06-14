@@ -10,11 +10,13 @@ class PIDPoller : public QObject {
 public:
     explicit PIDPoller(QObject *parent = nullptr);
 
-    void startPolling();
     void stopPolling();
 
     signals: 
     void requestPid(const QString &pid);
+
+    public slots:
+    void startPolling();
 
     private:
     QAtomicInt running;
