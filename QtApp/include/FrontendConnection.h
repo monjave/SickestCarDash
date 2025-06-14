@@ -20,10 +20,10 @@ public:
 
     std::string _replayPath = "../../QtApp/replay/data/example_nurburgring_24h/data";
 
-    Q_INVOKABLE void togglePaused();
+    //Q_INVOKABLE void togglePaused();
 
 private slots:
-    void startReplay();
+    //void startReplay();
 
 public slots:
     void dataReady(int buffNum, double value);
