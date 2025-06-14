@@ -1,3 +1,5 @@
+//Some of the lines have been commented out to make this project compatible with ARM Linux x64
+
 pragma Singleton
 import QtQuick
 //import QtQuick.Studio.Application

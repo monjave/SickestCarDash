@@ -1,6 +1,5 @@
 import QtQuick
 import CarDashboard
-import CircularBuffer.Data
 
 Window {
     width: mainScreen.width
@@ -11,58 +10,32 @@ Window {
 
     //visibility: Window.FullScreen
 
-    property int speedVar: speedToAngle(carData.speed * 2.23694)
-    property int rpmVar: rpmToAngle(carData.rpm)
-    property int fuelVar: fuelToAngle(carData.fuel)
-    property int tempVar: tempToAngle(carData.temp)
-    property int oilTempVar: oilTempToAngle(carData.oiltemp)
+    property int speedVar: speedToAngle(carData.data.speed * 2.23694)
+    property int rpmVar: rpmToAngle(carData.data.rpm)
+    property int fuelVar: fuelToAngle(carData.data.fuel)
+    property int voltageVar: voltageToAngle(carData.data.voltage)
+    property int oilTempVar: oilTempToAngle(carData.data.oiltemp)
+    property int coolantTempVar: coolantTempToAngle(carData.data.coolanttemp)
 
-    property int seatbeltVar: carData.seatbelt
-    property int highlightsVar: carData.highlights
-    property int absVar: carData.abs
-    property int enginecheckVar: carData.enginecheck
-    property int parkingVar: carData.parking
+    property int gearShiftNumber: carData.data.gearshift
 
-    property int speedNumber: carData.speed
-    property int rpmNumber: carData.rpm
-    property int fuelNumber: carData.fuel
-    property int tempNumber: carData.temp
-    property int oilTempNumber: carData.oiltemp
-    property int gearShiftNumber: carData.gearshift
+    property int seatbeltVar: carData.data.seatbelt
+    property int highlightsVar: carData.data.highlights
+    property int absVar: carData.data.abs
+    property int enginecheckVar: carData.data.enginecheck
+    property int parkingVar: carData.data.parking
 
-    property int time: carData.clock
+    property int turnleftVar: carData.data.turnleft
+    property int turnrightVar: carData.data.turnright
 
-    CarData {
-        id: carData
-    }
+    property int speedNumber: carData.data.speed
+    property int rpmNumber: carData.data.rpm
+    property int fuelNumber: carData.data.fuel
+    property int voltageNumber: carData.data.voltage
+    property int oilTempNumber: carData.data.oiltemp
+    property int coolantTempNumber: carData.data.coolanttemp
 
-    //DataSpeed {
-    //    id: speedValue
-    //}
-
-    /*DataRPM {
-        id: rpmValue
-    }
-
-    DataFuel {
-        id: fuelValue
-    }
-
-    DataTemp {
-        id: tempValue
-    }
-
-    DataOilTemp {
-        id: oilTempValue
-    }
-
-    DataClock {
-        id: clockValue
-    }
-
-    DataGearShift {
-        id: gearShiftValue
-    } */
+    property int time: carData.data.clock
 
     function speedToAngle(speed) {
         const speedMin = 0;
@@ -97,13 +70,13 @@ Window {
         return angle;
     }
 
-    function tempToAngle(temp) {
-        const tempMin = 100;
-        const tempMax = 260;
+    function voltageToAngle(voltage) {
+        const voltageMin = 9;
+        const voltageMax = 19;
         const angleMin = 0;
         const angleMax = 80;
 
-        const angle = angleMin + ((temp - tempMin) / (tempMax - tempMin)) * (angleMax - angleMin);
+        const angle = angleMin + ((voltage - voltageMin) / (voltageMax - voltageMin)) * (angleMax - angleMin);
 
         return angle;
     }
@@ -115,6 +88,17 @@ Window {
         const angleMax = 80;
 
         const angle = angleMin + ((oilTemp - oilTempMin) / (oilTempMax - oilTempMin)) * (angleMax - angleMin);
+
+        return angle;
+    }
+
+    function coolantTempToAngle(coolantTemp) {
+        const coolantTempMin = 100;
+        const coolantTempMax = 260;
+        const angleMin = 0;
+        const angleMax = 80;
+
+        const angle = angleMin + ((coolantTemp - coolantTempMin) / (coolantTempMax - coolantTempMin)) * (angleMax - angleMin);
 
         return angle;
     }
@@ -172,16 +156,32 @@ Window {
         mainScreen.clockOne.source = "images/" + Math.floor((time % 60) % 10) + ".png"
     }
 
+    function seatbelt() {
+        seatbeltVar ? mainScreen.seatbelt.visible = true : mainScreen.seatbelt.visible = false;
+    }
+
+    function highlights() {
+        highlightsVar ? mainScreen.highlights.visible = true : mainScreen.highlights.visible = false;
+    }
+
     function abs() {
+        absVar ? mainScreen.abs.visible = true : mainScreen.abs.visible = false;
+    }
 
-        switch (absVar) {
-        case 1:
-            mainScreen.abs.visible = true;
-            break;
+    function enginecheck() {
+        enginecheckVar ? mainScreen.enginecheck.visible = true : mainScreen.enginecheck.visible = false;
+    }
 
-        default:
-            mainScreen.abs.visible = false;
-        }
+    function parking() {
+        parkingVar ? mainScreen.parking.visible = true : mainScreen.parking.visible = false;
+    }
+
+    function turnleft() {
+        turnleftVar ? mainScreen.turnLeft.visible = true : mainScreen.turnLeft.visible = false;
+    }
+
+    function turnright() {
+        turnrightVar ? mainScreen.turnRight.visible = true : mainScreen.turnRight.visible = false;
     }
 
     Screen01 {
@@ -191,13 +191,6 @@ Window {
 
     Component.onCompleted: {
         mainScreen.exposedButton.clicked.connect(function() {
-            /*speedValue.togglePaused()
-            rpmValue.togglePaused()
-            fuelValue.togglePaused()
-            tempValue.togglePaused()
-            oilTempValue.togglePaused()
-            clockValue.togglePaused()
-            gearShiftValue.togglePaused() */
             carData.togglePaused()
         })
     }
@@ -210,8 +203,32 @@ Window {
         clock()
     }
 
+    onSeatbeltVarChanged: {
+        seatbelt()
+    }
+
+    onHighlightsVarChanged: {
+        highlights()
+    }
+
     onAbsVarChanged: {
         abs()
+    }
+
+    onEnginecheckVarChanged: {
+        enginecheck()
+    }
+
+    onParkingVarChanged: {
+        parking()
+    }
+
+    onTurnleftVarChanged: {
+        turnleft()
+    }
+
+    onTurnrightVarChanged: {
+        turnright()
     }
 
 }

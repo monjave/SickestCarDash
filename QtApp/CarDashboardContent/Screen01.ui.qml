@@ -16,15 +16,20 @@ Item {
     width: Constants.width
     height: Constants.height
 
+    property alias exposedSpeed: speedometer
+
     property alias exposedButton: playButton
 
     property alias gear: gearSelect
 
     property alias seatbelt: seatbeltIndicator
-    property alias abs: absIndicator
     property alias highlights: highLightsIndicator
+    property alias abs: absIndicator
     property alias engineCheck: engineCheckIndicator
     property alias parking: parkingIndicator
+
+    property alias turnLeft: turnIndicatorL
+    property alias turnRight: turnIndicatorR
 
     property alias clockOne: clockOnes
     property alias clockTen: clockTens
@@ -65,20 +70,20 @@ Item {
 
         Image {
             id: speedometer
-            x: -27
-            y: -70
-            width: 925
-            height: 925
+            x: 200
+            y: -3
+            width: 725
+            height: 725
             source: "dials/MPH210.png"
             mirror: false
             fillMode: Image.PreserveAspectFit
 
             Image {
                 id: needleSpeed
-                x: 25
-                y: 25
-                width: 875
-                height: 875
+                x: parent.width * 0.02702702702702702702702702702703
+                y: parent.height * 0.02702702702702702702702702702703
+                width: parent.width * 0.94594594594594594594594594594595
+                height: parent.height * 0.94594594594594594594594594594595
                 source: "pointers/NeedleBig.PNG"
                 rotation: speedVar
                 Behavior on rotation {
@@ -106,19 +111,19 @@ Item {
 
         Image {
             id: rpm
-            x: 1023
-            y: -70
-            width: 925
-            height: 925
+            x: 995
+            y: -3
+            width: 725
+            height: 725
             source: "dials/DialBgBig.PNG"
             fillMode: Image.PreserveAspectFit
 
             Image {
                 id: needleRPM
-                x: 25
-                y: 25
-                width: 875
-                height: 875
+                x: parent.width * 0.02702702702702702702702702702703
+                y: parent.height * 0.02702702702702702702702702702703
+                width: parent.width * 0.94594594594594594594594594594595
+                height: parent.height * 0.94594594594594594594594594594595
                 source: "pointers/NeedleBig.PNG"
                 rotation: rpmVar
                 fillMode: Image.PreserveAspectFit
@@ -132,10 +137,10 @@ Item {
 
             Image {
                 id: rpmNumbers
-                x: 25
-                y: 25
-                width: 875
-                height: 875
+                x: 0
+                y: 0
+                width: parent.width
+                height: parent.height
                 source: "dialNumbers/rpmNumbers.PNG"
                 z: -1
                 fillMode: Image.PreserveAspectFit
@@ -145,7 +150,7 @@ Item {
         Image {
             id: gearSelect
             x: 885
-            y: 318
+            y: 285
             width: 150
             height: 150
             visible: true
@@ -154,12 +159,12 @@ Item {
         }
 
         Image {
-            id: fuelAmount
-            x: 893
-            y: 460
-            width: 381
-            height: 381
-            visible: false
+            id: fuel
+            x: 1495
+            y: 101
+            width: 572
+            height: 443
+            visible: true
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -167,8 +172,8 @@ Item {
                 id: fuelNeedle
                 x: 0
                 y: 0
-                width: 381
-                height: 381
+                width: parent.width
+                height: parent.height
                 source: "pointers/NeedleSmall.PNG"
                 rotation: fuelVar
                 fillMode: Image.PreserveAspectFit
@@ -184,8 +189,8 @@ Item {
                 id: fuelNumbers
                 x: 0
                 y: 0
-                width: 381
-                height: 381
+                width: parent.width
+                height: parent.height
                 source: "dialNumbers/fuelNumbers.PNG"
                 z: -1
                 fillMode: Image.PreserveAspectFit
@@ -195,7 +200,7 @@ Item {
         Image {
             id: clockColon
             x: 923
-            y: 96
+            y: 15
             width: 75
             height: 75
             visible: true
@@ -245,22 +250,21 @@ Item {
 
         Image {
             id: turnIndicatorL
-            x: 641
-            y: -92
-            width: 320
-            height: 320
+            x: 797
+            y: 40
+            width: 225
+            height: 225
             visible: false
             source: "images/LeftTurnSignal.png"
-            mirror: false
             fillMode: Image.PreserveAspectFit
         }
 
         Image {
             id: turnIndicatorR
-            x: 967
-            y: -92
-            width: 320
-            height: 320
+            x: 906
+            y: 40
+            width: 225
+            height: 225
             visible: false
             source: "images/RightTurnSignal.png"
             fillMode: Image.PreserveAspectFit
@@ -293,10 +297,10 @@ Item {
 
         Image {
             id: seatbeltIndicator
-            x: 0
-            y: 514
-            width: 100
-            height: 100
+            x: 65
+            y: 8
+            width: 150
+            height: 150
             visible: false
             source: "images/Seatbelt.png"
             fillMode: Image.PreserveAspectFit
@@ -304,10 +308,10 @@ Item {
 
         Image {
             id: absIndicator
-            x: 825
-            y: 439
-            width: 250
-            height: 250
+            x: 891
+            y: 85
+            width: 137
+            height: 137
             visible: false
             source: "images/Abs.png"
             fillMode: Image.PreserveAspectFit
@@ -315,11 +319,11 @@ Item {
 
         Image {
             id: oilTemp
-            x: 1610
-            y: 355
-            width: 385
-            height: 298
-            visible: false
+            x: -146
+            y: 364
+            width: 572
+            height: 443
+            visible: true
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
@@ -327,8 +331,8 @@ Item {
                 id: oilTempNumbers
                 x: 0
                 y: 0
-                width: 385
-                height: 298
+                width: parent.width
+                height: parent.height
                 source: "dialNumbers/oilTempNumbers.PNG"
                 fillMode: Image.PreserveAspectFit
             }
@@ -337,8 +341,8 @@ Item {
                 id: needleOilTemp
                 x: 0
                 y: 0
-                width: 385
-                height: 298
+                width: parent.width
+                height: parent.height
                 source: "pointers/NeedleSmall.PNG"
                 rotation: oilTempVar
                 fillMode: Image.PreserveAspectFit
@@ -352,34 +356,34 @@ Item {
         }
 
         Image {
-            id: temp
-            x: 1426
-            y: 502
-            width: 385
-            height: 298
+            id: coolantTemp
+            x: -146
+            y: 101
+            width: 572
+            height: 443
             opacity: 0
-            visible: false
+            visible: true
             source: "dials/DialBgSmall.PNG"
             fillMode: Image.PreserveAspectFit
 
             Image {
-                id: tempNumbers
+                id: coolantTempNumbers
                 x: 0
                 y: 0
-                width: 385
-                height: 298
+                width: parent.width
+                height: parent.height
                 source: "dialNumbers/tempNumbers.PNG"
                 fillMode: Image.PreserveAspectFit
             }
 
             Image {
-                id: needleTemp
+                id: needleCoolantTemp
                 x: 0
                 y: 0
-                width: 385
-                height: 298
+                width: parent.width
+                height: parent.height
                 source: "pointers/NeedleSmall.PNG"
-                rotation: tempVar
+                rotation: coolantTempVar
                 fillMode: Image.PreserveAspectFit
                 Behavior on rotation {
                     SpringAnimation {
@@ -391,10 +395,10 @@ Item {
         }
         Image {
             id: highLightsIndicator
-            x: 108
-            y: 514
-            width: 100
-            height: 100
+            x: 245
+            y: 8
+            width: 150
+            height: 150
             visible: false
             source: "images/High_beams.png"
             fillMode: Image.PreserveAspectFit
@@ -402,10 +406,10 @@ Item {
 
         Image {
             id: parkingIndicator
-            x: 214
-            y: 620
-            width: 100
-            height: 100
+            x: 1525
+            y: 8
+            width: 150
+            height: 150
             visible: false
             source: "images/Parking_break.png"
             fillMode: Image.PreserveAspectFit
@@ -413,13 +417,50 @@ Item {
 
         Image {
             id: engineCheckIndicator
-            x: 108
-            y: 620
-            width: 100
-            height: 100
+            x: 1706
+            y: 8
+            width: 150
+            height: 150
             visible: false
             source: "images/Check_engine.png"
             fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+            id: voltage
+            x: 1495
+            y: 364
+            width: 572
+            height: 443
+            source: "dials/DialBgSmall.PNG"
+            fillMode: Image.PreserveAspectFit
+
+            Image {
+                id: voltageNumbers
+                x: 0
+                y: 0
+                width: parent.width
+                height: parent.height
+                source: "dialNumbers/voltageNumbers.PNG"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Image {
+                id: needleVoltage
+                x: 0
+                y: 0
+                width: parent.width
+                height: parent.height
+                rotation: voltageVar
+                source: "pointers/NeedleSmall.PNG"
+                fillMode: Image.PreserveAspectFit
+                Behavior on rotation {
+                    SpringAnimation {
+                        spring: 1.3
+                        damping: .15
+                    }
+                }
+            }
         }
     }
 
@@ -435,7 +476,7 @@ Item {
                 from: 0
             }
         ]
-        startFrame: 0
+        startFrame: 2000
         endFrame: 3500
         enabled: true
 
@@ -554,7 +595,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: fuelAmount
+            target: fuel
             property: "opacity"
             Keyframe {
                 value: 0
@@ -668,7 +709,7 @@ Item {
         }
 
         KeyframeGroup {
-            target: temp
+            target: coolantTemp
             property: "opacity"
             Keyframe {
                 value: 0
@@ -764,6 +805,25 @@ Item {
 
         KeyframeGroup {
             target: playButtonGraphic
+            property: "opacity"
+            Keyframe {
+                value: 1
+                frame: 3500
+            }
+
+            Keyframe {
+                value: 0
+                frame: 0
+            }
+
+            Keyframe {
+                value: 0
+                frame: 2000
+            }
+        }
+
+        KeyframeGroup {
+            target: voltage
             property: "opacity"
             Keyframe {
                 value: 1
