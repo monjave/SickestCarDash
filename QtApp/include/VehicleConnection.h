@@ -15,13 +15,15 @@ public:
     explicit VehicleConnection(QObject *parent = nullptr);
     explicit VehicleConnection(QIODevice *device, QObject *parent = nullptr);
     
-    void sendCommand(const QString &command);
     void beginInitSequence();
 
 signals:
     void initComplete();
     void errorOccurred(QString error);
     void rawHexReceived(const QString &hex);  // New signal for clean hex
+
+public slots:
+    void sendCommand(const QString &command);
 
 private slots:
     void handleReadyRead();
