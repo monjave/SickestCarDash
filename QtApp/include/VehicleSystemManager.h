@@ -9,7 +9,7 @@
 class VehicleSystemManager : public QObject {
     Q_OBJECT
 
-Public: 
+public: 
     explicit VehicleSystemManager(QObject *parent = nullptr);
     
     void start();

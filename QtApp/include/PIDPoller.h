@@ -8,7 +8,7 @@
 class PIDPoller : public QObject {
     Q_OBJECT
 public:
-    explicit PidPoller(QObject *parent = nullptr);
+    explicit PIDPoller(QObject *parent = nullptr);
 
     void startPolling();
     void stopPolling();

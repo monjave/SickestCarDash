@@ -15,7 +15,6 @@ public:
     explicit VehicleConnection(QObject *parent = nullptr);
     explicit VehicleConnection(QIODevice *device, QObject *parent = nullptr);
     
-    void sendCommand(const QString &command);
     void beginInitSequence();
 
 signals:
@@ -24,7 +23,7 @@ signals:
     void rawHexReceived(const QString &hex);  // New signal for clean hex
 
 public slots:
-    void sendcommand(const QString &command);
+    void sendCommand(const QString &command);
 
 private slots:
     void handleReadyRead();
