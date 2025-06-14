@@ -7,6 +7,7 @@
 #include "CircularBufferManagerWrapper.h"
 #include "VehicleSystemManager.h"
 
+
 class FrontendConnection : public QObject {
     Q_OBJECT
 
@@ -31,6 +32,7 @@ public slots:
 private:
     //VehicleParser* carData;
     VehicleSystemManager* systemManager;
+
     CircularBufferManagerWrapper* dataProperties;
 };
 
