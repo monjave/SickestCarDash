@@ -20,7 +20,7 @@ public:
 signals:
     void initComplete();
     void errorOccurred(QString error);
-    void rawHexReceived(const QString &hex);  // New signal for clean hex
+    void rawHexReceived(QString &hex);  // New signal for clean hex
 
 public slots:
     void sendCommand(const QString &command);
