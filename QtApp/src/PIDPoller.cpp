@@ -10,7 +10,7 @@ void PIDPoller::startPolling() {
         return;
     }
 
-    running.storeRelaaxed(1);
+    running.storeRelaxed(1);
     QtConcurrent::run([this]() {
         while (running.loadAcquire()) {
             emit requestPid("010D");  // Request Speed
