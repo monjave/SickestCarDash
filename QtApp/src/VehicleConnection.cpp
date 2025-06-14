@@ -70,7 +70,7 @@ void VehicleConnection::configureSerialPort() {
 /// @note toLatin1() converts QString to QByteArray better suited for raw hex 
 void VehicleConnection::sendCommand(const QString &command) {
     if (serial->isOpen()) {
-        QDebug << "sendCommand serial->isOpen == true"
+        qDebug() << "sendCommand serial->isOpen == true";
         QString fullCommand = command + "\r";
         serial->write(fullCommand.toLatin1());   
     }
