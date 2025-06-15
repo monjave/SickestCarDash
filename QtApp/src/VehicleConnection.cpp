@@ -114,22 +114,26 @@ void VehicleConnection::sendNextInitCommand() {
 /// @brief A slot that processes responses from QSerialPort and emits a
 /// rawHexReceived signal
 void VehicleConnection::handleReadyRead() {
-  buffer.append(serial->readAll());
-  qDebug() << "Handle ready read data:" << buffer;
+    buffer.append(serial->readAll());
+    qDebug() << "Handle ready read data:" << buffer;
 
-  int endIndex = buffer.indexOf('\r');
-  qDebug() << "endIndex Value: " << endIndex;
-  while (endIndex != -1) {
-    QByteArray responseBytes = buffer.left(endIndex);
-    buffer.remove(0, endIndex + 1);  // Remove the processed response
-    QString hexString = responseBytes.toUpper();
+    int endIndex = buffer.indexOf('\r');
+    while (endIndex != -1) {
+        QByteArray responseBytes = buffer.left(endIndex);
+        buffer.remove(0, endIndex + 1);  // Remove the processed response
 
-    qDebug() << "emitting rawHexReceived";
-    if(hexString == "STOPPED\r" || hexString == "NO DATA\r"){
-      return;
-    }else{
-      emit rawHexReceived(hexString);
+        QString hexString = QString::fromUtf8(responseBytes).trimmed().toUpper();
+
+        qDebug() << "Parsed line:" << hexString;
+
+        if (hexString == "STOPPED" || hexString == "NO DATA") {
+            qDebug() << "Ignored line:" << hexString;
+            // no emit
+        } else if (!hexString.isEmpty()) {
+            qDebug() << "emitting rawHexReceived:" << hexString;
+            emit rawHexReceived(hexString);
+        }
+
+        endIndex = buffer.indexOf('\r');  // Look for next \r
     }
-    endIndex = buffer.indexOf('\r');
-  }
 }
