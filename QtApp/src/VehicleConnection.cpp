@@ -57,7 +57,7 @@ void VehicleConnection::configureSerialPort() {
     if (!port) {
         return;
     }
-    port->setBaudRate(QSerialPort::Baud38400);
+    port->setBaudRate(QSerialPort::Baud115200);
     port->setDataBits(QSerialPort::Data8);
     port->setParity(QSerialPort::NoParity);
     port->setStopBits(QSerialPort::OneStop);
@@ -103,7 +103,7 @@ void VehicleConnection::handleReadyRead() {
 
     int endIndex = buffer.indexOf('\r');
     qDebug() << "endIndex Value: " << endIndex;
-    //while (true) {
+    while (endIndex != -1) {
         QByteArray responseBytes = buffer.left(endIndex);
         buffer.remove(0, endIndex + 1);  // Remove the processed response
         QString hexString = responseBytes.toHex(' ').toUpper();
@@ -112,5 +112,5 @@ void VehicleConnection::handleReadyRead() {
         emit rawHexReceived(hexString);
 
         endIndex = buffer.indexOf('\r');
-    //}   
+    }   
 }
