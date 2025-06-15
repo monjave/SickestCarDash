@@ -14,7 +14,7 @@ public:
     explicit OBDHexDecoder(QObject *parent = nullptr);
 
 public slots:
-    void rawHexReceived(const QString &rawHex);  
+    void rawHexReceived(QString &rawHex);  
 signals:
     void dataConverted(int buffIndex, double data);  
 
