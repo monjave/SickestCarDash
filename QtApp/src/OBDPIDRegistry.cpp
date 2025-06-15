@@ -18,7 +18,7 @@ const QMap<OBDPID, QString> OBDPIDRegistry::pidToHex = {
     {OBDPID::FUEL, "2F"},
     {OBDPID::COOLANT_TEMP, "05"},
     {OBDPID::THROTTLE, "11"},
-    {OBDPID::OIL_TEMP, "5C"},
+    {OBDPID::OIL_TEMP, "11 54"},
     {OBDPID::GEAR, "A4"},
     {OBDPID::BATTERY_VOLTAGE, "42"},
     {OBDPID::STORED_DTC, "03"}
