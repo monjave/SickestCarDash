@@ -189,11 +189,11 @@ Window {
     }
 
 
-    Component.onCompleted: {
+    /*Component.onCompleted: {
         mainScreen.exposedButton.clicked.connect(function() {
             carData.togglePaused()
         })
-    }
+    }*/
 
     onGearShiftNumberChanged: {
         gearShift()

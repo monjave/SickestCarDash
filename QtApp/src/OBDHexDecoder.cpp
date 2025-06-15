@@ -4,11 +4,17 @@
 OBDHexDecoder::OBDHexDecoder(QObject *parent)
     : QObject(parent) {}
 
-void OBDHexDecoder::rawHexReceived(const QString &rawHex) {
-    QStringList bytes = rawHex.split(" ", Qt::SkipEmptyParts);
-    if (bytes.size() < 3 || bytes[0] != "41") return;  // 41 = Mode 1 response
+void OBDHexDecoder::rawHexReceived(QString &rawHex) {
+    QString cleanHex = rawHex.trimmed().toUpper();
+    QStringList bytes = cleanHex.split(" ", Qt::SkipEmptyParts);
 
-    QString pidHex = bytes[1].toUpper();
+    // Skip if not a valid Mode 01 response
+    if (bytes.size() < 2) {
+        qDebug() << "Invalid response:" << cleanHex;
+        return;
+    }
+
+    QString pidHex = bytes[1];
     OBDPID pid = OBDPIDRegistry::fromHex(pidHex);
     if (pid == OBDPID::UNKNOWN) {
         qDebug() << "Unknown PID:" << pidHex;
@@ -16,13 +22,17 @@ void OBDHexDecoder::rawHexReceived(const QString &rawHex) {
     }
 
     int bufferIndex = OBDPIDRegistry::toBufferIndex(pid);
-    if (bufferIndex == -1) return;
+    if (bufferIndex == -1) {
+        qDebug() << "Invalid buffer index for PID:" << pidHex;
+        return;
+    }
 
-    QStringList dataBytes = bytes.mid(2);  // A, B, etc.
+    QStringList dataBytes = bytes.mid(2);  // Skip "41" and PID
     double value = decodePIDValue(pid, dataBytes);
+
+    qDebug() << "Decoded" << OBDPIDRegistry::toName(pid) << "→" << value;
     emit dataConverted(bufferIndex, value);
 }
-
 double OBDHexDecoder::decodePIDValue(OBDPID pid, const QStringList &dataBytes) {
     bool ok;
 

@@ -13,22 +13,31 @@ void PIDPoller::startPolling() {
     running.storeRelaxed(1);
     QtConcurrent::run([this]() {
         while (running.loadAcquire()) {
+            qDebug() << "PIDPoller calling run";
             emit requestPid("010D");  // Request Speed
-            QThread::msleep(100);  // Small delay to avoid flooding the bus
+            qDebug() << "Speed requested";
+            QThread::msleep(200);  // Small delay to avoid flooding the bus
             emit requestPid("010C");  // Request RPM
-            QThread::msleep(100);
-            emit requestPid("012F");  // Request Fuel Level
-            QThread::msleep(100);
+            qDebug() << "RPM requested";
+            QThread::msleep(200);
+            emit requestPid("22F40D");  // Request Fuel Level
+            qDebug() << "Fuel Level requested";
+            QThread::msleep(200);
             emit requestPid("0105");  // Request Coolant Temp
-            QThread::msleep(100);
+            qDebug() << "Coolant Temp requested";
+            QThread::msleep(200);
             //emit requestPid("0111"); Request Throttle Position, only needed for racing telemetry
             emit requestPid("015C");  // Request Oil Temp
-            QThread::msleep(100);
+            qDebug() << "Oil Temp requested";
+            QThread::msleep(200);
             emit requestPid("01A4");  // Request Gear
-            QThread::msleep(100);
+            qDebug() << "Gear requested";
+            QThread::msleep(200);
             emit requestPid("0142");  // Request Battery Voltage
-            QThread::msleep(100);
+            qDebug() << "Battery Voltage requested";
+            QThread::msleep(200);
             emit requestPid("03");  // Request Stored DTCs
+            qDebug() << "DTC requested";
 
             QThread::msleep(300);  
         }
@@ -37,4 +46,8 @@ void PIDPoller::startPolling() {
 
 void PIDPoller::stopPolling() {
     running.storeRelaxed(0);
+}
+
+void PIDPoller::onInitComplete() {
+     QTimer::singleShot(300, this, &PIDPoller::startPolling);
 }
