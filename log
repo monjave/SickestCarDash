@@ -1,0 +1,997 @@
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 FB \r"
+Parsed line: "41 0C 09 FB"
+emitting rawHexReceived: "41 0C 09 FB"
+Decoded "RPM" → 638.75
+Sending info to FrontEnd -- buffNum:  1 , value:   638.75
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 78 \r"
+Parsed line: "41 05 78"
+emitting rawHexReceived: "41 05 78"
+Decoded "Coolant Temp" → 80
+Sending info to FrontEnd -- buffNum:  3 , value:   80
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: "STOPPED\r\r>"
+Parsed line: "STOPPED"
+Ignored line: "STOPPED"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 B1 \r"
+Parsed line: "41 0C 09 B1"
+emitting rawHexReceived: "41 0C 09 B1"
+Decoded "RPM" → 620.25
+Sending info to FrontEnd -- buffNum:  1 , value:   620.25
+Handle ready read data: "\r>"
+Parsed line: ""
+sendCommand serial->isOpen == true
+Fuel Level requested
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 78 \r"
+Parsed line: "41 05 78"
+emitting rawHexReceived: "41 05 78"
+Decoded "Coolant Temp" → 80
+Sending info to FrontEnd -- buffNum:  3 , value:   80
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+sendCommand serial->isOpen == true
+Gear requested
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "4"
+Handle ready read data: "41 0C 09 95 \r"
+Parsed line: "41 0C 09 95"
+emitting rawHexReceived: "41 0C 09 95"
+Decoded "RPM" → 613.25
+Sending info to FrontEnd -- buffNum:  1 , value:   613.25
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 78 \r"
+Parsed line: "41 05 78"
+emitting rawHexReceived: "41 05 78"
+Decoded "Coolant Temp" → 80
+Sending info to FrontEnd -- buffNum:  3 , value:   80
+Handle ready read data: "\r"
+Parsed line: ""
+Handle ready read data: ">"
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 CE \r"
+Parsed line: "41 0C 09 CE"
+emitting rawHexReceived: "41 0C 09 CE"
+Decoded "RPM" → 627.5
+Sending info to FrontEnd -- buffNum:  1 , value:   627.5
+Handle ready read data: "\r>"
+Parsed line: ""
+sendCommand serial->isOpen == true
+Fuel Level requested
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 78 \r"
+Parsed line: "41 05 78"
+emitting rawHexReceived: "41 05 78"
+Decoded "Coolant Temp" → 80
+Sending info to FrontEnd -- buffNum:  3 , value:   80
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01"
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 C8 \r"
+Parsed line: "41 0C 09 C8"
+emitting rawHexReceived: "41 0C 09 C8"
+Decoded "RPM" → 626
+Sending info to FrontEnd -- buffNum:  1 , value:   626
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 79 \r"
+Parsed line: "41 05 79"
+emitting rawHexReceived: "41 05 79"
+Decoded "Coolant Temp" → 81
+Sending info to FrontEnd -- buffNum:  3 , value:   81
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+sendCommand serial->isOpen == true
+Gear requested
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 CB \r"
+Parsed line: "41 0C 09 CB"
+emitting rawHexReceived: "41 0C 09 CB"
+Decoded "RPM" → 626.75
+Sending info to FrontEnd -- buffNum:  1 , value:   626.75
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 79 \r"
+Parsed line: "41 05 79"
+emitting rawHexReceived: "41 05 79"
+Decoded "Coolant Temp" → 81
+Sending info to FrontEnd -- buffNum:  3 , value:   81
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 FE \r"
+Parsed line: "41 0C 09 FE"
+emitting rawHexReceived: "41 0C 09 FE"
+Decoded "RPM" → 639.5
+Sending info to FrontEnd -- buffNum:  1 , value:   639.5
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 79 \r"
+Parsed line: "41 05 79"
+emitting rawHexReceived: "41 05 79"
+Decoded "Coolant Temp" → 81
+Sending info to FrontEnd -- buffNum:  3 , value:   81
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: "NO DATA\r"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r41"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 FB \r"
+Parsed line: "41 0C 09 FB"
+emitting rawHexReceived: "41 0C 09 FB"
+Decoded "RPM" → 638.75
+Sending info to FrontEnd -- buffNum:  1 , value:   638.75
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 79 \r"
+Parsed line: "41 05 79"
+emitting rawHexReceived: "41 05 79"
+Decoded "Coolant Temp" → 81
+Sending info to FrontEnd -- buffNum:  3 , value:   81
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 EB \r"
+Parsed line: "41 0C 09 EB"
+emitting rawHexReceived: "41 0C 09 EB"
+Decoded "RPM" → 634.75
+Sending info to FrontEnd -- buffNum:  1 , value:   634.75
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">2"
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 79 \r"
+Parsed line: "41 05 79"
+emitting rawHexReceived: "41 05 79"
+Decoded "Coolant Temp" → 81
+Sending info to FrontEnd -- buffNum:  3 , value:   81
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 F5 \r"
+Parsed line: "41 0C 09 F5"
+emitting rawHexReceived: "41 0C 09 F5"
+Decoded "RPM" → 637.25
+Sending info to FrontEnd -- buffNum:  1 , value:   637.25
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 79 \r"
+Parsed line: "41 05 79"
+emitting rawHexReceived: "41 05 79"
+Decoded "Coolant Temp" → 81
+Sending info to FrontEnd -- buffNum:  3 , value:   81
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
+PIDPoller calling run
+Speed requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010D\r"
+Parsed line: ">010D"
+emitting rawHexReceived: ">010D"
+Invalid response: ">010D"
+Handle ready read data: "41 0D 00 \r"
+Parsed line: "41 0D 00"
+emitting rawHexReceived: "41 0D 00"
+Decoded "Speed" → 0
+Sending info to FrontEnd -- buffNum:  0 , value:   0
+Handle ready read data: "\r>"
+Parsed line: ""
+RPM requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">010C\r"
+Parsed line: ">010C"
+emitting rawHexReceived: ">010C"
+Invalid response: ">010C"
+Handle ready read data: "41 0C 09 E3 \r"
+Parsed line: "41 0C 09 E3"
+emitting rawHexReceived: "41 0C 09 E3"
+Decoded "RPM" → 632.75
+Sending info to FrontEnd -- buffNum:  1 , value:   632.75
+Handle ready read data: "\r>"
+Parsed line: ""
+Fuel Level requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">22F40D\r"
+Parsed line: ">22F40D"
+emitting rawHexReceived: ">22F40D"
+Invalid response: ">22F40D"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Coolant Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0105\r"
+Parsed line: ">0105"
+emitting rawHexReceived: ">0105"
+Invalid response: ">0105"
+Handle ready read data: "41 05 79 \r"
+Parsed line: "41 05 79"
+emitting rawHexReceived: "41 05 79"
+Decoded "Coolant Temp" → 81
+Sending info to FrontEnd -- buffNum:  3 , value:   81
+Handle ready read data: "\r>"
+Parsed line: ""
+Oil Temp requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">015C\r"
+Parsed line: ">015C"
+emitting rawHexReceived: ">015C"
+Invalid response: ">015C"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Gear requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">01A4\r"
+Parsed line: ">01A4"
+emitting rawHexReceived: ">01A4"
+Invalid response: ">01A4"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+Battery Voltage requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">0142\r"
+Parsed line: ">0142"
+emitting rawHexReceived: ">0142"
+Invalid response: ">0142"
+Handle ready read data: "NO DATA\r\r>"
+Parsed line: "NO DATA"
+Ignored line: "NO DATA"
+Parsed line: ""
+DTC requested
+sendCommand serial->isOpen == true
+Handle ready read data: ">03\r"
+Parsed line: ">03"
+emitting rawHexReceived: ">03"
+Invalid response: ">03"
+Handle ready read data: "43 01 28 03 35 00 00 \r"
+Parsed line: "43 01 28 03 35 00 00"
+emitting rawHexReceived: "43 01 28 03 35 00 00"
+Unknown PID: "01"
+Handle ready read data: "\r>"
+Parsed line: ""
