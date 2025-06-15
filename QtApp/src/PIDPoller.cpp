@@ -27,9 +27,10 @@ void PIDPoller::startPolling() {
             qDebug() << "Coolant Temp requested";
             QThread::msleep(200);
             //emit requestPid("0111"); Request Throttle Position, only needed for racing telemetry
-            emit requestPid("015C");  // Request Oil Temp
+            emit requestPid("221154");  // Request Oil Temp// Request Oil Temp
             qDebug() << "Oil Temp requested";
             QThread::msleep(200);
+
             emit requestPid("01A4");  // Request Gear
             qDebug() << "Gear requested";
             QThread::msleep(200);
