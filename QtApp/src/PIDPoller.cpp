@@ -20,7 +20,7 @@ void PIDPoller::startPolling() {
             emit requestPid("010C");  // Request RPM
             qDebug() << "RPM requested";
             QThread::msleep(200);
-            emit requestPid("012F");  // Request Fuel Level
+            emit requestPid("22F40D");  // Request Fuel Level
             qDebug() << "Fuel Level requested";
             QThread::msleep(200);
             emit requestPid("0105");  // Request Coolant Temp
@@ -46,4 +46,8 @@ void PIDPoller::startPolling() {
 
 void PIDPoller::stopPolling() {
     running.storeRelaxed(0);
+}
+
+void PIDPoller::onInitComplete() {
+     QTimer::singleShot(300, this, &PIDPoller::startPolling);
 }

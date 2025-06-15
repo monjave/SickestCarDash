@@ -8,8 +8,10 @@ FrontendConnection::FrontendConnection(CircularBufferManagerWrapper *newDataProp
     //connect(carData, &VehicleParser::dataReady, this, &FrontendConnection::dataReady);
     connect(systemManager, &VehicleSystemManager::dataConverted, 
             this, &FrontendConnection::dataReady);
+    qDebug() << "VehicleSystemManager::dataConverted connected with FrontendConnection::dataReady";
 
     systemManager->start();
+    qDebug() << "systemManager started";
 }
 
 FrontendConnection::~FrontendConnection() {
@@ -31,6 +33,7 @@ CircularBufferManagerWrapper* FrontendConnection::data() const {
 }*/
 
 void FrontendConnection::dataReady(int buffNum, double value) {
+    qDebug() << "Sending info to FrontEnd -- buffNum: " << buffNum << ", value:  " << value;
     switch(buffNum) {
     case 0:
         dataProperties->setSpeed(value);

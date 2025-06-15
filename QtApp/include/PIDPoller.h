@@ -17,6 +17,7 @@ public:
 
     public slots:
     void startPolling();
+    void onInitComplete();
 
     private:
     QAtomicInt running;
