@@ -276,6 +276,7 @@ Item {
             y: 620
             width: 100
             height: 100
+            visible: false
             source: "images/PausePlay.png"
             fillMode: Image.PreserveAspectFit
         }
@@ -287,7 +288,7 @@ Item {
             width: 100
             height: 100
             opacity: 0
-            visible: true
+            visible: false
             text: qsTr("")
             hoverEnabled: false
             icon.color: "#000000"
