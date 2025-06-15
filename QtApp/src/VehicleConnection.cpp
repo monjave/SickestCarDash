@@ -103,7 +103,7 @@ void VehicleConnection::handleReadyRead() {
 
     int endIndex = buffer.indexOf('\r');
     qDebug() << "endIndex Value: " << endIndex;
-    while (endIndex != -1) {
+    while (true) {
         QByteArray responseBytes = buffer.left(endIndex);
         buffer.remove(0, endIndex + 1);  // Remove the processed response
         QString hexString = responseBytes.toHex(' ').toUpper();
