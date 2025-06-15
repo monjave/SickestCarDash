@@ -112,7 +112,7 @@ void VehicleConnection::sendNextInitCommand() {
 /// rawHexReceived signal
 void VehicleConnection::handleReadyRead() {
   buffer.append(serial->readAll());
-  qDebug() << "Handle ready read data:" << buffer.toHex(' ');
+  qDebug() << "Handle ready read data:" << buffer;
 
   int endIndex = buffer.indexOf('\r');
   qDebug() << "endIndex Value: " << endIndex;
