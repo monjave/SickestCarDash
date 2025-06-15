@@ -8,9 +8,9 @@ Window {
     visible: true
     title: "CarDashboard"
 
-    //visibility: Window.FullScreen
+    visibility: Window.FullScreen
 
-    property int speedVar: speedToAngle(carData.data.speed * 2.23694)
+    property int speedVar: speedToAngle(carData.data.speed)
     property int rpmVar: rpmToAngle(carData.data.rpm)
     property int fuelVar: fuelToAngle(carData.data.fuel)
     property int voltageVar: voltageToAngle(carData.data.voltage)
@@ -104,47 +104,37 @@ Window {
     }
 
     function gearShift() {
-        mainScreen.gear.visible = true
 
         switch (gearShiftNumber) {
 
-        /*case 1:
-            mainScreen.gear.source = "images/P-center.png"
+        case 1:
+            mainScreen.gear.source = "images/N-center.png"
             break;
 
         case 2:
             mainScreen.gear.source = "images/R-center.png"
-            break; */
-
-        case 0:
-            mainScreen.gear.source = "images/N-center.png"
-            break;
-
-        case 1:
-            mainScreen.gear.source = "images/1.png"
-            break;
-
-        case 2:
-            mainScreen.gear.source = "images/2.png"
             break;
 
         case 3:
-            mainScreen.gear.source = "images/3.png"
+            mainScreen.gear.source = "images/P-center.png"
             break;
 
         case 4:
-            mainScreen.gear.source = "images/4.png"
+            mainScreen.gear.source = "images/D-center.png"
             break;
 
         case 5:
-            mainScreen.gear.source = "images/5.png"
+            mainScreen.gear.source = "images/1.png"
             break;
 
         case 6:
-            mainScreen.gear.source = "images/6.png"
+            mainScreen.gear.source = "images/2.png"
             break;
 
-        default: mainScreen.gear.visible = false
+        case 7:
+            mainScreen.gear.source = "images/3.png"
+            break;
+
         }
 
     }

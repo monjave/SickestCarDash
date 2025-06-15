@@ -1,7 +1,7 @@
 #include "CircularBufferManagerWrapper.h"
 
 CircularBufferManagerWrapper::CircularBufferManagerWrapper(QObject *parent) : QObject(parent), m_speed(0), m_rpm(0), m_fuel(0),
-    m_voltage(9), m_coolanttemp(100), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(0), m_seatbelt(0), m_highlights(0),
+    m_voltage(9), m_coolanttemp(100), m_clock(0), m_enginetemp(0), m_oiltemp(0), m_gearshift(1), m_seatbelt(0), m_highlights(0),
     m_abs(0), m_enginecheck(0), m_parking(0), m_turnleft(0), m_turnright(0) {
 
 }
