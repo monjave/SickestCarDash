@@ -19,12 +19,74 @@ Note: General Motors used a proprietary protocol called SAE J1850 VPW for many o
   - Throttle Position
   - Current Gear
   - Battery Voltage
-- ~~Customizable Front End with profile support~~
-  - Daily Driving
-  - ~~Racing~~
-- Stretch Goals
-  - Telemetry
-  - GPS Integration for Speed Warnings and Integrated Map
-  - Driver Awareness - If user is detected falling asleep or distracted, tase them
-  - Colorblind Accessibility
 
+# Getting Started
+There are two main dependencies you need to have downloaded:
+1. Qt Framework
+  - this is the framework our application is written with
+  - download from [Qt Group](https://www.qt.io/try-qt)
+2. Ninja
+  - this is the tool used to build our project
+  - on Mac, type `brew install ninja` into terminal
+  - otherwise, see the documentation [here] to get started
+
+to verify, type the following into your terminal:
+```
+ninja --version
+qmake --version
+```
+
+# Installation Steps
+1. Clone the repository
+```
+# Clone the repo
+git clone git@github.com:BS-CS410/software-engineering-project-race_car_go_brrr.git
+
+# Navigate to the project directory
+cd software-engineering-project-race_car_go_brrr
+```
+
+2. Build the project
+```
+./.scripts/allCleanBuildAndTest
+```
+
+3. Run the application
+```
+# navigate to the application in the `build` file
+build/QtApp/CarDashboardApp
+```
+
+# Project Structure
+```
+.
+├── .scripts
+├── datasheets_and_references
+├── diagrams
+└── QtApp/
+    ├── App/
+    │   └── main.cpp
+    ├── CarDashboardContent/
+    │   ├── App.qml
+    │   └── Acreen01.ui.qml
+    ├── include
+    ├── replay
+    ├── src
+    └── test
+```
+## Directories Explained
+`.scripts/` : Holds the scripts to run in order to build and test the project.
+
+`QtApp/App/main.cpp` : is the main component that initializes the application
+
+`QtApp/CarDashboardContent/App.qml` : manages the data displayed on the screen
+
+`QtApp/CarDashboardContent/Screen01.ui.qml` : provides the screen and layout to view the data
+
+`QtApp/include` : header files for the back-end logic
+
+`QtApp/replay` : contains `.csv` files with data for the replay function
+
+`QtApp/src` : implementation files for the back-end logic
+
+`QtApp/test` : provides the QTest files for testing the program
