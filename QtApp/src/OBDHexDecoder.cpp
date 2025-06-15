@@ -6,7 +6,9 @@ OBDHexDecoder::OBDHexDecoder(QObject *parent)
 
 void OBDHexDecoder::rawHexReceived(QString &rawHex) {
     QStringList bytes = rawHex.split(" ", Qt::SkipEmptyParts);
-    if (bytes.size() < 3 || bytes[0] != "41") return;  // 41 = Mode 1 response
+    /*if (bytes.size() < 3 || bytes[0] != "41") {
+        return;
+    } */ // 41 = Mode 1 response
 
     QString pidHex = bytes[1].toUpper();
     OBDPID pid = OBDPIDRegistry::fromHex(pidHex);

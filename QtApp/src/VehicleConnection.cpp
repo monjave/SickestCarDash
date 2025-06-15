@@ -130,5 +130,6 @@ void VehicleConnection::handleReadyRead() {
     }else{
       emit rawHexReceived(hexString);
     }
+    endIndex = buffer.indexOf('\r');
   }
 }
