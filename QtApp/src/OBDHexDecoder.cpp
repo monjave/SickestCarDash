@@ -52,12 +52,12 @@ double OBDHexDecoder::decodePIDValue(OBDPID pid, const QStringList &dataBytes) {
 
         case OBDPID::COOLANT_TEMP: {
             double coolantTemp = dataBytes[0].toInt(&ok, 16) - 40;
-            return coolantTemp;
+            return (coolantTemp * 1.8) + 32;  // Convert Celsius to Fahrenheit
         }
 
         case OBDPID::OIL_TEMP: {
             double oilTemp = dataBytes[0].toInt(&ok, 16) - 40;
-            return oilTemp;
+            return (oilTemp * 1.8) + 32;  // Convert Celsius to Fahrenheit
         }
 
         case OBDPID::GEAR: {

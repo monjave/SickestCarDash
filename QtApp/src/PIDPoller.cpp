@@ -22,7 +22,7 @@ void PIDPoller::startPolling() {
             emit requestPid("0105");  // Request Coolant Temp
             QThread::msleep(100);
             //emit requestPid("0111"); Request Throttle Position, only needed for racing telemetry
-            emit requestPid("015C");  // Request Oil Temp
+            emit requestPid("221154");  // Request Oil Temp
             QThread::msleep(100);
             emit requestPid("01A4");  // Request Gear
             QThread::msleep(100);
