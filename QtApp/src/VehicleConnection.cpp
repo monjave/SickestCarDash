@@ -1,5 +1,7 @@
 // VehicleConnection.cpp
 #include "VehicleConnection.h"
+#include <QThread>
+
 
 /* -- Change log --
     - Moved include for QDebug over to the header file
@@ -55,7 +57,7 @@ VehicleConnection::VehicleConnection(QIODevice *device, QObject *parent)
           &VehicleConnection::sendNextInitCommand);
   qDebug() << "connecting initTimer to sendNextInitCommand";
 
-  initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP2"};
+  initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP0"};
 }
 
 /// @brief Configure the serial port settings if needed
@@ -100,6 +102,7 @@ void VehicleConnection::sendNextInitCommand() {
       sendCommand(initCommands[cmdIndex]);
       qDebug() << "Init Command sent: " << initCommands[cmdIndex];
       cmdIndex++;
+      QThread::msleep(200);
     }
   } else {
     initTimer.stop();

@@ -5,7 +5,6 @@ OBDHexDecoder::OBDHexDecoder(QObject *parent)
     : QObject(parent) {}
 
 void OBDHexDecoder::rawHexReceived(QString &rawHex) {
-    qDebug() << "rawHexReveived begun";
     QStringList bytes = rawHex.split(" ", Qt::SkipEmptyParts);
     if (bytes.size() < 3 || bytes[0] != "41") return;  // 41 = Mode 1 response
 
