@@ -17,7 +17,10 @@ void OBDHexDecoder::rawHexReceived(QString &rawHex) {
     }
 
     int bufferIndex = OBDPIDRegistry::toBufferIndex(pid);
-    if (bufferIndex == -1) return;
+    if (bufferIndex == -1) {
+        qDebug() << "invalid buff index : " << bufferIndex;
+        return;
+    }
 
     QStringList dataBytes = bytes.mid(2);  // A, B, etc.
     double value = decodePIDValue(pid, dataBytes);

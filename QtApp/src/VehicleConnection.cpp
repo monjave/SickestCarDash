@@ -30,7 +30,7 @@ VehicleConnection::VehicleConnection(QObject *parent)
   connect(&initTimer, &QTimer::timeout, this,
           &VehicleConnection::sendNextInitCommand);
 
-  initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP2"};
+  initCommands = {"ATZ", "ATE0", "ATL0", "ATS0", "ATSP0"};
 }
 
 /// @brief Constructs a new VehicleConnection object with a mock QIODevice,
