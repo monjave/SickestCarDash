@@ -122,11 +122,13 @@ void VehicleConnection::handleReadyRead() {
   while (endIndex != -1) {
     QByteArray responseBytes = buffer.left(endIndex);
     buffer.remove(0, endIndex + 1);  // Remove the processed response
-    QString hexString = responseBytes.toHex(' ').toUpper();
+    QString hexString = responseBytes.toUpper();
 
     qDebug() << "emitting rawHexReceived";
-    emit rawHexReceived(hexString);
-
-    endIndex = buffer.indexOf('\r');
+    if(hexString == "STOPPED\r" || hexString == "NO DATA\r"){
+      return;
+    }else{
+      emit rawHexReceived(hexString);
+    }
   }
 }
