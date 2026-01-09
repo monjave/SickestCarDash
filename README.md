@@ -1,6 +1,6 @@
 <img src="./QtApp/CarDashboardContent/images/logo.png" alt="Project Logo" width="720"/>
 
-<h1>SICKEST CAR DASH - Dom, Josh, Mo, Xavier, Edward</h1>
+<h1>SICKEST CAR DASH - Dom, Josh, Mo, Xavier</h1>
 
 SICKEST CAR DASH (SCD) is a vehicle dashboard project aimed at the daily driver, race car driver, and the sim racer. 
 
